@@ -1,25 +1,51 @@
 extends RefCounted
 class_name ResearchTopicCandidatePresenter
 
+enum InformationLevel {
+	VEILED,
+	BALANCED,
+	GUIDED,
+}
 
-static func build_public_profile(candidate: ResearchTopicCandidate) -> Dictionary:
+
+static func build_public_profile(
+	candidate: ResearchTopicCandidate,
+	information_level: InformationLevel = InformationLevel.BALANCED
+) -> Dictionary:
 	if candidate == null or candidate.archetype == null:
 		return {}
+	var known_clue: String = _known_clue_text(candidate.archetype.generation_tags)
+	var rule_hint: String = _rule_hint_text(candidate.special_rule)
+	match information_level:
+		InformationLevel.VEILED:
+			known_clue = "现有材料只能确认风险来源，具体问题需要调查"
+			rule_hint = "处理方向尚不明确"
+		InformationLevel.GUIDED:
+			rule_hint = "%s；建议：%s" % [
+				rule_hint,
+				_treatment_hint_text(candidate.archetype.generation_tags),
+			]
+		_:
+			pass
 	return {
+		"information_level": information_level,
 		"uncertainty": _uncertainty_text(candidate.archetype.difficulty_tier),
-		"known_clue": _known_clue_text(candidate.archetype.generation_tags),
+		"known_clue": known_clue,
 		"base_value": _base_value_text(candidate.archetype.base_reward),
 		"potential_outlook": _potential_outlook_text(candidate.potential),
-		"rule_hint": _rule_hint_text(candidate.special_rule),
+		"rule_hint": rule_hint,
 	}
 
 
-static func format_candidate_card(candidate: ResearchTopicCandidate) -> String:
+static func format_candidate_card(
+	candidate: ResearchTopicCandidate,
+	information_level: InformationLevel = InformationLevel.BALANCED
+) -> String:
 	if candidate == null or candidate.archetype == null:
 		return "无效课题"
 	var tier_names: Array[String] = ["常规", "进阶", "前沿", "禁区"]
 	var tags := "、".join(candidate.archetype.tags)
-	var profile: Dictionary = build_public_profile(candidate)
+	var profile: Dictionary = build_public_profile(candidate, information_level)
 	return (
 		"%s\n\n%s\n\n难度：%s    窗口：%d 周\n"
 		+ "风险轮廓：%s\n已知疑点：%s\n"
@@ -68,6 +94,18 @@ static func _known_clue_text(tags: PackedStringArray) -> String:
 	if tags.has("existing_data"):
 		return "已有材料可用，但质量未知"
 	return "目前只有初步线索"
+
+
+static func _treatment_hint_text(tags: PackedStringArray) -> String:
+	if tags.has("scarce_data") or tags.has("existing_data"):
+		return "先调查数据质量，再决定是否扩大实验"
+	if tags.has("multi_source"):
+		return "先组织来源关系，避免直接合并"
+	if tags.has("new_collection") or tags.has("engineering"):
+		return "先做小规模受控实验"
+	if tags.has("theory"):
+		return "先补论证链，再投入高成本实验"
+	return "先用低成本调查换取更多信息"
 
 
 static func _base_value_text(base_reward: int) -> String:

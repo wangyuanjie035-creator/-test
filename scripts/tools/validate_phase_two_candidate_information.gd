@@ -31,6 +31,29 @@ func _initialize() -> void:
 			if String(profile.get(field, "")).is_empty():
 				_fail("Public candidate profile omitted %s." % field)
 				return
+		var veiled: Dictionary = PRESENTER.build_public_profile(
+			candidate,
+			PRESENTER.InformationLevel.VEILED
+		)
+		var guided: Dictionary = PRESENTER.build_public_profile(
+			candidate,
+			PRESENTER.InformationLevel.GUIDED
+		)
+		if veiled.get("known_clue", "") == guided.get("known_clue", ""):
+			_fail("Information levels do not produce a meaningful comparison.")
+			return
+		for information_level: ResearchTopicCandidatePresenter.InformationLevel in [
+			PRESENTER.InformationLevel.VEILED,
+			PRESENTER.InformationLevel.BALANCED,
+			PRESENTER.InformationLevel.GUIDED,
+		]:
+			var variant_text: String = PRESENTER.format_candidate_card(
+				candidate,
+				information_level
+			)
+			if "风险槽：" in variant_text or "预期收益：" in variant_text:
+				_fail("An information variant exposes exact risk count or reward.")
+				return
 	var card_text: String = PRESENTER.format_candidate_card(candidates[0])
 	if "风险槽：" in card_text or "预期收益：" in card_text:
 		_fail("Candidate card still exposes exact risk count or reward.")
