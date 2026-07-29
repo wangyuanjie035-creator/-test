@@ -153,6 +153,7 @@ func _begin_selected_cycle() -> void:
 		int(cycle_context.get("minimum_evidence", 3)),
 		int(cycle_context.get("minimum_completion", 4))
 	)
+	cycle_session.run_model.enable_simplified_submission()
 	cycle_session.state_changed.emit()
 	if not pending_cycle_assets.is_empty():
 		var carryover_result: Dictionary = cycle_session.apply_cycle_carryover(

@@ -5,6 +5,9 @@ const MAX_WEEKS := 6
 const ACTION_POINTS_PER_WEEK := 4
 const MAX_ENERGY := 8
 const METHOD_MASTERY_THRESHOLD := 3
+const PHASE_ONE_SUBMISSION_POLICY_SCRIPT := preload(
+	"res://scripts/topic_pool/model/phase_one_submission_policy.gd"
+)
 
 enum ActionType {
 	INVESTIGATE,
@@ -21,6 +24,7 @@ var energy: int = MAX_ENERGY
 var pressure: int = 0
 var submission_minimum_evidence: int = 3
 var submission_minimum_completion: int = 4
+var simplified_submission_enabled: bool = false
 var topics: Array[DualTopicState] = []
 var action_history: Array[Dictionary] = []
 var week_history: Array[Dictionary] = []
@@ -44,6 +48,9 @@ var _synergy_triggered_weeks: Dictionary[int, bool] = {}
 var frozen_topic_indices: Dictionary[int, bool] = {}
 var portfolio_action_used: bool = false
 var _rng := RandomNumberGenerator.new()
+var _phase_one_submission_policy: RefCounted = (
+	PHASE_ONE_SUBMISSION_POLICY_SCRIPT.new()
+)
 
 
 func setup(run_seed: int, topic_definitions: Array[DualTopicDefinition]) -> bool:
@@ -58,6 +65,7 @@ func setup(run_seed: int, topic_definitions: Array[DualTopicDefinition]) -> bool
 	pressure = 0
 	submission_minimum_evidence = 3
 	submission_minimum_completion = 4
+	simplified_submission_enabled = false
 	topics.clear()
 	action_history.clear()
 	week_history.clear()
@@ -98,6 +106,12 @@ func configure_submission_window(
 		return
 	submission_minimum_evidence = clampi(minimum_evidence, 1, 5)
 	submission_minimum_completion = clampi(minimum_completion, 1, 5)
+
+
+func enable_simplified_submission() -> void:
+	if final_resolved:
+		return
+	simplified_submission_enabled = true
 
 
 func perform_action(action_type: ActionType, topic_index: int = -1) -> Dictionary:
@@ -250,14 +264,19 @@ func resolve_run(mode: StringName, topic_index: int = -1) -> Dictionary:
 	var diagnosis: Dictionary = {}
 	var review_comments: Array[Dictionary] = []
 	if mode == &"submit":
-		grade = get_submission_result(topic_index)
-		if grade != &"failed" and not _meets_public_requirement(topic):
-			grade = &"failed"
-		if transferred_venue and grade == &"excellent":
-			grade = &"pass"
-		if grade == &"failed":
-			diagnosis = _diagnose_failure(topic)
-		review_comments = _build_review_comments(topic_index, topic, diagnosis)
+		if simplified_submission_enabled:
+			var evaluation: Dictionary = _evaluate_simplified_submission(topic)
+			grade = StringName(evaluation.get("grade", &"failed"))
+			diagnosis = Dictionary(evaluation.get("diagnosis", {}))
+		else:
+			grade = get_submission_result(topic_index)
+			if grade != &"failed" and not _meets_public_requirement(topic):
+				grade = &"failed"
+			if transferred_venue and grade == &"excellent":
+				grade = &"pass"
+			if grade == &"failed":
+				diagnosis = _diagnose_failure(topic)
+				review_comments = _build_review_comments(topic_index, topic, diagnosis)
 	final_legacy = _create_final_legacy(mode, grade, topic_index, topic, diagnosis)
 	if mode == &"withdraw" or grade == &"failed":
 		converted_failure_asset_count += 1
@@ -280,7 +299,14 @@ func resolve_run(mode: StringName, topic_index: int = -1) -> Dictionary:
 		"submission_route": &"transferred" if transferred_venue else &"original",
 		"special_rule": topic.definition.special_rule,
 		"cooperation_trajectory": get_cooperation_trajectory(),
+		"submission_mode": (
+			&"simplified" if simplified_submission_enabled else &"full_review"
+		),
 	}
+	if mode == &"withdraw" and simplified_submission_enabled:
+		final_resolution["withdrawal_terms"] = (
+			_phase_one_submission_policy.withdrawal_terms(topic)
+		)
 	final_resolved = true
 	return final_resolution.duplicate(true)
 
@@ -673,6 +699,23 @@ func get_submission_preview(topic_index: int) -> Dictionary:
 	if topic_index < 0 or topic_index >= topics.size():
 		return {"ready": false, "reason": &"invalid_target"}
 	var topic: DualTopicState = topics[topic_index]
+	if simplified_submission_enabled:
+		var evaluation: Dictionary = _evaluate_simplified_submission(topic)
+		return {
+			"ready": bool(evaluation.get("ready", false)),
+			"base_grade": evaluation.get("grade", &"failed"),
+			"requirement_met": _meets_public_requirement(topic),
+			"diagnosis": Dictionary(evaluation.get("diagnosis", {})),
+			"review_comments": [],
+			"controlled_risks": _count_controlled_risks(topic),
+			"risk_count": topic.risks.size(),
+			"verified_risks": _count_verified_risks(topic),
+			"evidence": topic.evidence,
+			"completion": topic.completion,
+			"required_evidence": submission_minimum_evidence,
+			"required_completion": submission_minimum_completion,
+			"submission_mode": &"simplified",
+		}
 	var base_grade := get_submission_result(topic_index)
 	var requirement_met := _meets_public_requirement(topic)
 	var diagnosis: Dictionary = (
@@ -694,6 +737,15 @@ func get_submission_preview(topic_index: int) -> Dictionary:
 		"required_evidence": submission_minimum_evidence,
 		"required_completion": submission_minimum_completion,
 	}
+
+
+func _evaluate_simplified_submission(topic: DualTopicState) -> Dictionary:
+	return _phase_one_submission_policy.evaluate(
+		topic,
+		submission_minimum_evidence,
+		submission_minimum_completion,
+		_meets_public_requirement(topic)
+	)
 
 
 func _build_review_comments(
@@ -839,6 +891,7 @@ func to_debug_dict() -> Dictionary:
 		"pressure": pressure,
 		"submission_minimum_evidence": submission_minimum_evidence,
 		"submission_minimum_completion": submission_minimum_completion,
+		"simplified_submission_enabled": simplified_submission_enabled,
 		"topics": topic_data,
 		"action_history": action_history.duplicate(true),
 		"week_history": week_history.duplicate(true),
