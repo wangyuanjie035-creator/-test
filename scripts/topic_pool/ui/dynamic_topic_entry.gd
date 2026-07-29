@@ -19,6 +19,9 @@ const CANDIDATE_PRESENTER := preload(
 const ROUTE_PRESENTER := preload(
 	"res://scripts/topic_pool/ui/research_portfolio_route_presenter.gd"
 )
+const OPPORTUNITY_EFFECT_ADAPTER := preload(
+	"res://scripts/academic_year/model/academic_opportunity_effect_adapter.gd"
+)
 
 @export var run_seed: int = 240731
 @export_range(0, 3, 1) var growth_rank: int = 0
@@ -234,6 +237,15 @@ func _begin_selected_cycle() -> void:
 		int(cycle_context.get("minimum_completion", 4))
 	)
 	cycle_session.run_model.enable_simplified_submission()
+	var opportunity_modifier: Dictionary = (
+		OPPORTUNITY_EFFECT_ADAPTER.to_opening_modifier(
+			Dictionary(cycle_context.get("opportunity_decision", {}))
+		)
+	)
+	if not opportunity_modifier.is_empty():
+		var opportunity_result: Dictionary = cycle_session.apply_academic_opening(
+			opportunity_modifier
+		)
 	cycle_session.state_changed.emit()
 	if not pending_cycle_assets.is_empty():
 		var carryover_result: Dictionary = cycle_session.apply_cycle_carryover(

@@ -36,6 +36,8 @@ var final_resolution: Dictionary = {}
 var final_legacy: Dictionary = {}
 var carryover_history: Array[Dictionary] = []
 var carryover_applied: bool = false
+var opening_modifier_applied: bool = false
+var opening_modifier_history: Array[Dictionary] = []
 var method_category_uses: Array[int] = [0, 0, 0, 0, 0]
 var cooperation_result_count: int = 0
 var cross_topic_synergy_count: int = 0
@@ -77,6 +79,8 @@ func setup(run_seed: int, topic_definitions: Array[DualTopicDefinition]) -> bool
 	final_legacy.clear()
 	carryover_history.clear()
 	carryover_applied = false
+	opening_modifier_applied = false
+	opening_modifier_history.clear()
 	method_category_uses = [0, 0, 0, 0, 0]
 	cooperation_result_count = 0
 	cross_topic_synergy_count = 0
@@ -112,6 +116,53 @@ func enable_simplified_submission() -> void:
 	if final_resolved:
 		return
 	simplified_submission_enabled = true
+
+
+func apply_opening_modifier(
+	modifier: Dictionary,
+	target_index: int = 0
+) -> Dictionary:
+	if opening_modifier_applied:
+		return {"success": false, "reason": &"opening_modifier_already_applied"}
+	if week != 1 or not action_history.is_empty():
+		return {"success": false, "reason": &"opening_modifier_too_late"}
+	if target_index < 0 or target_index >= topics.size():
+		return {"success": false, "reason": &"invalid_target"}
+	if modifier.is_empty() or StringName(modifier.get("id", &"")) == &"":
+		return {"success": false, "reason": &"invalid_modifier"}
+
+	var target: DualTopicState = topics[target_index]
+	var action_points_gain: int = maxi(0, int(modifier.get("action_points", 0)))
+	var evidence_gain: int = target.add_evidence(
+		maxi(0, int(modifier.get("evidence", 0))),
+		&"academic_opportunity"
+	)
+	var completion_gain: int = target.add_completion(
+		maxi(0, int(modifier.get("completion", 0))),
+		&"academic_opportunity"
+	)
+	var risks_revealed: int = 0
+	var reveal_count: int = maxi(0, int(modifier.get("risk_reveals", 0)))
+	for reveal_index: int in range(reveal_count):
+		var unknown: DualTopicRiskState = _find_risk(
+			target,
+			DualTopicRiskState.KnowledgeState.UNKNOWN
+		)
+		if unknown == null or not unknown.identify():
+			break
+		risks_revealed += 1
+	action_points += action_points_gain
+	opening_modifier_applied = true
+	var record: Dictionary = {
+		"id": StringName(modifier.get("id", &"")),
+		"action_points_gain": action_points_gain,
+		"evidence_gain": evidence_gain,
+		"completion_gain": completion_gain,
+		"risks_revealed": risks_revealed,
+		"summary": String(modifier.get("summary", "")),
+	}
+	opening_modifier_history.append(record.duplicate(true))
+	return {"success": true, "record": record}
 
 
 func perform_action(action_type: ActionType, topic_index: int = -1) -> Dictionary:

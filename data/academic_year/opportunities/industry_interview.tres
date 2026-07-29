@@ -12,4 +12,4 @@ minimum_prestige = 1
 next_cycle_pressure_cost = 1
 effect_id = &"industry_window"
 destination_signal = &"stable_employment"
-public_effect_text = "下一周期压力 +1；记录一次产业机会并开放工程类线索。"
+public_effect_text = "证据 +1，并识别首项风险；记录一次产业机会。"

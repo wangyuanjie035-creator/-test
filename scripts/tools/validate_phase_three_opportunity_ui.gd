@@ -49,6 +49,14 @@ func _initialize() -> void:
 	if entry.opportunity_panel.visible:
 		_fail("The resolved opportunity remained on screen.")
 		return
+	var candidate: ResearchTopicCandidate = entry.portfolio.candidates[0]
+	entry.call("_select_candidate", candidate.candidate_id)
+	entry.call("_begin_selected_cycle")
+	await process_frame
+	var cycle_session: DualTopicSession = entry.current_cycle.get_node("Session")
+	if cycle_session.run_model.opening_modifier_history.size() != 1:
+		_fail("The accepted opportunity was not redeemed in the research cycle.")
+		return
 	print("PHASE_THREE_OPPORTUNITY_UI: PASS")
 	quit(0)
 

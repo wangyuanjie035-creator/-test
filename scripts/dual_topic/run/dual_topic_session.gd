@@ -273,6 +273,19 @@ func apply_cycle_carryover(assets: Array[Dictionary]) -> Dictionary:
 	return result
 
 
+func apply_academic_opening(modifier: Dictionary) -> Dictionary:
+	var result: Dictionary = run_model.apply_opening_modifier(modifier, 0)
+	if not bool(result.get("success", false)):
+		return result
+	var record: Dictionary = result.get("record", {})
+	feedback_changed.emit(
+		"周期机会已兑现：%s" % String(record.get("summary", "开局资源已调整")),
+		false
+	)
+	state_changed.emit()
+	return result
+
+
 func finish_run(mode: StringName, topic_index: int) -> void:
 	var result: Dictionary = run_model.resolve_run(mode, topic_index)
 	if not bool(result.get("success", false)):

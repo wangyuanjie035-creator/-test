@@ -13,4 +13,4 @@ preferred_routes = PackedStringArray("conflict", "single")
 next_cycle_pressure_cost = 2
 effect_id = &"failure_asset_pilot"
 destination_signal = &"independent"
-public_effect_text = "下一周期压力 +2；把一项失败资产转成自主路线信号。"
+public_effect_text = "证据 +1、完成度 +1；把失败资产转成自主路线信号。"
