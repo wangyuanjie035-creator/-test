@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ResearchWindowDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/academic_year/data/research_window_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"autumn_journal"
+display_name = "秋季期刊窗口"
+description = "高要求、高声望；必须决定是冲刺、稳投还是撤回积累。"
+minimum_evidence = 4
+minimum_completion = 5
+pressure_on_entry = 1
+prestige = 3

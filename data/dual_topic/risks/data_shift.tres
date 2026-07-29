@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DualTopicRiskDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/dual_topic/data/dual_topic_risk_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"data_shift"
+display_name = "数据分布偏移"
+kind = 1
+description = "当前样本可能无法代表真实应用环境。"

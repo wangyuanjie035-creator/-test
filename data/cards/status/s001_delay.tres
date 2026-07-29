@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+
+[resource]
+script = ExtResource("1_card")
+id = &"S001"
+display_name = "拖延"
+card_type = &"status"
+rarity = &"status"
+cost = 1
+tags = PackedStringArray("status", "delay")
+description = "无效果。打出需 1 行动点并消耗。"
+upgraded_description = "无效果。打出需 1 行动点并消耗。"
+exhausts = true

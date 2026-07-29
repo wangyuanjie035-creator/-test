@@ -1,0 +1,73 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_gain_data_if_noise"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"data"
+target = &"self"
+condition = &"has_experiment_noise_in_hand"
+
+[sub_resource type="Resource" id="Effect_gain_inspiration_if_noise"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"inspiration"
+target = &"self"
+condition = &"has_experiment_noise_in_hand"
+
+[sub_resource type="Resource" id="Effect_remove_experiment_noise"]
+script = ExtResource("2_effect")
+effect_type = &"remove_status_by_tag"
+amount = 1
+target = &"hand"
+tag_filter = &"experiment_noise"
+condition = &"has_experiment_noise_in_hand"
+
+[sub_resource type="Resource" id="Effect_upgraded_gain_data_if_status"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"data"
+target = &"self"
+condition = &"has_status_in_hand"
+
+[sub_resource type="Resource" id="Effect_upgraded_gain_inspiration_if_status"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"inspiration"
+target = &"self"
+condition = &"has_status_in_hand"
+
+[sub_resource type="Resource" id="Effect_upgraded_methodology_if_status"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"methodology_notes"
+target = &"self"
+condition = &"has_status_in_hand"
+
+[sub_resource type="Resource" id="Effect_upgraded_remove_status"]
+script = ExtResource("2_effect")
+effect_type = &"remove_status_by_tag"
+amount = 1
+target = &"hand"
+tag_filter = &"status"
+condition = &"has_status_in_hand"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C028"
+display_name = "负结果也是结果"
+card_type = &"skill"
+rarity = &"common"
+cost = 1
+tags = PackedStringArray("data", "methodology", "resilience")
+description = "若手牌有实验噪音负面牌，移除 1 张，获得 1 数据和 1 灵感。"
+upgraded_description = "若手牌有任意负面牌，移除 1 张，获得 1 数据、1 灵感和 1 方法论笔记。"
+effects = Array[Resource]([SubResource("Effect_gain_data_if_noise"), SubResource("Effect_gain_inspiration_if_noise"), SubResource("Effect_remove_experiment_noise")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_gain_data_if_status"), SubResource("Effect_upgraded_gain_inspiration_if_status"), SubResource("Effect_upgraded_methodology_if_status"), SubResource("Effect_upgraded_remove_status")])

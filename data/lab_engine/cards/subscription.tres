@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="LabCardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/lab_engine/data/lab_card_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"subscription"
+display_name = "关键词订阅"
+description = "持续安装会提高灵感产量"
+slot = 0
+effect = 1
+output_score_level_1 = 2
+output_score_level_2 = 3
+build_tags = Array[StringName]([&"stable"])
+candidate_tags = Array[StringName]([&"early_producer"])

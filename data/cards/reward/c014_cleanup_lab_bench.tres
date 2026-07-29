@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_block"]
+script = ExtResource("2_effect")
+effect_type = &"gain_block"
+amount = 8
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_remove_experiment_noise"]
+script = ExtResource("2_effect")
+effect_type = &"remove_status_by_tag"
+amount = 1
+target = &"hand"
+tag_filter = &"experiment_noise"
+
+[sub_resource type="Resource" id="Effect_upgraded_block"]
+script = ExtResource("2_effect")
+effect_type = &"gain_block"
+amount = 11
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_remove_experiment_noise"]
+script = ExtResource("2_effect")
+effect_type = &"remove_status_by_tag"
+amount = 1
+target = &"hand"
+tag_filter = &"experiment_noise"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C014"
+display_name = "清理实验台"
+card_type = &"skill"
+rarity = &"common"
+cost = 1
+tags = PackedStringArray("experiment", "block")
+description = "获得 8 防护；移除手牌中 1 张实验噪音负面牌。"
+upgraded_description = "获得 11 防护；移除手牌中 1 张实验噪音负面牌。"
+effects = Array[Resource]([SubResource("Effect_block"), SubResource("Effect_remove_experiment_noise")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_block"), SubResource("Effect_upgraded_remove_experiment_noise")])

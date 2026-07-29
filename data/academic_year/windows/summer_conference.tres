@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ResearchWindowDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/academic_year/data/research_window_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"summer_conference"
+display_name = "暑期学术会议"
+description = "要求与回报居中，上一阶段的压力会开始显现。"
+minimum_evidence = 4
+minimum_completion = 4
+pressure_on_entry = 1
+prestige = 2

@@ -1,0 +1,57 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_methodology"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_block"]
+script = ExtResource("2_effect")
+effect_type = &"gain_block"
+amount = 4
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_draw_if_reputation"]
+script = ExtResource("2_effect")
+effect_type = &"draw"
+amount = 1
+target = &"self"
+condition = &"has_1_reputation"
+
+[sub_resource type="Resource" id="Effect_upgraded_methodology"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_block"]
+script = ExtResource("2_effect")
+effect_type = &"gain_block"
+amount = 6
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_draw_if_reputation"]
+script = ExtResource("2_effect")
+effect_type = &"draw"
+amount = 2
+target = &"self"
+condition = &"has_1_reputation"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C039"
+display_name = "会后纪要"
+card_type = &"skill"
+rarity = &"common"
+cost = 1
+tags = PackedStringArray("mentor", "cooperation", "methodology")
+description = "获得 1 方法论笔记和 4 防护；若有声望，抽 1 张牌。"
+upgraded_description = "获得 1 方法论笔记和 6 防护；若有声望，抽 2 张牌。"
+effects = Array[Resource]([SubResource("Effect_methodology"), SubResource("Effect_block"), SubResource("Effect_draw_if_reputation")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_methodology"), SubResource("Effect_upgraded_block"), SubResource("Effect_upgraded_draw_if_reputation")])

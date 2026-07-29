@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_block"]
+script = ExtResource("2_effect")
+effect_type = &"gain_block"
+amount = 7
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_remove_anxiety"]
+script = ExtResource("2_effect")
+effect_type = &"remove_status"
+amount = 1
+target = &"hand"
+card_id = &"S002"
+
+[sub_resource type="Resource" id="Effect_upgraded_block"]
+script = ExtResource("2_effect")
+effect_type = &"gain_block"
+amount = 10
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_remove_anxiety"]
+script = ExtResource("2_effect")
+effect_type = &"remove_status"
+amount = 1
+target = &"hand"
+card_id = &"S002"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C020"
+display_name = "自我调整"
+card_type = &"skill"
+rarity = &"starter"
+cost = 1
+tags = PackedStringArray("care", "block", "resilience")
+description = "获得 7 防护；若手牌有“焦虑”，可消耗其中 1 张。"
+upgraded_description = "获得 10 防护；若手牌有“焦虑”，可消耗其中 1 张。"
+effects = Array[Resource]([SubResource("Effect_block"), SubResource("Effect_remove_anxiety")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_block"), SubResource("Effect_upgraded_remove_anxiety")])

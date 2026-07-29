@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_lose_data"]
+script = ExtResource("2_effect")
+effect_type = &"lose_resource_or_energy"
+amount = 1
+resource = &"data"
+target = &"self"
+
+[resource]
+script = ExtResource("1_card")
+id = &"S003"
+display_name = "不可复现"
+card_type = &"status"
+rarity = &"status"
+cost = -1
+tags = PackedStringArray("status", "experiment_noise")
+description = "抽到时失去 1 数据；若没有数据，失去 2 精力。"
+upgraded_description = "抽到时失去 1 数据；若没有数据，失去 2 精力。"
+effects = Array[Resource]([SubResource("Effect_lose_data")])

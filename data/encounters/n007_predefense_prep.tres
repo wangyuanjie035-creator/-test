@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/encounter_definition.gd" id="1_encounter"]
+
+[resource]
+script = ExtResource("1_encounter")
+id = &"N007"
+display_name = "预答辩筹备"
+stage = &"doctor_3"
+target_progress = 76
+pressure_per_turn = 10
+intent_name = "预答辩倒计时"
+description = "项目中期之后，课题进入博三的收束阶段。预答辩材料、论文主线和委员会预期同时逼近，玩家需要把长期积累整理成可讲清楚的故事。"
+victory_rewards = PackedStringArray()

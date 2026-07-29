@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/encounter_definition.gd" id="1_encounter"]
+
+[resource]
+script = ExtResource("1_encounter")
+id = &"N001"
+display_name = "普通压力"
+stage = &"master_1"
+target_progress = 40
+pressure_per_turn = 6
+intent_name = "赶进度"
+description = "一个用于测试基础战斗循环的普通压力节点。每回合结束后施加固定压力，玩家需要用初始牌组推进研究进度。"
+victory_rewards = PackedStringArray("C002", "C004", "C021", "C007", "C040")

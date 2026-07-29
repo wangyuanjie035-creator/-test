@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/encounter_definition.gd" id="1_encounter"]
+
+[resource]
+script = ExtResource("1_encounter")
+id = &"N005"
+display_name = "博一开题重构"
+stage = &"doctor_1"
+target_progress = 52
+pressure_per_turn = 8
+intent_name = "重构问题意识"
+description = "转博后，原本的硕士课题需要被重新包装成博士阶段的问题意识。目标更高，但这是博士线真正展开前的第一段适应期。"
+victory_rewards = PackedStringArray()

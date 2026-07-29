@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_reputation"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"reputation"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_block"]
+script = ExtResource("2_effect")
+effect_type = &"gain_block"
+amount = 5
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_reputation"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"reputation"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_block"]
+script = ExtResource("2_effect")
+effect_type = &"gain_block"
+amount = 8
+target = &"self"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C032"
+display_name = "委员会沟通"
+card_type = &"cooperation"
+rarity = &"doctoral"
+cost = 1
+tags = PackedStringArray("doctor", "network", "reputation", "cooperation")
+description = "获得 1 声望和 5 防护。"
+upgraded_description = "获得 1 声望和 8 防护。"
+effects = Array[Resource]([SubResource("Effect_reputation"), SubResource("Effect_block")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_reputation"), SubResource("Effect_upgraded_block")])

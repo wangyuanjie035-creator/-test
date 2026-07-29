@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RouteNodeHintDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/route_node_hint_definition.gd" id="1_hint"]
+
+[resource]
+script = ExtResource("1_hint")
+id = &"E008"
+risk_label = "导师变数"
+reward_tendency = "导师 / 方向"
+accent_color = Color(0.62, 0.84, 0.58, 1)
+mentor_focus_weight = 10
+reputation_weight = 6
+paper_focus_weight = 3

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ResearchTopicArchetype" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/topic_pool/data/research_topic_archetype.gd" id="1"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/data_shift.tres" id="2"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/baseline_failure.tres" id="3"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/theory_gap.tres" id="4"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/argument_gap.tres" id="5"]
+
+[resource]
+script = ExtResource("1")
+id = &"real_world_deployment"
+display_name = "真实场景部署验证"
+premise = "把实验室成果带入真实环境，收益极高，但所有隐藏问题都会被放大。"
+discipline = &"computer_science"
+tags = PackedStringArray("部署", "禁区")
+difficulty_tier = 3
+base_potential = 3
+base_risk_count = 3
+base_reward = 4
+min_deadline_weeks = 6
+max_deadline_weeks = 8
+special_rule = &"deployment_exposure"
+risk_pool = Array[Resource]([ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5")])

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_heal"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 3
+resource = &"energy"
+target = &"self"
+
+[resource]
+script = ExtResource("1_card")
+id = &"U001"
+display_name = "自我照护"
+card_type = &"skill"
+rarity = &"unlock"
+cost = 0
+tags = PackedStringArray("care", "resilience")
+description = "恢复 3 精力，本牌消耗。"
+effects = Array[Resource]([SubResource("Effect_heal")])
+exhausts = true
+unlock_id = &"self_care_seed"

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/encounter_definition.gd" id="1_encounter"]
+
+[resource]
+script = ExtResource("1_encounter")
+id = &"N004"
+display_name = "截稿临近"
+stage = &"master_1"
+target_progress = 46
+pressure_per_turn = 8
+intent_name = "截止日期逼近"
+description = "会议或阶段汇报的截止日期正在逼近。目标更高，压力也更高，是 MVP 普通节点里的小考。"
+victory_rewards = PackedStringArray("C018", "C019", "C007", "C021", "C041")

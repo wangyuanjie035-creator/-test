@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="LabCardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/lab_engine/data/lab_card_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"all_nighter"
+display_name = "通宵拼稿"
+description = "消耗全部图表换取爆发进度"
+slot = 4
+effect = 9
+output_score_level_1 = 7
+output_score_level_2 = 8
+build_tags = Array[StringName]([&"debt_burst"])

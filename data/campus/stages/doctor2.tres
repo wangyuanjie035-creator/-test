@@ -1,0 +1,239 @@
+[gd_resource type="Resource" script_class="CampusStageDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/campus_stage_definition.gd" id="1_stage"]
+[ext_resource type="Script" path="res://scripts/data/campus_interaction_definition.gd" id="2_interaction"]
+
+[sub_resource type="Resource" id="Interaction_project_pressure_board"]
+script = ExtResource("2_interaction")
+id = &"doctor2_project_pressure_board"
+display_name = "项目推进压力"
+interaction_kind = &"encounter"
+route_node_id = &"N006"
+position = Vector2(1216, 322)
+jitter_radius = 14
+marker_state = &"story_key"
+accent_color = Color(0.48, 0.74, 0.66, 1)
+
+[sub_resource type="Resource" id="Interaction_equipment_schedule_board"]
+script = ExtResource("2_interaction")
+id = &"doctor2_equipment_schedule_board"
+display_name = "设备排期墙"
+interaction_kind = &"encounter"
+route_node_id = &"N003"
+position = Vector2(1372, 336)
+jitter_radius = 12
+accent_color = Color(0.42, 0.78, 0.7, 1)
+
+[sub_resource type="Resource" id="Interaction_data_collaboration_meeting"]
+script = ExtResource("2_interaction")
+id = &"doctor2_data_collaboration_meeting"
+display_name = "合作数据会"
+interaction_kind = &"encounter"
+route_node_id = &"N009"
+position = Vector2(630, 318)
+jitter_radius = 14
+accent_color = Color(0.42, 0.76, 0.88, 1)
+
+[sub_resource type="Resource" id="Interaction_funding_window"]
+script = ExtResource("2_interaction")
+id = &"doctor2_funding_window"
+display_name = "基金申请窗口"
+interaction_kind = &"event"
+route_node_id = &"E006"
+position = Vector2(802, 820)
+jitter_radius = 12
+marker_state = &"story_key"
+accent_color = Color(0.86, 0.68, 0.34, 1)
+
+[sub_resource type="Resource" id="Interaction_project_midterm_room"]
+script = ExtResource("2_interaction")
+id = &"doctor2_project_midterm_room"
+display_name = "项目中期检查"
+interaction_kind = &"boss"
+route_node_id = &"B005"
+position = Vector2(1290, 836)
+jitter_radius = 10
+marker_state = &"boss_available"
+accent_color = Color(0.78, 0.32, 0.38, 1)
+
+[sub_resource type="Resource" id="Interaction_approved_budget_notice"]
+script = ExtResource("2_interaction")
+id = &"doctor2_approved_budget_notice"
+display_name = "经费批复"
+interaction_kind = &"resource"
+resource_id = &"funds"
+resource_amount = 2
+position = Vector2(884, 606)
+jitter_radius = 12
+accent_color = Color(0.86, 0.84, 0.48, 1)
+
+[sub_resource type="Resource" id="Interaction_invoice_box"]
+script = ExtResource("2_interaction")
+id = &"doctor2_invoice_box"
+display_name = "票据盒"
+interaction_kind = &"resource"
+resource_id = &"funds"
+resource_amount = 1
+position = Vector2(740, 570)
+jitter_radius = 12
+accent_color = Color(0.88, 0.78, 0.42, 1)
+
+[sub_resource type="Resource" id="Interaction_project_paper_fragments"]
+script = ExtResource("2_interaction")
+id = &"doctor2_project_paper_fragments"
+display_name = "项目论文碎片"
+interaction_kind = &"resource"
+resource_id = &"paper_fragments"
+resource_amount = 2
+position = Vector2(690, 820)
+jitter_radius = 12
+accent_color = Color(0.88, 0.84, 0.62, 1)
+
+[sub_resource type="Resource" id="Interaction_ethics_data_pack"]
+script = ExtResource("2_interaction")
+id = &"doctor2_ethics_data_pack"
+display_name = "伦理批件数据"
+interaction_kind = &"resource"
+resource_id = &"data"
+resource_amount = 2
+position = Vector2(1160, 236)
+jitter_radius = 12
+accent_color = Color(0.52, 0.86, 0.66, 1)
+
+[sub_resource type="Resource" id="Interaction_method_archive"]
+script = ExtResource("2_interaction")
+id = &"doctor2_method_archive"
+display_name = "项目方法档案"
+interaction_kind = &"resource"
+resource_id = &"methodology_notes"
+resource_amount = 1
+position = Vector2(572, 232)
+jitter_radius = 12
+accent_color = Color(0.86, 0.84, 0.48, 1)
+
+[sub_resource type="Resource" id="Interaction_cross_group_coordination"]
+script = ExtResource("2_interaction")
+id = &"doctor2_cross_group_coordination"
+display_name = "跨组协调会"
+interaction_kind = &"encounter"
+route_node_id = &"N006"
+content_tags = Array[StringName]([&"meeting", &"project", &"collaboration", &"encounter"])
+position = Vector2(496, 338)
+jitter_radius = 14
+accent_color = Color(0.48, 0.74, 0.66, 1)
+
+[sub_resource type="Resource" id="Interaction_partner_feedback_mail"]
+script = ExtResource("2_interaction")
+id = &"doctor2_partner_feedback_mail"
+display_name = "合作方反馈邮件"
+interaction_kind = &"resource"
+resource_id = &"reputation"
+resource_amount = 1
+content_tags = Array[StringName]([&"collaboration", &"reputation", &"social", &"resource"])
+position = Vector2(300, 824)
+jitter_radius = 12
+accent_color = Color(0.74, 0.7, 0.92, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor2_equipment_failure_ticket"]
+script = ExtResource("2_interaction")
+id = &"doctor2_equipment_failure_ticket"
+display_name = "设备故障单"
+interaction_kind = &"event"
+route_node_id = &"E003"
+content_tags = Array[StringName]([&"equipment", &"lab", &"data", &"event"])
+position = Vector2(1340, 332)
+jitter_radius = 12
+accent_color = Color(0.82, 0.44, 0.4, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor2_collaborator_sync_notes"]
+script = ExtResource("2_interaction")
+id = &"doctor2_collaborator_sync_notes"
+display_name = "合作同步纪要"
+interaction_kind = &"resource"
+resource_id = &"methodology_notes"
+resource_amount = 1
+content_tags = Array[StringName]([&"collaboration", &"meeting", &"project", &"resource"])
+position = Vector2(612, 232)
+jitter_radius = 12
+accent_color = Color(0.86, 0.84, 0.48, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor2_budget_reforecast_sheet"]
+script = ExtResource("2_interaction")
+id = &"doctor2_budget_reforecast_sheet"
+display_name = "预算重估表"
+interaction_kind = &"encounter"
+route_node_id = &"E006"
+content_tags = Array[StringName]([&"funds", &"project", &"administration", &"encounter"])
+position = Vector2(790, 790)
+jitter_radius = 12
+accent_color = Color(0.86, 0.68, 0.34, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor2_field_data_handoff"]
+script = ExtResource("2_interaction")
+id = &"doctor2_field_data_handoff"
+display_name = "外场数据交接"
+interaction_kind = &"resource"
+resource_id = &"data"
+resource_amount = 1
+content_tags = Array[StringName]([&"collaboration", &"data", &"project", &"resource"])
+position = Vector2(1220, 236)
+jitter_radius = 12
+accent_color = Color(0.52, 0.86, 0.66, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor2_project_standup"]
+script = ExtResource("2_interaction")
+id = &"doctor2_project_standup"
+display_name = "项目晨会站会"
+interaction_kind = &"encounter"
+route_node_id = &"N006"
+content_tags = Array[StringName]([&"project", &"meeting", &"collaboration", &"encounter"])
+position = Vector2(570, 500)
+jitter_radius = 14
+accent_color = Color(0.48, 0.74, 0.66, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor2_equipment_maintenance_log"]
+script = ExtResource("2_interaction")
+id = &"doctor2_equipment_maintenance_log"
+display_name = "设备维护日志"
+interaction_kind = &"resource"
+resource_id = &"methodology_notes"
+resource_amount = 1
+content_tags = Array[StringName]([&"equipment", &"lab", &"project", &"resource"])
+position = Vector2(1330, 392)
+jitter_radius = 12
+accent_color = Color(0.86, 0.84, 0.48, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor2_collaborator_data_cleaning"]
+script = ExtResource("2_interaction")
+id = &"doctor2_collaborator_data_cleaning"
+display_name = "合作数据清洗"
+interaction_kind = &"encounter"
+route_node_id = &"N009"
+content_tags = Array[StringName]([&"collaboration", &"data", &"meeting", &"encounter"])
+position = Vector2(704, 760)
+jitter_radius = 14
+accent_color = Color(0.42, 0.76, 0.88, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor2_fund_receipt_stack"]
+script = ExtResource("2_interaction")
+id = &"doctor2_fund_receipt_stack"
+display_name = "经费票据堆"
+interaction_kind = &"resource"
+resource_id = &"funds"
+resource_amount = 1
+content_tags = Array[StringName]([&"funds", &"administration", &"project", &"resource"])
+position = Vector2(842, 642)
+jitter_radius = 12
+accent_color = Color(0.86, 0.84, 0.48, 1)
+
+[resource]
+script = ExtResource("1_stage")
+id = &"doctor2"
+display_name = "博二"
+debug_label = "博二"
+sort_order = 40
+generation_focus_tags = Array[StringName]([&"project", &"equipment", &"collaboration", &"meeting", &"funds", &"data"])
+generation_required_tags = Array[StringName]([&"project", &"equipment", &"collaboration", &"meeting", &"resource", &"event", &"boss"])
+generation_theme_ids = Array[StringName]([&"project_day", &"social_day", &"experiment_day", &"funds_day", &"data_repair_day"])
+generation_candidate_interactions = Array[Resource]([SubResource("Interaction_project_pressure_board"), SubResource("Interaction_equipment_schedule_board"), SubResource("Interaction_data_collaboration_meeting"), SubResource("Interaction_funding_window"), SubResource("Interaction_project_midterm_room"), SubResource("Interaction_approved_budget_notice"), SubResource("Interaction_invoice_box"), SubResource("Interaction_project_paper_fragments"), SubResource("Interaction_ethics_data_pack"), SubResource("Interaction_method_archive"), SubResource("Interaction_cross_group_coordination"), SubResource("Interaction_partner_feedback_mail"), SubResource("Interaction_doctor2_equipment_failure_ticket"), SubResource("Interaction_doctor2_collaborator_sync_notes"), SubResource("Interaction_doctor2_budget_reforecast_sheet"), SubResource("Interaction_doctor2_field_data_handoff"), SubResource("Interaction_doctor2_project_standup"), SubResource("Interaction_doctor2_equipment_maintenance_log"), SubResource("Interaction_doctor2_collaborator_data_cleaning"), SubResource("Interaction_doctor2_fund_receipt_stack")])
+interactions = Array[Resource]([SubResource("Interaction_project_pressure_board"), SubResource("Interaction_equipment_schedule_board"), SubResource("Interaction_data_collaboration_meeting"), SubResource("Interaction_funding_window"), SubResource("Interaction_project_midterm_room"), SubResource("Interaction_approved_budget_notice"), SubResource("Interaction_invoice_box"), SubResource("Interaction_project_paper_fragments"), SubResource("Interaction_ethics_data_pack"), SubResource("Interaction_method_archive"), SubResource("Interaction_cross_group_coordination"), SubResource("Interaction_partner_feedback_mail")])

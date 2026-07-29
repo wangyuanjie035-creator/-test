@@ -1,0 +1,96 @@
+[gd_resource type="Resource" script_class="BossDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/boss_definition.gd" id="1_boss"]
+[ext_resource type="Script" path="res://scripts/data/boss_intent_definition.gd" id="2_intent"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="3_effect"]
+
+[sub_resource type="Resource" id="Effect_add_self_doubt"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S010"
+
+[sub_resource type="Resource" id="Intent_research_meaning"]
+script = ExtResource("2_intent")
+id = &"research_meaning"
+display_name = "研究意义追问"
+intent_type = &"pressure"
+pressure = 7
+condition = &"has_inspiration"
+failure_effects = Array[Resource]([SubResource("Effect_add_self_doubt")])
+
+[sub_resource type="Resource" id="Effect_gain_draft"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"draft"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_add_info_overload"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S004"
+
+[sub_resource type="Resource" id="Intent_literature_check"]
+script = ExtResource("2_intent")
+id = &"literature_check"
+display_name = "文献基础检查"
+intent_type = &"check"
+pressure = 0
+condition = &"has_2_inspiration"
+success_effects = Array[Resource]([SubResource("Effect_gain_draft")])
+failure_effects = Array[Resource]([SubResource("Effect_add_info_overload")])
+
+[sub_resource type="Resource" id="Intent_feasibility_question"]
+script = ExtResource("2_intent")
+id = &"feasibility_question"
+display_name = "方向可行性质疑"
+intent_type = &"pressure"
+pressure = 9
+
+[sub_resource type="Resource" id="Effect_add_delay"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S001"
+
+[sub_resource type="Resource" id="Effect_raise_target"]
+script = ExtResource("3_effect")
+effect_type = &"modify_target_progress"
+amount = 5
+target = &"self"
+
+[sub_resource type="Resource" id="Intent_supervisor_question"]
+script = ExtResource("2_intent")
+id = &"supervisor_question"
+display_name = "导师补充问题"
+intent_type = &"interference"
+pressure = 0
+effects = Array[Resource]([SubResource("Effect_add_delay"), SubResource("Effect_raise_target")])
+
+[sub_resource type="Resource" id="Effect_phase_progress"]
+script = ExtResource("3_effect")
+effect_type = &"gain_progress"
+amount = 10
+target = &"self"
+
+[resource]
+script = ExtResource("1_boss")
+id = &"B001"
+display_name = "开题报告"
+stage = &"master_1"
+target_progress = 70
+starting_status_cards = PackedStringArray("S010")
+passive_rules = PackedStringArray("开局将 1 张自我怀疑加入弃牌堆。", "进度达到 35 时进行一次确定题目检查。")
+intents = Array[Resource]([SubResource("Intent_research_meaning"), SubResource("Intent_literature_check"), SubResource("Intent_feasibility_question"), SubResource("Intent_supervisor_question")])
+phase_trigger_progress = 35
+phase_condition = &"has_2_draft_or_2_data"
+phase_success_effects = Array[Resource]([SubResource("Effect_phase_progress")])
+phase_failure_effects = Array[Resource]([SubResource("Effect_add_delay")])
+phase_event_id = &"proposal_topic_check"
+victory_rewards = PackedStringArray("methodology_notes", "paper_fragments")
+failure_result = &"proposal_delayed"

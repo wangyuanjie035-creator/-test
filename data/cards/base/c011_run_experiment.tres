@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_progress"]
+script = ExtResource("2_effect")
+effect_type = &"gain_progress"
+amount = 6
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_gain_data_if_inspired"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"data"
+target = &"self"
+condition = &"has_inspiration"
+
+[sub_resource type="Resource" id="Effect_upgraded_progress"]
+script = ExtResource("2_effect")
+effect_type = &"gain_progress"
+amount = 8
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_gain_data_if_inspired"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"data"
+target = &"self"
+condition = &"has_inspiration"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C011"
+display_name = "做实验"
+card_type = &"action"
+rarity = &"starter"
+cost = 1
+tags = PackedStringArray("experiment", "data")
+description = "获得 6 进度；若有至少 1 灵感，额外获得 1 数据。"
+upgraded_description = "获得 8 进度；若有至少 1 灵感，额外获得 1 数据。"
+effects = Array[Resource]([SubResource("Effect_progress"), SubResource("Effect_gain_data_if_inspired")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_progress"), SubResource("Effect_upgraded_gain_data_if_inspired")])

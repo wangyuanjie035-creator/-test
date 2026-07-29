@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_lose_energy"]
+script = ExtResource("2_effect")
+effect_type = &"lose_energy"
+amount = 3
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_next_progress"]
+script = ExtResource("2_effect")
+effect_type = &"modify_next_progress"
+amount = 10
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_lose_energy"]
+script = ExtResource("2_effect")
+effect_type = &"lose_energy"
+amount = 2
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_next_progress"]
+script = ExtResource("2_effect")
+effect_type = &"modify_next_progress"
+amount = 12
+target = &"self"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C019"
+display_name = "极限 ddl"
+card_type = &"skill"
+rarity = &"common"
+cost = 0
+tags = PackedStringArray("rush", "risk")
+description = "失去 3 精力；下一次获得进度时额外 +10，本牌消耗。"
+upgraded_description = "失去 2 精力；下一次获得进度时额外 +12，本牌消耗。"
+effects = Array[Resource]([SubResource("Effect_lose_energy"), SubResource("Effect_next_progress")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_lose_energy"), SubResource("Effect_upgraded_next_progress")])
+exhausts = true

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ResearchTopicArchetype" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/topic_pool/data/research_topic_archetype.gd" id="1"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/data_shift.tres" id="2"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/theory_gap.tres" id="3"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/baseline_failure.tres" id="4"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/argument_gap.tres" id="5"]
+
+[resource]
+script = ExtResource("1")
+id = &"cross_domain_transfer"
+display_name = "跨领域迁移"
+premise = "借用另一个领域的方法解决当前问题，但概念和数据分布都可能失配。"
+discipline = &"computer_science"
+tags = PackedStringArray("跨领域", "迁移")
+difficulty_tier = 1
+base_potential = 1
+base_risk_count = 2
+base_reward = 2
+min_deadline_weeks = 4
+max_deadline_weeks = 7
+special_rule = &"cross_domain"
+risk_pool = Array[Resource]([ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5")])

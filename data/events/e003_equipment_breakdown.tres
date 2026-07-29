@@ -1,0 +1,115 @@
+[gd_resource type="Resource" script_class="EventDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/event_definition.gd" id="1_event"]
+[ext_resource type="Script" path="res://scripts/data/event_choice_definition.gd" id="2_choice"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="3_effect"]
+
+[sub_resource type="Resource" id="Effect_repair_spend_funds"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = -2
+resource = &"funds"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_repair_data"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"data"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_repair_cleanup_card"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"C014"
+
+[sub_resource type="Resource" id="Choice_repair"]
+script = ExtResource("2_choice")
+id = &"pay_repair"
+label = "花钱维修"
+requirement = &"has_2_funds"
+preview = "消耗 2 经费，获得 1 数据，将 1 张清理实验台加入牌组。"
+effects = Array[Resource]([SubResource("Effect_repair_spend_funds"), SubResource("Effect_repair_data"), SubResource("Effect_repair_cleanup_card")])
+
+[sub_resource type="Resource" id="Effect_borrow_data"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"data"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_borrow_network_card"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"C023"
+
+[sub_resource type="Resource" id="Choice_borrow"]
+script = ExtResource("2_choice")
+id = &"borrow_neighbor_lab"
+label = "找隔壁实验室借"
+requirement = &"has_1_reputation"
+preview = "获得 1 数据，将 1 张请教师兄加入牌组。"
+effects = Array[Resource]([SubResource("Effect_borrow_data"), SubResource("Effect_borrow_network_card")])
+
+[sub_resource type="Resource" id="Effect_theory_inspiration"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 2
+resource = &"inspiration"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_theory_irreproducible"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S003"
+
+[sub_resource type="Resource" id="Choice_theory"]
+script = ExtResource("2_choice")
+id = &"switch_to_theory"
+label = "改做理论分析"
+preview = "获得 2 灵感，将 1 张不可复现加入牌组。"
+effects = Array[Resource]([SubResource("Effect_theory_inspiration"), SubResource("Effect_theory_irreproducible")])
+risk_level = 1
+
+[sub_resource type="Resource" id="Effect_risky_data"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"data"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_risky_energy"]
+script = ExtResource("3_effect")
+effect_type = &"lose_energy"
+amount = 3
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_risky_contamination"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S009"
+
+[sub_resource type="Resource" id="Choice_risky_run"]
+script = ExtResource("2_choice")
+id = &"rush_equipment_window"
+label = "抢窗口继续跑"
+preview = "失去 3 精力，获得 1 数据，将 1 张样本污染加入牌组。"
+effects = Array[Resource]([SubResource("Effect_risky_data"), SubResource("Effect_risky_energy"), SubResource("Effect_risky_contamination")])
+risk_level = 2
+
+[resource]
+script = ExtResource("1_event")
+id = &"E003"
+display_name = "设备坏了"
+stage_min = &"master_2"
+description = "你预约了很久的设备突然报修，管理员说最快也要下周。"
+choices = Array[Resource]([SubResource("Choice_repair"), SubResource("Choice_borrow"), SubResource("Choice_theory"), SubResource("Choice_risky_run")])
+tags = PackedStringArray("equipment", "experiment", "setback")

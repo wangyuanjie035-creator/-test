@@ -1,0 +1,11 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+.agents/
+.claude/
+.codex/
+.snapshots/
+.temp/
+test_runtime/
+build/
+dist/

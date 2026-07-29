@@ -1,0 +1,214 @@
+[gd_resource type="Resource" script_class="CampusRouteRequirementCatalogDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/campus_route_requirement_catalog_definition.gd" id="1_catalog"]
+[ext_resource type="Script" path="res://scripts/data/campus_route_requirement_definition.gd" id="2_route_requirement"]
+[ext_resource type="Script" path="res://scripts/data/campus_requirement_group_definition.gd" id="3_group"]
+[ext_resource type="Script" path="res://scripts/data/campus_resource_requirement_definition.gd" id="4_requirement"]
+
+[sub_resource type="Resource" id="Req_e005_reputation"]
+script = ExtResource("4_requirement")
+resource_id = &"reputation"
+amount = 2
+
+[sub_resource type="Resource" id="Req_e005_draft"]
+script = ExtResource("4_requirement")
+resource_id = &"draft"
+amount = 4
+
+[sub_resource type="Resource" id="Group_e005"]
+script = ExtResource("3_group")
+mode = &"any"
+items = Array[Resource]([SubResource("Req_e005_reputation"), SubResource("Req_e005_draft")])
+
+[sub_resource type="Resource" id="Route_e005"]
+script = ExtResource("2_route_requirement")
+route_node_id = &"E005"
+intercept_mode = &"soft_gate"
+requirement_groups = Array[Resource]([SubResource("Group_e005")])
+
+[sub_resource type="Resource" id="Req_e006_funds"]
+script = ExtResource("4_requirement")
+resource_id = &"funds"
+amount = 2
+
+[sub_resource type="Resource" id="Group_e006"]
+script = ExtResource("3_group")
+mode = &"all"
+items = Array[Resource]([SubResource("Req_e006_funds")])
+
+[sub_resource type="Resource" id="Route_e006"]
+script = ExtResource("2_route_requirement")
+route_node_id = &"E006"
+intercept_mode = &"soft_gate"
+requirement_groups = Array[Resource]([SubResource("Group_e006")])
+
+[sub_resource type="Resource" id="Req_b002_data"]
+script = ExtResource("4_requirement")
+resource_id = &"data"
+amount = 2
+
+[sub_resource type="Resource" id="Req_b002_draft"]
+script = ExtResource("4_requirement")
+resource_id = &"draft"
+amount = 3
+
+[sub_resource type="Resource" id="Group_b002"]
+script = ExtResource("3_group")
+mode = &"all"
+items = Array[Resource]([SubResource("Req_b002_data"), SubResource("Req_b002_draft")])
+
+[sub_resource type="Resource" id="Route_b002"]
+script = ExtResource("2_route_requirement")
+route_node_id = &"B002"
+intercept_mode = &"soft_gate"
+requirement_groups = Array[Resource]([SubResource("Group_b002")])
+
+[sub_resource type="Resource" id="Req_b003_reputation"]
+script = ExtResource("4_requirement")
+resource_id = &"reputation"
+amount = 2
+
+[sub_resource type="Resource" id="Req_b003_draft"]
+script = ExtResource("4_requirement")
+resource_id = &"draft"
+amount = 4
+
+[sub_resource type="Resource" id="Group_b003"]
+script = ExtResource("3_group")
+mode = &"any"
+items = Array[Resource]([SubResource("Req_b003_reputation"), SubResource("Req_b003_draft")])
+
+[sub_resource type="Resource" id="Route_b003"]
+script = ExtResource("2_route_requirement")
+route_node_id = &"B003"
+intercept_mode = &"soft_gate"
+requirement_groups = Array[Resource]([SubResource("Group_b003")])
+
+[sub_resource type="Resource" id="Req_b004_methodology"]
+script = ExtResource("4_requirement")
+resource_id = &"methodology_notes"
+amount = 3
+
+[sub_resource type="Resource" id="Req_b004_paper"]
+script = ExtResource("4_requirement")
+resource_id = &"paper_fragments"
+amount = 2
+
+[sub_resource type="Resource" id="Group_b004"]
+script = ExtResource("3_group")
+mode = &"any"
+items = Array[Resource]([SubResource("Req_b004_methodology"), SubResource("Req_b004_paper")])
+
+[sub_resource type="Resource" id="Route_b004"]
+script = ExtResource("2_route_requirement")
+route_node_id = &"B004"
+intercept_mode = &"soft_gate"
+requirement_groups = Array[Resource]([SubResource("Group_b004")])
+
+[sub_resource type="Resource" id="Req_b005_funds"]
+script = ExtResource("4_requirement")
+resource_id = &"funds"
+amount = 2
+
+[sub_resource type="Resource" id="Req_b005_paper"]
+script = ExtResource("4_requirement")
+resource_id = &"paper_fragments"
+amount = 2
+
+[sub_resource type="Resource" id="Group_b005"]
+script = ExtResource("3_group")
+mode = &"any"
+items = Array[Resource]([SubResource("Req_b005_funds"), SubResource("Req_b005_paper")])
+
+[sub_resource type="Resource" id="Route_b005"]
+script = ExtResource("2_route_requirement")
+route_node_id = &"B005"
+intercept_mode = &"soft_gate"
+requirement_groups = Array[Resource]([SubResource("Group_b005")])
+
+[sub_resource type="Resource" id="Req_b006_paper"]
+script = ExtResource("4_requirement")
+resource_id = &"paper_fragments"
+amount = 3
+
+[sub_resource type="Resource" id="Req_b006_reputation"]
+script = ExtResource("4_requirement")
+resource_id = &"reputation"
+amount = 2
+
+[sub_resource type="Resource" id="Group_b006"]
+script = ExtResource("3_group")
+mode = &"any"
+items = Array[Resource]([SubResource("Req_b006_paper"), SubResource("Req_b006_reputation")])
+
+[sub_resource type="Resource" id="Route_b006"]
+script = ExtResource("2_route_requirement")
+route_node_id = &"B006"
+intercept_mode = &"soft_gate"
+requirement_groups = Array[Resource]([SubResource("Group_b006")])
+
+[sub_resource type="Resource" id="Req_b007_methodology_a"]
+script = ExtResource("4_requirement")
+resource_id = &"methodology_notes"
+amount = 4
+
+[sub_resource type="Resource" id="Req_b007_paper"]
+script = ExtResource("4_requirement")
+resource_id = &"paper_fragments"
+amount = 4
+
+[sub_resource type="Resource" id="Group_b007_paper"]
+script = ExtResource("3_group")
+mode = &"all"
+items = Array[Resource]([SubResource("Req_b007_methodology_a"), SubResource("Req_b007_paper")])
+
+[sub_resource type="Resource" id="Req_b007_methodology_b"]
+script = ExtResource("4_requirement")
+resource_id = &"methodology_notes"
+amount = 4
+
+[sub_resource type="Resource" id="Req_b007_reputation"]
+script = ExtResource("4_requirement")
+resource_id = &"reputation"
+amount = 2
+
+[sub_resource type="Resource" id="Group_b007_reputation"]
+script = ExtResource("3_group")
+mode = &"all"
+items = Array[Resource]([SubResource("Req_b007_methodology_b"), SubResource("Req_b007_reputation")])
+
+[sub_resource type="Resource" id="Route_b007"]
+script = ExtResource("2_route_requirement")
+route_node_id = &"B007"
+intercept_mode = &"soft_gate"
+requirement_groups = Array[Resource]([SubResource("Group_b007_paper"), SubResource("Group_b007_reputation")])
+
+[sub_resource type="Resource" id="Req_b008_methodology"]
+script = ExtResource("4_requirement")
+resource_id = &"methodology_notes"
+amount = 3
+
+[sub_resource type="Resource" id="Req_b008_paper"]
+script = ExtResource("4_requirement")
+resource_id = &"paper_fragments"
+amount = 2
+
+[sub_resource type="Resource" id="Req_b008_reputation"]
+script = ExtResource("4_requirement")
+resource_id = &"reputation"
+amount = 1
+
+[sub_resource type="Resource" id="Group_b008"]
+script = ExtResource("3_group")
+mode = &"any"
+items = Array[Resource]([SubResource("Req_b008_methodology"), SubResource("Req_b008_paper"), SubResource("Req_b008_reputation")])
+
+[sub_resource type="Resource" id="Route_b008"]
+script = ExtResource("2_route_requirement")
+route_node_id = &"B008"
+intercept_mode = &"soft_gate"
+requirement_groups = Array[Resource]([SubResource("Group_b008")])
+
+[resource]
+script = ExtResource("1_catalog")
+entries = Array[Resource]([SubResource("Route_e005"), SubResource("Route_e006"), SubResource("Route_b002"), SubResource("Route_b003"), SubResource("Route_b004"), SubResource("Route_b005"), SubResource("Route_b006"), SubResource("Route_b007"), SubResource("Route_b008")])

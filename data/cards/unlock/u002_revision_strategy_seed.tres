@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_progress"]
+script = ExtResource("2_effect")
+effect_type = &"gain_progress"
+amount = 5
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_draft"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"draft"
+target = &"self"
+
+[resource]
+script = ExtResource("1_card")
+id = &"U002"
+display_name = "返修策略"
+card_type = &"action"
+rarity = &"unlock"
+cost = 1
+tags = PackedStringArray("paper", "draft", "revision")
+description = "获得 5 进度和 1 草稿。"
+effects = Array[Resource]([SubResource("Effect_progress"), SubResource("Effect_draft")])
+unlock_id = &"revision_strategy_seed"

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="LabAudioCueDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/lab_engine/audio/lab_audio_cue_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"victory"
+frequencies = PackedFloat32Array(440, 554, 660, 880)
+duration = 0.58
+amplitude = 0.24
+volume_db = -4.0
+important = true

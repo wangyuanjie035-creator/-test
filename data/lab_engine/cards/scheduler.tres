@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LabCardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/lab_engine/data/lab_card_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"scheduler"
+display_name = "祖传调度器"
+description = "日终重启最高产工位"
+slot = 5
+effect = 10
+output_score_level_1 = 1
+output_score_level_2 = 2
+automation_card = true
+build_tags = Array[StringName]([&"automation", &"debt_burst"])
+candidate_tags = Array[StringName]([&"mid_automation", &"late_only"])

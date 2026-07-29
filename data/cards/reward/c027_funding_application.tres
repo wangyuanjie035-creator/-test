@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_gain_funds"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 2
+resource = &"funds"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_block"]
+script = ExtResource("2_effect")
+effect_type = &"gain_block"
+amount = 3
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_add_delay"]
+script = ExtResource("2_effect")
+effect_type = &"add_card_to_deck"
+target = &"self"
+card_id = &"S001"
+
+[sub_resource type="Resource" id="Effect_upgraded_gain_funds"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 2
+resource = &"funds"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_block"]
+script = ExtResource("2_effect")
+effect_type = &"gain_block"
+amount = 5
+target = &"self"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C027"
+display_name = "经费申请"
+card_type = &"skill"
+rarity = &"common"
+cost = 1
+tags = PackedStringArray("project", "funds", "risk")
+description = "获得 2 经费和 3 防护；将 1 张拖延加入牌组。"
+upgraded_description = "获得 2 经费和 5 防护。"
+effects = Array[Resource]([SubResource("Effect_gain_funds"), SubResource("Effect_block"), SubResource("Effect_add_delay")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_gain_funds"), SubResource("Effect_upgraded_block")])

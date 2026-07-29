@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_progress"]
+script = ExtResource("2_effect")
+effect_type = &"gain_progress"
+amount = 6
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_methodology"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"methodology_notes"
+target = &"self"
+
+[resource]
+script = ExtResource("1_card")
+id = &"U003"
+display_name = "返修矩阵"
+card_type = &"action"
+rarity = &"unlock"
+cost = 1
+tags = PackedStringArray("paper", "doctor", "revision")
+description = "获得 6 进度和 1 方法论笔记，本牌消耗。"
+effects = Array[Resource]([SubResource("Effect_progress"), SubResource("Effect_methodology")])
+exhausts = true
+unlock_id = &"revision_matrix_seed"

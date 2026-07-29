@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DeckDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/deck_definition.gd" id="1_deck"]
+
+[resource]
+script = ExtResource("1_deck")
+id = &"D001"
+display_name = "研究生初始牌组"
+card_ids = PackedStringArray("C001", "C001", "C001", "C001", "C011", "C011", "C011", "C011", "C006", "C006", "C006", "C020", "C020", "C020", "C023")

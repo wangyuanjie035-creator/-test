@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LabCardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/lab_engine/data/lab_card_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"crawler"
+display_name = "文献爬虫"
+description = "灵感 +2，技术债 +1"
+slot = 0
+effect = 0
+output_score_level_1 = 2
+output_score_level_2 = 3
+automation_card = true
+build_tags = Array[StringName]([&"automation", &"stable"])
+candidate_tags = Array[StringName]([&"early_producer"])

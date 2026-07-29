@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_discard_experiment"]
+script = ExtResource("2_effect")
+effect_type = &"discard_tag_from_hand"
+amount = 1
+target = &"hand"
+tag_filter = &"experiment"
+
+[resource]
+script = ExtResource("1_card")
+id = &"S009"
+display_name = "样本污染"
+card_type = &"status"
+rarity = &"status"
+cost = -1
+tags = PackedStringArray("status", "experiment_noise")
+description = "抽到时弃掉手牌中 1 张实验牌。"
+upgraded_description = "抽到时弃掉手牌中 1 张实验牌。"
+effects = Array[Resource]([SubResource("Effect_discard_experiment")])

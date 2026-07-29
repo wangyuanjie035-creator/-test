@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_lose_energy_end_turn"]
+script = ExtResource("2_effect")
+effect_type = &"lose_energy"
+amount = 2
+resource = &"energy"
+target = &"self"
+condition = &"end_turn"
+
+[resource]
+script = ExtResource("1_card")
+id = &"S002"
+display_name = "焦虑"
+card_type = &"status"
+rarity = &"status"
+cost = -1
+tags = PackedStringArray("status")
+description = "抽到时本回合结束失去 2 精力。"
+upgraded_description = "抽到时本回合结束失去 2 精力。"
+effects = Array[Resource]([SubResource("Effect_lose_energy_end_turn")])

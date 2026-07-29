@@ -1,0 +1,72 @@
+[gd_resource type="Resource" script_class="EventDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/event_definition.gd" id="1_event"]
+[ext_resource type="Script" path="res://scripts/data/event_choice_definition.gd" id="2_choice"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="3_effect"]
+
+[sub_resource type="Resource" id="Effect_apply_methodology"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 2
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_apply_paper"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"paper_fragments"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_apply_reputation"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"reputation"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_apply_card"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"C023"
+
+[sub_resource type="Resource" id="Choice_apply"]
+script = ExtResource("2_choice")
+id = &"submit_transfer_application"
+label = "提交转博申请"
+requirement = &"has_2_reputation_or_4_draft"
+preview = "需要 2 声望或 4 草稿。获得 2 方法论笔记、1 论文碎片、1 声望，并将 1 张请教师兄加入牌组。"
+effects = Array[Resource]([SubResource("Effect_apply_methodology"), SubResource("Effect_apply_paper"), SubResource("Effect_apply_reputation"), SubResource("Effect_apply_card")])
+risk_level = 1
+
+[sub_resource type="Resource" id="Effect_master_methodology"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_master_lessons"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"experience_lessons"
+target = &"self"
+
+[sub_resource type="Resource" id="Choice_master"]
+script = ExtResource("2_choice")
+id = &"continue_master_graduation"
+label = "先完成硕士毕业"
+preview = "获得 1 方法论笔记和 1 经验教训，进入 B003 盲审专家。"
+effects = Array[Resource]([SubResource("Effect_master_methodology"), SubResource("Effect_master_lessons")])
+
+[resource]
+script = ExtResource("1_event")
+id = &"E005"
+display_name = "转博申请"
+stage_min = &"master_2"
+description = "中期考核后，导师把你叫到办公室。桌上放着两条路线：按硕士节奏毕业，或者把课题扩展成博士阶段。"
+choices = Array[Resource]([SubResource("Choice_apply"), SubResource("Choice_master")])
+tags = PackedStringArray("transfer", "branch", "phd")

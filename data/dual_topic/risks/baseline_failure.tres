@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DualTopicRiskDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/dual_topic/data/dual_topic_risk_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"baseline_failure"
+display_name = "基线无法复现"
+kind = 2
+description = "关键技术结果可能无法在当前条件下稳定复现。"

@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_methodology"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_block"]
+script = ExtResource("2_effect")
+effect_type = &"gain_block"
+amount = 4
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_paper_if_funded"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"paper_fragments"
+target = &"self"
+condition = &"has_2_funds"
+
+[sub_resource type="Resource" id="Effect_upgraded_methodology"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 2
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_block"]
+script = ExtResource("2_effect")
+effect_type = &"gain_block"
+amount = 5
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_paper_if_funded"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"paper_fragments"
+target = &"self"
+condition = &"has_2_funds"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C036"
+display_name = "项目台账"
+card_type = &"skill"
+rarity = &"common"
+cost = 1
+tags = PackedStringArray("project", "funds", "methodology")
+description = "获得 1 方法论笔记和 4 防护；若有至少 2 经费，获得 1 论文碎片。"
+upgraded_description = "获得 2 方法论笔记和 5 防护；若有至少 2 经费，获得 1 论文碎片。"
+effects = Array[Resource]([SubResource("Effect_methodology"), SubResource("Effect_block"), SubResource("Effect_paper_if_funded")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_methodology"), SubResource("Effect_upgraded_block"), SubResource("Effect_upgraded_paper_if_funded")])

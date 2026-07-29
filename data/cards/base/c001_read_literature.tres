@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_gain_inspiration"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"inspiration"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_draw"]
+script = ExtResource("2_effect")
+effect_type = &"draw"
+amount = 1
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_gain_inspiration"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"inspiration"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_draw"]
+script = ExtResource("2_effect")
+effect_type = &"draw"
+amount = 1
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_progress"]
+script = ExtResource("2_effect")
+effect_type = &"gain_progress"
+amount = 2
+target = &"self"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C001"
+display_name = "查文献"
+card_type = &"action"
+rarity = &"starter"
+cost = 1
+tags = PackedStringArray("literature")
+description = "获得 1 灵感，抽 1 张牌。"
+upgraded_description = "获得 1 灵感，抽 1 张牌，获得 2 进度。"
+effects = Array[Resource]([SubResource("Effect_gain_inspiration"), SubResource("Effect_draw")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_gain_inspiration"), SubResource("Effect_upgraded_draw"), SubResource("Effect_upgraded_progress")])

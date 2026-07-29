@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LabCardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/lab_engine/data/lab_card_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"parameter_scan"
+display_name = "参数扫描"
+description = "处理两批后自动启动写作"
+slot = 3
+effect = 7
+output_score_level_1 = 6
+output_score_level_2 = 7
+automation_card = true
+build_tags = Array[StringName]([&"automation"])
+candidate_tags = Array[StringName]([&"mid_automation"])

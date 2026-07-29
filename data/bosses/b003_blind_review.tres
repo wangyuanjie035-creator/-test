@@ -1,0 +1,124 @@
+[gd_resource type="Resource" script_class="BossDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/boss_definition.gd" id="1_boss"]
+[ext_resource type="Script" path="res://scripts/data/boss_intent_definition.gd" id="2_intent"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="3_effect"]
+
+[sub_resource type="Resource" id="Effect_add_self_doubt"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S010"
+
+[sub_resource type="Resource" id="Intent_innovation_doubt"]
+script = ExtResource("2_intent")
+id = &"innovation_doubt"
+display_name = "创新性质疑"
+intent_type = &"pressure"
+pressure = 10
+condition = &"has_inspiration"
+failure_effects = Array[Resource]([SubResource("Effect_add_self_doubt")])
+
+[sub_resource type="Resource" id="Effect_spend_data"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = -1
+resource = &"data"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_data_progress"]
+script = ExtResource("3_effect")
+effect_type = &"gain_progress"
+amount = 15
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_add_info_overload"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S004"
+
+[sub_resource type="Resource" id="Intent_data_sufficiency"]
+script = ExtResource("2_intent")
+id = &"data_sufficiency"
+display_name = "数据充分性审查"
+intent_type = &"check"
+pressure = 0
+condition = &"has_2_data"
+success_effects = Array[Resource]([SubResource("Effect_spend_data"), SubResource("Effect_data_progress")])
+failure_effects = Array[Resource]([SubResource("Effect_add_info_overload")])
+
+[sub_resource type="Resource" id="Intent_format_norm"]
+script = ExtResource("2_intent")
+id = &"format_norm"
+display_name = "格式与规范"
+intent_type = &"interference"
+pressure = 6
+effects = Array[Resource]([SubResource("Effect_add_info_overload")])
+
+[sub_resource type="Resource" id="Effect_next_progress_down"]
+script = ExtResource("3_effect")
+effect_type = &"modify_next_progress"
+amount = -6
+target = &"self"
+
+[sub_resource type="Resource" id="Intent_line_by_line_rebuttal"]
+script = ExtResource("2_intent")
+id = &"line_by_line_rebuttal"
+display_name = "逐条反驳"
+intent_type = &"pressure"
+pressure = 12
+effects = Array[Resource]([SubResource("Effect_next_progress_down")])
+
+[sub_resource type="Resource" id="Effect_add_anxiety"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S002"
+
+[sub_resource type="Resource" id="Effect_add_delay"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S001"
+
+[sub_resource type="Resource" id="Effect_raise_target"]
+script = ExtResource("3_effect")
+effect_type = &"modify_target_progress"
+amount = 8
+target = &"self"
+
+[sub_resource type="Resource" id="Intent_major_revision"]
+script = ExtResource("2_intent")
+id = &"major_revision"
+display_name = "大修意见"
+intent_type = &"interference"
+pressure = 0
+effects = Array[Resource]([SubResource("Effect_add_anxiety"), SubResource("Effect_raise_target")])
+
+[sub_resource type="Resource" id="Effect_phase_progress"]
+script = ExtResource("3_effect")
+effect_type = &"gain_progress"
+amount = 12
+target = &"self"
+
+[resource]
+script = ExtResource("1_boss")
+id = &"B003"
+display_name = "盲审专家"
+stage = &"master_3"
+target_progress = 120
+starting_status_cards = PackedStringArray("S004")
+passive_rules = PackedStringArray("开局将 1 张信息过载加入弃牌堆。", "进度达到 70 时进行一次送审意见汇总检查。", "论证护盾机制暂未接入，首版用高目标和检查表达盲审压力。")
+intents = Array[Resource]([SubResource("Intent_innovation_doubt"), SubResource("Intent_data_sufficiency"), SubResource("Intent_format_norm"), SubResource("Intent_line_by_line_rebuttal"), SubResource("Intent_major_revision")])
+phase_trigger_progress = 70
+phase_condition = &"has_2_reputation_or_4_draft"
+phase_success_effects = Array[Resource]([SubResource("Effect_phase_progress")])
+phase_failure_effects = Array[Resource]([SubResource("Effect_add_delay"), SubResource("Effect_add_anxiety")])
+phase_event_id = &"blind_review_summary"
+victory_rewards = PackedStringArray("methodology_notes", "paper_fragments")
+failure_result = &"blind_review_failed"

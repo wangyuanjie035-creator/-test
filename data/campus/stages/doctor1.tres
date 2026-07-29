@@ -1,0 +1,240 @@
+[gd_resource type="Resource" script_class="CampusStageDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/campus_stage_definition.gd" id="1_stage"]
+[ext_resource type="Script" path="res://scripts/data/campus_interaction_definition.gd" id="2_interaction"]
+
+[sub_resource type="Resource" id="Interaction_doctoral_problem_chain"]
+script = ExtResource("2_interaction")
+id = &"doctoral_problem_chain"
+display_name = "博一问题链重构"
+interaction_kind = &"encounter"
+route_node_id = &"N005"
+position = Vector2(640, 320)
+jitter_radius = 14
+marker_state = &"story_key"
+accent_color = Color(0.4, 0.66, 0.86, 1)
+
+[sub_resource type="Resource" id="Interaction_project_pressure_board"]
+script = ExtResource("2_interaction")
+id = &"project_pressure_board"
+display_name = "项目推进压力"
+interaction_kind = &"encounter"
+route_node_id = &"N006"
+position = Vector2(1220, 322)
+jitter_radius = 14
+accent_color = Color(0.48, 0.74, 0.66, 1)
+
+[sub_resource type="Resource" id="Interaction_funding_window"]
+script = ExtResource("2_interaction")
+id = &"funding_window"
+display_name = "基金申请窗口"
+interaction_kind = &"event"
+route_node_id = &"E006"
+position = Vector2(802, 820)
+jitter_radius = 12
+marker_state = &"story_key"
+accent_color = Color(0.86, 0.68, 0.34, 1)
+
+[sub_resource type="Resource" id="Interaction_qualification_room"]
+script = ExtResource("2_interaction")
+id = &"qualification_room"
+display_name = "博士资格考核"
+interaction_kind = &"boss"
+route_node_id = &"B004"
+position = Vector2(1290, 836)
+jitter_radius = 10
+marker_state = &"boss_available"
+accent_color = Color(0.78, 0.32, 0.38, 1)
+
+[sub_resource type="Resource" id="Interaction_committee_notes"]
+script = ExtResource("2_interaction")
+id = &"committee_notes"
+display_name = "委员会沟通笔记"
+interaction_kind = &"resource"
+resource_id = &"methodology_notes"
+resource_amount = 2
+position = Vector2(572, 232)
+jitter_radius = 12
+accent_color = Color(0.86, 0.84, 0.48, 1)
+
+[sub_resource type="Resource" id="Interaction_paper_fragments_stack"]
+script = ExtResource("2_interaction")
+id = &"paper_fragments_stack"
+display_name = "论文主线碎片"
+interaction_kind = &"resource"
+resource_id = &"paper_fragments"
+resource_amount = 1
+position = Vector2(724, 236)
+jitter_radius = 12
+accent_color = Color(0.88, 0.84, 0.62, 1)
+
+[sub_resource type="Resource" id="Interaction_project_funds_notice"]
+script = ExtResource("2_interaction")
+id = &"project_funds_notice"
+display_name = "项目经费通知"
+interaction_kind = &"resource"
+resource_id = &"funds"
+resource_amount = 2
+position = Vector2(872, 606)
+jitter_radius = 12
+accent_color = Color(0.86, 0.84, 0.48, 1)
+
+[sub_resource type="Resource" id="Interaction_longitudinal_data_pack"]
+script = ExtResource("2_interaction")
+id = &"longitudinal_data_pack"
+display_name = "纵向实验数据"
+interaction_kind = &"resource"
+resource_id = &"data"
+resource_amount = 2
+position = Vector2(1360, 324)
+jitter_radius = 12
+accent_color = Color(0.52, 0.86, 0.66, 1)
+
+[sub_resource type="Resource" id="Interaction_doctoral_inspiration"]
+script = ExtResource("2_interaction")
+id = &"doctoral_inspiration"
+display_name = "博士问题灵感"
+interaction_kind = &"resource"
+resource_id = &"inspiration"
+resource_amount = 1
+position = Vector2(800, 500)
+jitter_radius = 18
+accent_color = Color(0.55, 0.8, 0.98, 1)
+
+[sub_resource type="Resource" id="Interaction_draft_restructure"]
+script = ExtResource("2_interaction")
+id = &"draft_restructure"
+display_name = "重构草稿"
+interaction_kind = &"resource"
+resource_id = &"draft"
+resource_amount = 1
+position = Vector2(248, 286)
+jitter_radius = 12
+accent_color = Color(0.92, 0.78, 0.42, 1)
+
+[sub_resource type="Resource" id="Interaction_doctoral_seminar_challenge"]
+script = ExtResource("2_interaction")
+id = &"doctor1_seminar_challenge"
+display_name = "博士沙龙追问"
+interaction_kind = &"encounter"
+route_node_id = &"N002"
+content_tags = Array[StringName]([&"peer", &"seminar", &"encounter"])
+position = Vector2(500, 342)
+jitter_radius = 14
+accent_color = Color(0.44, 0.66, 0.9, 1)
+
+[sub_resource type="Resource" id="Interaction_qualification_mock_questions"]
+script = ExtResource("2_interaction")
+id = &"doctor1_qualification_mock_questions"
+display_name = "资格考模拟题"
+interaction_kind = &"resource"
+resource_id = &"methodology_notes"
+resource_amount = 1
+content_tags = Array[StringName]([&"committee", &"exam", &"method", &"resource"])
+position = Vector2(300, 824)
+jitter_radius = 12
+accent_color = Color(0.86, 0.84, 0.48, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor1_grant_budget_draft"]
+script = ExtResource("2_interaction")
+id = &"doctor1_grant_budget_draft"
+display_name = "基金预算草案"
+interaction_kind = &"resource"
+resource_id = &"funds"
+resource_amount = 1
+content_tags = Array[StringName]([&"project", &"funds", &"writing", &"resource"])
+position = Vector2(842, 642)
+jitter_radius = 12
+accent_color = Color(0.86, 0.84, 0.48, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor1_committee_office_hour"]
+script = ExtResource("2_interaction")
+id = &"doctor1_committee_office_hour"
+display_name = "委员会答疑"
+interaction_kind = &"event"
+route_node_id = &"E005"
+content_tags = Array[StringName]([&"committee", &"exam", &"advisor", &"event"])
+position = Vector2(1040, 820)
+jitter_radius = 12
+accent_color = Color(0.78, 0.54, 0.82, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor1_method_workshop"]
+script = ExtResource("2_interaction")
+id = &"doctor1_method_workshop"
+display_name = "问题链方法坊"
+interaction_kind = &"encounter"
+route_node_id = &"N005"
+content_tags = Array[StringName]([&"project", &"method", &"writing", &"encounter"])
+position = Vector2(628, 300)
+jitter_radius = 14
+accent_color = Color(0.4, 0.66, 0.86, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor1_seminar_poster_wall"]
+script = ExtResource("2_interaction")
+id = &"doctor1_seminar_poster_wall"
+display_name = "沙龙海报墙"
+interaction_kind = &"resource"
+resource_id = &"reputation"
+resource_amount = 1
+content_tags = Array[StringName]([&"seminar", &"peer", &"social", &"resource"])
+position = Vector2(500, 520)
+jitter_radius = 12
+accent_color = Color(0.74, 0.7, 0.92, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor1_committee_reading_room"]
+script = ExtResource("2_interaction")
+id = &"doctor1_committee_reading_room"
+display_name = "委员会阅读室"
+interaction_kind = &"encounter"
+route_node_id = &"N005"
+content_tags = Array[StringName]([&"committee", &"exam", &"library", &"encounter"])
+position = Vector2(700, 760)
+jitter_radius = 14
+accent_color = Color(0.4, 0.66, 0.86, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor1_project_data_clean_room"]
+script = ExtResource("2_interaction")
+id = &"doctor1_project_data_clean_room"
+display_name = "项目数据清理间"
+interaction_kind = &"resource"
+resource_id = &"data"
+resource_amount = 1
+content_tags = Array[StringName]([&"project", &"data", &"lab", &"resource"])
+position = Vector2(1288, 244)
+jitter_radius = 12
+accent_color = Color(0.52, 0.86, 0.66, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor1_advisor_grant_outline"]
+script = ExtResource("2_interaction")
+id = &"doctor1_advisor_grant_outline"
+display_name = "导师基金提纲"
+interaction_kind = &"event"
+route_node_id = &"E006"
+content_tags = Array[StringName]([&"advisor", &"funds", &"project", &"event"])
+position = Vector2(902, 790)
+jitter_radius = 12
+accent_color = Color(0.86, 0.68, 0.34, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor1_seminar_method_cards"]
+script = ExtResource("2_interaction")
+id = &"doctor1_seminar_method_cards"
+display_name = "沙龙方法卡"
+interaction_kind = &"resource"
+resource_id = &"methodology_notes"
+resource_amount = 1
+content_tags = Array[StringName]([&"seminar", &"method", &"writing", &"resource"])
+position = Vector2(620, 232)
+jitter_radius = 12
+accent_color = Color(0.86, 0.84, 0.48, 1)
+
+[resource]
+script = ExtResource("1_stage")
+id = &"doctor1"
+display_name = "博一"
+debug_label = "博一"
+sort_order = 30
+generation_focus_tags = Array[StringName]([&"project", &"committee", &"exam", &"funds", &"data", &"writing", &"seminar"])
+generation_required_tags = Array[StringName]([&"project", &"committee", &"exam", &"resource", &"data", &"writing", &"event", &"boss"])
+generation_theme_ids = Array[StringName]([&"project_day", &"committee_day", &"funds_day", &"seminar_day", &"advisor_day"])
+generation_candidate_interactions = Array[Resource]([SubResource("Interaction_doctoral_problem_chain"), SubResource("Interaction_project_pressure_board"), SubResource("Interaction_funding_window"), SubResource("Interaction_qualification_room"), SubResource("Interaction_committee_notes"), SubResource("Interaction_paper_fragments_stack"), SubResource("Interaction_project_funds_notice"), SubResource("Interaction_longitudinal_data_pack"), SubResource("Interaction_doctoral_inspiration"), SubResource("Interaction_draft_restructure"), SubResource("Interaction_doctoral_seminar_challenge"), SubResource("Interaction_qualification_mock_questions"), SubResource("Interaction_doctor1_grant_budget_draft"), SubResource("Interaction_doctor1_committee_office_hour"), SubResource("Interaction_doctor1_method_workshop"), SubResource("Interaction_doctor1_seminar_poster_wall"), SubResource("Interaction_doctor1_committee_reading_room"), SubResource("Interaction_doctor1_project_data_clean_room"), SubResource("Interaction_doctor1_advisor_grant_outline"), SubResource("Interaction_doctor1_seminar_method_cards")])
+interactions = Array[Resource]([SubResource("Interaction_doctoral_problem_chain"), SubResource("Interaction_project_pressure_board"), SubResource("Interaction_funding_window"), SubResource("Interaction_qualification_room"), SubResource("Interaction_committee_notes"), SubResource("Interaction_paper_fragments_stack"), SubResource("Interaction_project_funds_notice"), SubResource("Interaction_longitudinal_data_pack"), SubResource("Interaction_doctoral_inspiration"), SubResource("Interaction_draft_restructure"), SubResource("Interaction_doctoral_seminar_challenge"), SubResource("Interaction_qualification_mock_questions")])

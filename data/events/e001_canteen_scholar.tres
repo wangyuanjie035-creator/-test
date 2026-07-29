@@ -1,0 +1,128 @@
+[gd_resource type="Resource" script_class="EventDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/event_definition.gd" id="1_event"]
+[ext_resource type="Script" path="res://scripts/data/event_choice_definition.gd" id="2_choice"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="3_effect"]
+
+[sub_resource type="Resource" id="Effect_ask_lose_energy"]
+script = ExtResource("3_effect")
+effect_type = &"lose_energy"
+amount = 3
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_ask_inspiration"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 2
+resource = &"inspiration"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_ask_reputation"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"reputation"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_ask_methodology"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Choice_ask"]
+script = ExtResource("2_choice")
+id = &"ask"
+label = "凑过去请教"
+preview = "失去 3 精力，获得 2 灵感、1 声望和 1 方法论笔记。"
+effects = Array[Resource]([SubResource("Effect_ask_lose_energy"), SubResource("Effect_ask_inspiration"), SubResource("Effect_ask_reputation"), SubResource("Effect_ask_methodology")])
+risk_level = 1
+
+[sub_resource type="Resource" id="Effect_note_inspiration"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"inspiration"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_note_data"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"data"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_note_card"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"C002"
+
+[sub_resource type="Resource" id="Choice_note"]
+script = ExtResource("2_choice")
+id = &"note_keywords"
+label = "默默记下关键词"
+preview = "获得 1 灵感和 1 数据，将 1 张精读文献加入牌组。"
+effects = Array[Resource]([SubResource("Effect_note_inspiration"), SubResource("Effect_note_data"), SubResource("Effect_note_card")])
+
+[sub_resource type="Resource" id="Effect_show_draft_spend"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = -2
+resource = &"draft"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_show_draft_reputation"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 2
+resource = &"reputation"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_show_draft_methodology"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_show_draft_card"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"C007"
+
+[sub_resource type="Resource" id="Choice_show_draft"]
+script = ExtResource("2_choice")
+id = &"show_draft"
+label = "递上自己的草稿"
+requirement = &"has_2_draft"
+preview = "消耗 2 草稿，获得 2 声望和 1 方法论笔记，将 1 张润色摘要加入牌组。"
+effects = Array[Resource]([SubResource("Effect_show_draft_spend"), SubResource("Effect_show_draft_reputation"), SubResource("Effect_show_draft_methodology"), SubResource("Effect_show_draft_card")])
+risk_level = 1
+
+[sub_resource type="Resource" id="Effect_ignore_energy"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 2
+resource = &"energy"
+target = &"self"
+
+[sub_resource type="Resource" id="Choice_ignore"]
+script = ExtResource("2_choice")
+id = &"ignore"
+label = "假装没听见"
+preview = "恢复 2 精力。"
+effects = Array[Resource]([SubResource("Effect_ignore_energy")])
+
+[resource]
+script = ExtResource("1_event")
+id = &"E001"
+display_name = "食堂偶遇大牛"
+stage_min = &"master_1"
+description = "你在食堂排队时听到隔壁桌的大牛正在讨论一个和你课题相关的问题。"
+choices = Array[Resource]([SubResource("Choice_ask"), SubResource("Choice_note"), SubResource("Choice_show_draft"), SubResource("Choice_ignore")])
+tags = PackedStringArray("network", "inspiration")

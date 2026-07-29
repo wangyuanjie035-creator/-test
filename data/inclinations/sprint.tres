@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ResearchInclinationDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/research_inclination_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"sprint"
+display_name = "冲刺型"
+description = "把压力变成推进力，但每一次透支都必须有意义。"
+rule_text = "每场战斗第一次因自己的卡牌失去精力：获得 3 论文进度。"
+accent_color = Color(0.93, 0.57, 0.30, 1)
+remove_card_ids = PackedStringArray("C020", "C023")
+add_card_ids = PackedStringArray("C018", "C019")

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LabCardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/lab_engine/data/lab_card_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"cleaning"
+display_name = "自动清洗管线"
+description = "每 4 原始数据 → 1 整洁数据"
+slot = 2
+effect = 4
+output_score_level_1 = 4
+output_score_level_2 = 5
+automation_card = true
+build_tags = Array[StringName]([&"stable", &"automation"])
+candidate_tags = Array[StringName]([&"mid_automation"])

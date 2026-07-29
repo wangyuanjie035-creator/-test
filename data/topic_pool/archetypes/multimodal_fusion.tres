@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ResearchTopicArchetype" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/topic_pool/data/research_topic_archetype.gd" id="1"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/data_shift.tres" id="2"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/baseline_failure.tres" id="3"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/theory_gap.tres" id="4"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/argument_gap.tres" id="5"]
+
+[resource]
+script = ExtResource("1")
+id = &"multimodal_fusion"
+display_name = "多模态联合建模"
+premise = "多个数据来源可能互相补足，也可能把偏差和技术债同时放大。"
+discipline = &"computer_science"
+tags = PackedStringArray("多模态", "前沿")
+difficulty_tier = 2
+base_potential = 2
+base_risk_count = 2
+base_reward = 3
+min_deadline_weeks = 5
+max_deadline_weeks = 7
+special_rule = &"multi_source"
+risk_pool = Array[Resource]([ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5")])

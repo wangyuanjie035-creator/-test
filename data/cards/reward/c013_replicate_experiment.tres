@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_progress"]
+script = ExtResource("2_effect")
+effect_type = &"gain_progress"
+amount = 4
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_data_if_experiment"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"data"
+target = &"self"
+condition = &"played_experiment_last_turn"
+
+[sub_resource type="Resource" id="Effect_upgraded_progress"]
+script = ExtResource("2_effect")
+effect_type = &"gain_progress"
+amount = 7
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_data_if_experiment"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"data"
+target = &"self"
+condition = &"played_experiment_last_turn"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C013"
+display_name = "复现实验"
+card_type = &"action"
+rarity = &"common"
+cost = 1
+tags = PackedStringArray("experiment", "replication")
+description = "获得 4 进度；若上回合打过实验牌，获得 1 数据。"
+upgraded_description = "获得 7 进度；若上回合打过实验牌，获得 1 数据。"
+effects = Array[Resource]([SubResource("Effect_progress"), SubResource("Effect_data_if_experiment")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_progress"), SubResource("Effect_upgraded_data_if_experiment")])

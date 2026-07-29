@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_lose_action_point"]
+script = ExtResource("2_effect")
+effect_type = &"lose_action_point"
+amount = 1
+target = &"self"
+
+[resource]
+script = ExtResource("1_card")
+id = &"S005"
+display_name = "恍惚"
+card_type = &"status"
+rarity = &"status"
+cost = -1
+tags = PackedStringArray("status")
+description = "本回合少 1 行动点，触发后消耗。"
+upgraded_description = "本回合少 1 行动点，触发后消耗。"
+effects = Array[Resource]([SubResource("Effect_lose_action_point")])
+exhausts = true

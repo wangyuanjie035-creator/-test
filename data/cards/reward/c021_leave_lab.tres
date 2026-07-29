@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_draw"]
+script = ExtResource("2_effect")
+effect_type = &"draw"
+amount = 1
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_heal"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 2
+resource = &"energy"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_draw"]
+script = ExtResource("2_effect")
+effect_type = &"draw"
+amount = 1
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_heal"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 4
+resource = &"energy"
+target = &"self"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C021"
+display_name = "走出实验楼"
+card_type = &"skill"
+rarity = &"common"
+cost = 0
+tags = PackedStringArray("care", "resilience")
+description = "抽 1 张牌，恢复 2 精力，本牌消耗。"
+upgraded_description = "抽 1 张牌，恢复 4 精力，本牌消耗。"
+effects = Array[Resource]([SubResource("Effect_draw"), SubResource("Effect_heal")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_draw"), SubResource("Effect_upgraded_heal")])
+exhausts = true

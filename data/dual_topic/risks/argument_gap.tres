@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DualTopicRiskDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/dual_topic/data/dual_topic_risk_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"argument_gap"
+display_name = "论证链不完整"
+kind = 3
+description = "现有结果尚不能形成可提交的完整论证。"

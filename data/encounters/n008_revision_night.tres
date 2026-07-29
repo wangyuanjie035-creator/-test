@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/encounter_definition.gd" id="1_encounter"]
+
+[resource]
+script = ExtResource("1_encounter")
+id = &"N008"
+display_name = "返修长夜"
+stage = &"doctor_4"
+target_progress = 62
+pressure_per_turn = 8
+intent_name = "返修倒计时"
+description = "答辩延期后，论文进入博四返修。玩家需要在精力很低的状态下把修改矩阵、论文主线和补答辩表达重新拼起来。"
+victory_rewards = PackedStringArray()

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ResearchTopicArchetype" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/topic_pool/data/research_topic_archetype.gd" id="1"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/data_shift.tres" id="2"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/baseline_failure.tres" id="3"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/argument_gap.tres" id="4"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/theory_gap.tres" id="5"]
+
+[resource]
+script = ExtResource("1")
+id = &"data_cleanup_study"
+display_name = "脏数据治理研究"
+premise = "数据问题明确，但清洗过程可能揭示比模型本身更重要的结论。"
+discipline = &"computer_science"
+tags = PackedStringArray("数据", "工程")
+difficulty_tier = 0
+base_potential = 0
+base_risk_count = 1
+base_reward = 1
+min_deadline_weeks = 3
+max_deadline_weeks = 5
+special_rule = &"negative_result_asset"
+risk_pool = Array[Resource]([ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5")])

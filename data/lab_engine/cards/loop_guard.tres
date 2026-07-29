@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LabCardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/lab_engine/data/lab_card_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"loop_guard"
+display_name = "无限循环保护器"
+description = "提高触发上限并降低技术债"
+slot = 5
+effect = 11
+output_score_level_1 = 1
+output_score_level_2 = 2
+automation_card = true
+build_tags = Array[StringName]([&"automation"])
+candidate_tags = Array[StringName]([&"mid_automation"])

@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_progress"]
+script = ExtResource("2_effect")
+effect_type = &"gain_progress"
+amount = 5
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_paper"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"paper_fragments"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_progress"]
+script = ExtResource("2_effect")
+effect_type = &"gain_progress"
+amount = 8
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_paper"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"paper_fragments"
+target = &"self"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C033"
+display_name = "论文主线图"
+card_type = &"action"
+rarity = &"doctoral"
+cost = 1
+tags = PackedStringArray("doctor", "paper", "draft")
+description = "获得 5 进度和 1 论文碎片。"
+upgraded_description = "获得 8 进度和 1 论文碎片。"
+effects = Array[Resource]([SubResource("Effect_progress"), SubResource("Effect_paper")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_progress"), SubResource("Effect_upgraded_paper")])

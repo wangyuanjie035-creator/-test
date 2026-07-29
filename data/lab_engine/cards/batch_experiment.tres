@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LabCardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/lab_engine/data/lab_card_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"batch_experiment"
+display_name = "批量实验脚本"
+description = "1 灵感 → 4 原始数据，技术债 +1"
+slot = 1
+effect = 2
+output_score_level_1 = 4
+output_score_level_2 = 5
+automation_card = true
+build_tags = Array[StringName]([&"automation", &"debt_burst"])
+candidate_tags = Array[StringName]([&"early_producer"])

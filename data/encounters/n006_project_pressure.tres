@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/encounter_definition.gd" id="1_encounter"]
+
+[resource]
+script = ExtResource("1_encounter")
+id = &"N006"
+display_name = "项目推进压力"
+stage = &"doctor_2"
+target_progress = 64
+pressure_per_turn = 9
+intent_name = "项目节点压缩"
+description = "博士资格考核后，课题被放进更长的项目节奏里。横向任务、实验排期和论文计划同时推进，玩家需要在更高压力下保持构筑运转。"
+victory_rewards = PackedStringArray()

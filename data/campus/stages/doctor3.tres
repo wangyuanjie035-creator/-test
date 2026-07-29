@@ -1,0 +1,240 @@
+[gd_resource type="Resource" script_class="CampusStageDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/campus_stage_definition.gd" id="1_stage"]
+[ext_resource type="Script" path="res://scripts/data/campus_interaction_definition.gd" id="2_interaction"]
+
+[sub_resource type="Resource" id="Interaction_predefense_prep"]
+script = ExtResource("2_interaction")
+id = &"doctor3_predefense_prep"
+display_name = "预答辩筹备"
+interaction_kind = &"encounter"
+route_node_id = &"N007"
+position = Vector2(640, 320)
+jitter_radius = 14
+marker_state = &"story_key"
+accent_color = Color(0.4, 0.66, 0.86, 1)
+
+[sub_resource type="Resource" id="Interaction_revision_night"]
+script = ExtResource("2_interaction")
+id = &"doctor3_revision_night"
+display_name = "答辩稿长夜"
+interaction_kind = &"encounter"
+route_node_id = &"N008"
+position = Vector2(1220, 322)
+jitter_radius = 14
+accent_color = Color(0.56, 0.68, 0.86, 1)
+
+[sub_resource type="Resource" id="Interaction_predefense_room"]
+script = ExtResource("2_interaction")
+id = &"doctor3_predefense_room"
+display_name = "博士预答辩"
+interaction_kind = &"boss"
+route_node_id = &"B006"
+position = Vector2(1258, 836)
+jitter_radius = 10
+marker_state = &"boss_available"
+accent_color = Color(0.78, 0.32, 0.38, 1)
+
+[sub_resource type="Resource" id="Interaction_defense_room"]
+script = ExtResource("2_interaction")
+id = &"doctor3_defense_room"
+display_name = "博士答辩"
+interaction_kind = &"boss"
+route_node_id = &"B007"
+position = Vector2(1380, 830)
+jitter_radius = 10
+marker_state = &"boss_available"
+accent_color = Color(0.86, 0.48, 0.34, 1)
+
+[sub_resource type="Resource" id="Interaction_dissertation_fragments_archive"]
+script = ExtResource("2_interaction")
+id = &"doctor3_dissertation_fragments_archive"
+display_name = "论文主线归档"
+interaction_kind = &"resource"
+resource_id = &"paper_fragments"
+resource_amount = 2
+position = Vector2(724, 236)
+jitter_radius = 12
+accent_color = Color(0.88, 0.84, 0.62, 1)
+
+[sub_resource type="Resource" id="Interaction_final_manuscript_fragments"]
+script = ExtResource("2_interaction")
+id = &"doctor3_final_manuscript_fragments"
+display_name = "终稿碎片"
+interaction_kind = &"resource"
+resource_id = &"paper_fragments"
+resource_amount = 2
+position = Vector2(690, 820)
+jitter_radius = 12
+accent_color = Color(0.88, 0.84, 0.62, 1)
+
+[sub_resource type="Resource" id="Interaction_committee_reputation_letter"]
+script = ExtResource("2_interaction")
+id = &"doctor3_committee_reputation_letter"
+display_name = "委员会推荐语"
+interaction_kind = &"resource"
+resource_id = &"reputation"
+resource_amount = 1
+position = Vector2(300, 824)
+jitter_radius = 12
+accent_color = Color(0.74, 0.7, 0.92, 1)
+
+[sub_resource type="Resource" id="Interaction_rehearsal_feedback_note"]
+script = ExtResource("2_interaction")
+id = &"doctor3_rehearsal_feedback_note"
+display_name = "演练反馈单"
+interaction_kind = &"resource"
+resource_id = &"reputation"
+resource_amount = 1
+position = Vector2(802, 820)
+jitter_radius = 12
+accent_color = Color(0.74, 0.7, 0.92, 1)
+
+[sub_resource type="Resource" id="Interaction_methodology_synthesis_notes"]
+script = ExtResource("2_interaction")
+id = &"doctor3_methodology_synthesis_notes"
+display_name = "方法论总表"
+interaction_kind = &"resource"
+resource_id = &"methodology_notes"
+resource_amount = 4
+position = Vector2(572, 232)
+jitter_radius = 12
+accent_color = Color(0.86, 0.84, 0.48, 1)
+
+[sub_resource type="Resource" id="Interaction_defense_slide_draft"]
+script = ExtResource("2_interaction")
+id = &"doctor3_defense_slide_draft"
+display_name = "答辩幻灯草稿"
+interaction_kind = &"resource"
+resource_id = &"draft"
+resource_amount = 2
+position = Vector2(248, 286)
+jitter_radius = 12
+accent_color = Color(0.92, 0.78, 0.42, 1)
+
+[sub_resource type="Resource" id="Interaction_committee_mock_qna"]
+script = ExtResource("2_interaction")
+id = &"doctor3_committee_mock_qna"
+display_name = "委员会模拟问答"
+interaction_kind = &"encounter"
+route_node_id = &"N007"
+content_tags = Array[StringName]([&"committee", &"defense", &"exam", &"encounter"])
+position = Vector2(884, 646)
+jitter_radius = 14
+accent_color = Color(0.4, 0.66, 0.86, 1)
+
+[sub_resource type="Resource" id="Interaction_defense_timer_sheet"]
+script = ExtResource("2_interaction")
+id = &"doctor3_defense_timer_sheet"
+display_name = "答辩计时表"
+interaction_kind = &"resource"
+resource_id = &"methodology_notes"
+resource_amount = 1
+content_tags = Array[StringName]([&"defense", &"method", &"resource"])
+position = Vector2(930, 606)
+jitter_radius = 12
+accent_color = Color(0.86, 0.84, 0.48, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor3_slide_timing_drill"]
+script = ExtResource("2_interaction")
+id = &"doctor3_slide_timing_drill"
+display_name = "幻灯计时演练"
+interaction_kind = &"encounter"
+route_node_id = &"N007"
+content_tags = Array[StringName]([&"defense", &"committee", &"method", &"encounter"])
+position = Vector2(894, 646)
+jitter_radius = 14
+accent_color = Color(0.4, 0.66, 0.86, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor3_external_reviewer_note"]
+script = ExtResource("2_interaction")
+id = &"doctor3_external_reviewer_note"
+display_name = "外审专家便签"
+interaction_kind = &"event"
+route_node_id = &"E007"
+content_tags = Array[StringName]([&"committee", &"writing", &"paper_fragments", &"event"])
+position = Vector2(1060, 820)
+jitter_radius = 12
+accent_color = Color(0.72, 0.38, 0.48, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor3_thesis_figure_archive"]
+script = ExtResource("2_interaction")
+id = &"doctor3_thesis_figure_archive"
+display_name = "论文图表归档"
+interaction_kind = &"resource"
+resource_id = &"paper_fragments"
+resource_amount = 1
+content_tags = Array[StringName]([&"paper_fragments", &"writing", &"defense", &"resource"])
+position = Vector2(620, 232)
+jitter_radius = 12
+accent_color = Color(0.88, 0.84, 0.62, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor3_defense_rest_corner"]
+script = ExtResource("2_interaction")
+id = &"doctor3_defense_rest_corner"
+display_name = "答辩前休息角"
+interaction_kind = &"resource"
+resource_id = &"inspiration"
+resource_amount = 1
+content_tags = Array[StringName]([&"defense", &"self_care", &"inspiration", &"resource"])
+position = Vector2(370, 760)
+jitter_radius = 12
+accent_color = Color(0.55, 0.8, 0.98, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor3_defense_question_bank"]
+script = ExtResource("2_interaction")
+id = &"doctor3_defense_question_bank"
+display_name = "答辩问题库"
+interaction_kind = &"resource"
+resource_id = &"methodology_notes"
+resource_amount = 1
+content_tags = Array[StringName]([&"defense", &"committee", &"method", &"resource"])
+position = Vector2(520, 500)
+jitter_radius = 12
+accent_color = Color(0.86, 0.84, 0.48, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor3_slide_backup_drive"]
+script = ExtResource("2_interaction")
+id = &"doctor3_slide_backup_drive"
+display_name = "幻灯备份盘"
+interaction_kind = &"resource"
+resource_id = &"draft"
+resource_amount = 1
+content_tags = Array[StringName]([&"defense", &"draft", &"data", &"resource"])
+position = Vector2(1160, 236)
+jitter_radius = 12
+accent_color = Color(0.92, 0.78, 0.42, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor3_hallway_mock_defense"]
+script = ExtResource("2_interaction")
+id = &"doctor3_hallway_mock_defense"
+display_name = "走廊模拟答辩"
+interaction_kind = &"encounter"
+route_node_id = &"N007"
+content_tags = Array[StringName]([&"defense", &"committee", &"peer", &"encounter"])
+position = Vector2(520, 342)
+jitter_radius = 14
+accent_color = Color(0.4, 0.66, 0.86, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor3_committee_signature_sheet"]
+script = ExtResource("2_interaction")
+id = &"doctor3_committee_signature_sheet"
+display_name = "委员签字单"
+interaction_kind = &"event"
+route_node_id = &"E007"
+content_tags = Array[StringName]([&"committee", &"defense", &"administration", &"event"])
+position = Vector2(920, 790)
+jitter_radius = 12
+accent_color = Color(0.72, 0.38, 0.48, 1)
+
+[resource]
+script = ExtResource("1_stage")
+id = &"doctor3"
+display_name = "博三"
+debug_label = "博三"
+sort_order = 50
+generation_focus_tags = Array[StringName]([&"defense", &"committee", &"writing", &"paper_fragments", &"reputation", &"method"])
+generation_required_tags = Array[StringName]([&"defense", &"committee", &"writing", &"paper_fragments", &"resource", &"boss", &"encounter"])
+generation_theme_ids = Array[StringName]([&"defense_day", &"committee_day", &"writing_day", &"social_day", &"recovery_day"])
+generation_candidate_interactions = Array[Resource]([SubResource("Interaction_predefense_prep"), SubResource("Interaction_revision_night"), SubResource("Interaction_predefense_room"), SubResource("Interaction_defense_room"), SubResource("Interaction_dissertation_fragments_archive"), SubResource("Interaction_final_manuscript_fragments"), SubResource("Interaction_committee_reputation_letter"), SubResource("Interaction_rehearsal_feedback_note"), SubResource("Interaction_methodology_synthesis_notes"), SubResource("Interaction_defense_slide_draft"), SubResource("Interaction_committee_mock_qna"), SubResource("Interaction_defense_timer_sheet"), SubResource("Interaction_doctor3_slide_timing_drill"), SubResource("Interaction_doctor3_external_reviewer_note"), SubResource("Interaction_doctor3_thesis_figure_archive"), SubResource("Interaction_doctor3_defense_rest_corner"), SubResource("Interaction_doctor3_defense_question_bank"), SubResource("Interaction_doctor3_slide_backup_drive"), SubResource("Interaction_doctor3_hallway_mock_defense"), SubResource("Interaction_doctor3_committee_signature_sheet")])
+interactions = Array[Resource]([SubResource("Interaction_predefense_prep"), SubResource("Interaction_revision_night"), SubResource("Interaction_predefense_room"), SubResource("Interaction_defense_room"), SubResource("Interaction_dissertation_fragments_archive"), SubResource("Interaction_final_manuscript_fragments"), SubResource("Interaction_committee_reputation_letter"), SubResource("Interaction_rehearsal_feedback_note"), SubResource("Interaction_methodology_synthesis_notes"), SubResource("Interaction_defense_slide_draft"), SubResource("Interaction_committee_mock_qna"), SubResource("Interaction_defense_timer_sheet")])

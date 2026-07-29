@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ResearchInclinationDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/research_inclination_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"literature"
+display_name = "文献型"
+description = "先把问题读清楚，再让论证自然长出来。"
+rule_text = "每场战斗第一次连续打出两张文献牌：抽 1 张牌。"
+accent_color = Color(0.35, 0.72, 0.86, 1)
+remove_card_ids = PackedStringArray("C011", "C020")
+add_card_ids = PackedStringArray("C002", "C004")

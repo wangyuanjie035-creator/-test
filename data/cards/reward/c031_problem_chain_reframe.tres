@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_methodology"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_draw"]
+script = ExtResource("2_effect")
+effect_type = &"draw"
+amount = 1
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_methodology"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 2
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_draw"]
+script = ExtResource("2_effect")
+effect_type = &"draw"
+amount = 1
+target = &"self"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C031"
+display_name = "问题链重排"
+card_type = &"skill"
+rarity = &"doctoral"
+cost = 1
+tags = PackedStringArray("doctor", "methodology", "draft")
+description = "获得 1 方法论笔记，抽 1 张牌。"
+upgraded_description = "获得 2 方法论笔记，抽 1 张牌。"
+effects = Array[Resource]([SubResource("Effect_methodology"), SubResource("Effect_draw")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_methodology"), SubResource("Effect_upgraded_draw")])

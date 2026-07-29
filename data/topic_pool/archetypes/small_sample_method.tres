@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ResearchTopicArchetype" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/topic_pool/data/research_topic_archetype.gd" id="1"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/data_shift.tres" id="2"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/theory_gap.tres" id="3"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/baseline_failure.tres" id="4"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/argument_gap.tres" id="5"]
+
+[resource]
+script = ExtResource("1")
+id = &"small_sample_method"
+display_name = "小样本方法改进"
+premise = "数据稀缺迫使研究从方法假设入手，潜力和证据风险同时上升。"
+discipline = &"computer_science"
+tags = PackedStringArray("方法", "小样本")
+difficulty_tier = 1
+base_potential = 1
+base_risk_count = 2
+base_reward = 2
+min_deadline_weeks = 4
+max_deadline_weeks = 6
+special_rule = &"scarce_data"
+risk_pool = Array[Resource]([ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5")])

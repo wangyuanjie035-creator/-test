@@ -1,0 +1,66 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_block"]
+script = ExtResource("2_effect")
+effect_type = &"gain_block"
+amount = 5
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_remove_status"]
+script = ExtResource("2_effect")
+effect_type = &"remove_status_by_tag"
+amount = 1
+target = &"deck"
+tag_filter = &"status"
+
+[sub_resource type="Resource" id="Effect_paper_if_drafts"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"paper_fragments"
+target = &"self"
+condition = &"has_2_draft"
+
+[sub_resource type="Resource" id="Effect_upgraded_block"]
+script = ExtResource("2_effect")
+effect_type = &"gain_block"
+amount = 7
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_remove_status"]
+script = ExtResource("2_effect")
+effect_type = &"remove_status_by_tag"
+amount = 1
+target = &"deck"
+tag_filter = &"status"
+
+[sub_resource type="Resource" id="Effect_upgraded_paper_if_draft"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"paper_fragments"
+target = &"self"
+condition = &"has_draft"
+
+[sub_resource type="Resource" id="Effect_upgraded_progress_if_drafts"]
+script = ExtResource("2_effect")
+effect_type = &"gain_progress"
+amount = 3
+target = &"self"
+condition = &"has_2_draft"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C041"
+display_name = "截稿后复盘"
+card_type = &"skill"
+rarity = &"common"
+cost = 1
+tags = PackedStringArray("rush", "care", "paper", "draft")
+description = "获得 5 防护；移除牌组中 1 张负面牌；若有 2 草稿，获得 1 论文碎片。"
+upgraded_description = "获得 7 防护；移除牌组中 1 张负面牌；若有草稿，获得 1 论文碎片；若有 2 草稿，获得 3 进度。"
+effects = Array[Resource]([SubResource("Effect_block"), SubResource("Effect_remove_status"), SubResource("Effect_paper_if_drafts")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_block"), SubResource("Effect_upgraded_remove_status"), SubResource("Effect_upgraded_paper_if_draft"), SubResource("Effect_upgraded_progress_if_drafts")])

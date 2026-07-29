@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_next_experiment_progress"]
+script = ExtResource("2_effect")
+effect_type = &"modify_next_tag_progress"
+amount = 8
+target = &"self"
+tag_filter = &"experiment"
+
+[sub_resource type="Resource" id="Effect_upgraded_gain_data"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"data"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_next_experiment_progress"]
+script = ExtResource("2_effect")
+effect_type = &"modify_next_tag_progress"
+amount = 8
+target = &"self"
+tag_filter = &"experiment"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C015"
+display_name = "预约设备"
+card_type = &"skill"
+rarity = &"common"
+cost = 1
+tags = PackedStringArray("equipment", "experiment")
+description = "下回合第一张实验牌额外获得 8 进度。"
+upgraded_description = "获得 1 数据；下回合第一张实验牌额外获得 8 进度。"
+effects = Array[Resource]([SubResource("Effect_next_experiment_progress")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_gain_data"), SubResource("Effect_upgraded_next_experiment_progress")])

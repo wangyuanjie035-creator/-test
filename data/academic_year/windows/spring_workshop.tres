@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ResearchWindowDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/academic_year/data/research_window_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"spring_workshop"
+display_name = "春季工作坊"
+description = "要求较低，适合建立第一份可公开成果。"
+minimum_evidence = 3
+minimum_completion = 4
+pressure_on_entry = 0
+prestige = 1

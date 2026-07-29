@@ -1,0 +1,57 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_progress"]
+script = ExtResource("2_effect")
+effect_type = &"gain_progress"
+amount = 6
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_gain_funds"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"funds"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_remove_self_doubt"]
+script = ExtResource("2_effect")
+effect_type = &"remove_status"
+amount = 1
+target = &"hand"
+card_id = &"S010"
+
+[sub_resource type="Resource" id="Effect_upgraded_progress"]
+script = ExtResource("2_effect")
+effect_type = &"gain_progress"
+amount = 8
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_gain_funds"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"funds"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_remove_self_doubt"]
+script = ExtResource("2_effect")
+effect_type = &"remove_status"
+amount = 1
+target = &"hand"
+card_id = &"S010"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C024"
+display_name = "导师沟通"
+card_type = &"cooperation"
+rarity = &"common"
+cost = 1
+tags = PackedStringArray("mentor", "network", "cooperation", "funds")
+description = "获得 6 进度和 1 经费；移除手牌中 1 张自我怀疑。"
+upgraded_description = "获得 8 进度和 1 经费；移除手牌中 1 张自我怀疑。"
+effects = Array[Resource]([SubResource("Effect_progress"), SubResource("Effect_gain_funds"), SubResource("Effect_remove_self_doubt")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_progress"), SubResource("Effect_upgraded_gain_funds"), SubResource("Effect_upgraded_remove_self_doubt")])

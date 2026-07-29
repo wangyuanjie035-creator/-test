@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/encounter_definition.gd" id="1_encounter"]
+
+[resource]
+script = ExtResource("1_encounter")
+id = &"N009"
+display_name = "数据清洗夜"
+stage = &"master_1"
+target_progress = 38
+pressure_per_turn = 6
+intent_name = "返工校验"
+description = "原始数据里混着缺失值、异常点和记录错位。它不一定最危险，但会逼你把复现流程补上。"
+victory_rewards = PackedStringArray("C013", "C014", "C028", "C038", "C040")

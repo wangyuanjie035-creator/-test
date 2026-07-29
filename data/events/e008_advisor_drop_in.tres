@@ -1,0 +1,123 @@
+[gd_resource type="Resource" script_class="EventDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/event_definition.gd" id="1_event"]
+[ext_resource type="Script" path="res://scripts/data/event_choice_definition.gd" id="2_choice"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="3_effect"]
+
+[sub_resource type="Resource" id="Effect_align_energy"]
+script = ExtResource("3_effect")
+effect_type = &"lose_energy"
+amount = 2
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_align_methodology"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_align_reputation"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"reputation"
+target = &"self"
+
+[sub_resource type="Resource" id="Choice_align_expectations"]
+script = ExtResource("2_choice")
+id = &"align_expectations"
+label = "对齐阶段预期"
+preview = "失去 2 精力，获得 1 方法论笔记和 1 声望。"
+effects = Array[Resource]([SubResource("Effect_align_energy"), SubResource("Effect_align_methodology"), SubResource("Effect_align_reputation")])
+risk_level = 1
+
+[sub_resource type="Resource" id="Effect_outline_spend_draft"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = -2
+resource = &"draft"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_outline_fragment"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"paper_fragments"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_outline_minutes"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"C039"
+
+[sub_resource type="Resource" id="Choice_bring_outline"]
+script = ExtResource("2_choice")
+id = &"bring_outline"
+label = "带着提纲过去"
+requirement = &"has_2_draft"
+preview = "消耗 2 草稿，获得 1 论文碎片，将 1 张会后纪要加入牌组。"
+effects = Array[Resource]([SubResource("Effect_outline_spend_draft"), SubResource("Effect_outline_fragment"), SubResource("Effect_outline_minutes")])
+risk_level = 1
+
+[sub_resource type="Resource" id="Effect_resource_funds"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"funds"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_resource_sync_card"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"C024"
+
+[sub_resource type="Resource" id="Choice_ask_resources"]
+script = ExtResource("2_choice")
+id = &"ask_resources"
+label = "顺便申请资源"
+requirement = &"has_1_reputation"
+preview = "获得 1 经费，将 1 张导师沟通加入牌组。"
+effects = Array[Resource]([SubResource("Effect_resource_funds"), SubResource("Effect_resource_sync_card")])
+risk_level = 1
+
+[sub_resource type="Resource" id="Effect_pressure_energy"]
+script = ExtResource("3_effect")
+effect_type = &"lose_energy"
+amount = 2
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_pressure_lessons"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 2
+resource = &"experience_lessons"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_pressure_self_doubt"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S010"
+
+[sub_resource type="Resource" id="Choice_absorb_pressure"]
+script = ExtResource("2_choice")
+id = &"absorb_pressure"
+label = "先把压力记下来"
+preview = "失去 2 精力，获得 2 经验教训，将 1 张自我怀疑加入牌组。"
+effects = Array[Resource]([SubResource("Effect_pressure_energy"), SubResource("Effect_pressure_lessons"), SubResource("Effect_pressure_self_doubt")])
+risk_level = 2
+
+[resource]
+script = ExtResource("1_event")
+id = &"E008"
+display_name = "导师临时约谈"
+stage_min = &"master_1"
+description = "导师突然发消息说“来办公室聊一下”。这可能是方向校准、资源窗口，也可能只是一次压力同步。"
+choices = Array[Resource]([SubResource("Choice_align_expectations"), SubResource("Choice_bring_outline"), SubResource("Choice_ask_resources"), SubResource("Choice_absorb_pressure")])
+tags = PackedStringArray("mentor", "direction", "network")

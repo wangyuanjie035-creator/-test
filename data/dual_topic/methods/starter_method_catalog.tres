@@ -1,0 +1,158 @@
+[gd_resource type="Resource" script_class="DualTopicMethodCatalog" load_steps=18 format=3]
+
+[ext_resource type="Script" path="res://scripts/dual_topic/data/dual_topic_method_card_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/dual_topic/data/dual_topic_method_catalog.gd" id="2"]
+
+[sub_resource type="Resource" id="Investigation1"]
+script = ExtResource("1")
+id = &"targeted_reading"
+title = "定向阅读"
+description = "识别一个未知风险；若它是低风险，额外获得 1 证据。"
+category = 0
+target_scope = 0
+action_type = 0
+effect_id = &"low_risk_insight"
+
+[sub_resource type="Resource" id="Investigation2"]
+script = ExtResource("1")
+id = &"cross_source_scan"
+title = "交叉检索"
+description = "识别风险后继续揭示另一个未知风险，但压力 +1。"
+category = 0
+target_scope = 0
+action_type = 0
+effect_id = &"wide_scan"
+
+[sub_resource type="Resource" id="Investigation3"]
+script = ExtResource("1")
+id = &"preregistration"
+title = "预注册"
+description = "识别风险，并降低一个已识别风险的档位。"
+category = 0
+target_scope = 0
+action_type = 0
+effect_id = &"pre_register"
+
+[sub_resource type="Resource" id="Experiment1"]
+script = ExtResource("1")
+id = &"pilot_study"
+title = "小样本预实验"
+description = "对已识别风险进行一次 Seed 已确定的试验。"
+category = 1
+target_scope = 0
+action_type = 1
+effect_id = &"basic"
+
+[sub_resource type="Resource" id="Experiment2"]
+script = ExtResource("1")
+id = &"replication"
+title = "独立复现"
+description = "正常结果会直接控制本次验证的风险。"
+category = 1
+target_scope = 0
+action_type = 1
+effect_id = &"replicate"
+
+[sub_resource type="Resource" id="Experiment3"]
+script = ExtResource("1")
+id = &"stress_test"
+title = "极限条件测试"
+description = "异常或失败也会转化为 1 点证据。"
+category = 1
+target_scope = 0
+action_type = 1
+effect_id = &"learn_from_failure"
+
+[sub_resource type="Resource" id="Organization1"]
+script = ExtResource("1")
+id = &"evidence_ledger"
+title = "证据台账"
+description = "整理课题；已有 3 证据时额外获得 1 完成度。"
+category = 2
+target_scope = 0
+action_type = 2
+effect_id = &"evidence_ledger"
+
+[sub_resource type="Resource" id="Organization2"]
+script = ExtResource("1")
+id = &"synthesis_matrix"
+title = "综合矩阵"
+description = "整理课题；已揭示两个风险时额外获得 1 证据。"
+category = 2
+target_scope = 0
+action_type = 2
+effect_id = &"synthesis"
+
+[sub_resource type="Resource" id="Organization3"]
+script = ExtResource("1")
+id = &"milestone_map"
+title = "里程碑拆解"
+description = "整理课题；已有 4 证据时额外获得 1 完成度。"
+category = 2
+target_scope = 0
+action_type = 2
+effect_id = &"milestone"
+
+[sub_resource type="Resource" id="Collaboration1"]
+script = ExtResource("1")
+id = &"peer_consultation"
+title = "同门会诊"
+description = "协助调查，并缓解 1 压力。"
+category = 3
+target_scope = 0
+action_type = 0
+effect_id = &"peer_consult"
+
+[sub_resource type="Resource" id="Collaboration2"]
+script = ExtResource("1")
+id = &"external_review"
+title = "外部评审"
+description = "调查后进一步验证一个风险，但压力 +1。"
+category = 3
+target_scope = 0
+action_type = 0
+effect_id = &"external_review"
+
+[sub_resource type="Resource" id="Collaboration3"]
+script = ExtResource("1")
+id = &"shared_protocol"
+title = "共享实验协议"
+description = "完成试验后控制一个已验证风险。"
+category = 3
+target_scope = 0
+action_type = 1
+effect_id = &"shared_protocol"
+
+[sub_resource type="Resource" id="Survival1"]
+script = ExtResource("1")
+id = &"proper_sleep"
+title = "完整睡眠"
+description = "恢复精力并降低压力。"
+category = 4
+target_scope = 1
+action_type = 4
+effect_id = &"basic"
+
+[sub_resource type="Resource" id="Survival2"]
+script = ExtResource("1")
+id = &"protected_time"
+title = "保护写作时间"
+description = "写作成功后返还 1 精力。"
+category = 4
+target_scope = 0
+action_type = 3
+effect_id = &"protected_time"
+
+[sub_resource type="Resource" id="Survival3"]
+script = ExtResource("1")
+id = &"strategic_pause"
+title = "战略暂停"
+description = "恢复精力，并额外降低 1 压力。"
+category = 4
+target_scope = 1
+action_type = 4
+effect_id = &"strategic_pause"
+
+[resource]
+script = ExtResource("2")
+cards = Array[Resource]([SubResource("Investigation1"), SubResource("Investigation2"), SubResource("Investigation3"), SubResource("Experiment1"), SubResource("Experiment2"), SubResource("Experiment3"), SubResource("Organization1"), SubResource("Organization2"), SubResource("Organization3"), SubResource("Collaboration1"), SubResource("Collaboration2"), SubResource("Collaboration3"), SubResource("Survival1"), SubResource("Survival2"), SubResource("Survival3")])

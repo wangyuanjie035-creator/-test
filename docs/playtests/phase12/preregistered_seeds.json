@@ -1,0 +1,345 @@
+{
+	"beam_width": 512,
+	"coverage_ok": true,
+	"eligibility": "co-offer; global_can_win=true; non-experiment can_win=true; regret <= 5",
+	"generated_by": "audit_lab_opening_counterfactual.gd",
+	"requested_count": 16,
+	"samples": 100,
+	"schema_version": 1,
+	"selected": [
+		{
+			"candidates": [
+				"unattended",
+				"all_nighter",
+				"converter"
+			],
+			"global_best_paper": 225,
+			"global_can_win": true,
+			"near_non_experiment": [
+				{
+					"best_paper": 225,
+					"can_win": true,
+					"card_id": "converter",
+					"regret": 0,
+					"slot": 2
+				}
+			],
+			"seed": 244002,
+			"topic_id": "clean_data_topic"
+		},
+		{
+			"candidates": [
+				"unattended",
+				"parameter_scan",
+				"auto_stats"
+			],
+			"global_best_paper": 215,
+			"global_can_win": true,
+			"near_non_experiment": [
+				{
+					"best_paper": 215,
+					"can_win": true,
+					"card_id": "auto_stats",
+					"regret": 0,
+					"slot": 3
+				}
+			],
+			"seed": 244003,
+			"topic_id": "chart_topic"
+		},
+		{
+			"candidates": [
+				"unattended",
+				"subscription",
+				"all_nighter"
+			],
+			"global_best_paper": 215,
+			"global_can_win": true,
+			"near_non_experiment": [
+				{
+					"best_paper": 210,
+					"can_win": true,
+					"card_id": "subscription",
+					"regret": 5,
+					"slot": 0
+				},
+				{
+					"best_paper": 210,
+					"can_win": true,
+					"card_id": "all_nighter",
+					"regret": 5,
+					"slot": 4
+				}
+			],
+			"seed": 244004,
+			"topic_id": "literature_topic"
+		},
+		{
+			"candidates": [
+				"crawler",
+				"batch_experiment",
+				"converter"
+			],
+			"global_best_paper": 182,
+			"global_can_win": true,
+			"near_non_experiment": [
+				{
+					"best_paper": 182,
+					"can_win": true,
+					"card_id": "converter",
+					"regret": 0,
+					"slot": 2
+				}
+			],
+			"seed": 244008,
+			"topic_id": "literature_topic"
+		},
+		{
+			"candidates": [
+				"crawler",
+				"batch_experiment",
+				"auto_stats"
+			],
+			"global_best_paper": 234,
+			"global_can_win": true,
+			"near_non_experiment": [
+				{
+					"best_paper": 234,
+					"can_win": true,
+					"card_id": "auto_stats",
+					"regret": 0,
+					"slot": 3
+				}
+			],
+			"seed": 244011,
+			"topic_id": "chart_topic"
+		},
+		{
+			"candidates": [
+				"parameter_scan",
+				"cleaning",
+				"unattended"
+			],
+			"global_best_paper": 189,
+			"global_can_win": true,
+			"near_non_experiment": [
+				{
+					"best_paper": 189,
+					"can_win": true,
+					"card_id": "parameter_scan",
+					"regret": 0,
+					"slot": 3
+				}
+			],
+			"seed": 244012,
+			"topic_id": "literature_topic"
+		},
+		{
+			"candidates": [
+				"batch_experiment",
+				"unattended",
+				"auto_stats"
+			],
+			"global_best_paper": 222,
+			"global_can_win": true,
+			"near_non_experiment": [
+				{
+					"best_paper": 222,
+					"can_win": true,
+					"card_id": "auto_stats",
+					"regret": 0,
+					"slot": 3
+				}
+			],
+			"seed": 244013,
+			"topic_id": "experiment_topic"
+		},
+		{
+			"candidates": [
+				"cleaning",
+				"auto_stats",
+				"batch_experiment"
+			],
+			"global_best_paper": 225,
+			"global_can_win": true,
+			"near_non_experiment": [
+				{
+					"best_paper": 225,
+					"can_win": true,
+					"card_id": "auto_stats",
+					"regret": 0,
+					"slot": 3
+				}
+			],
+			"seed": 244017,
+			"topic_id": "experiment_topic"
+		},
+		{
+			"candidates": [
+				"unattended",
+				"crawler",
+				"batch_experiment"
+			],
+			"global_best_paper": 185,
+			"global_can_win": true,
+			"near_non_experiment": [
+				{
+					"best_paper": 180,
+					"can_win": true,
+					"card_id": "crawler",
+					"regret": 5,
+					"slot": 0
+				}
+			],
+			"seed": 244025,
+			"topic_id": "experiment_topic"
+		},
+		{
+			"candidates": [
+				"subscription",
+				"auto_stats",
+				"batch_experiment"
+			],
+			"global_best_paper": 210,
+			"global_can_win": true,
+			"near_non_experiment": [
+				{
+					"best_paper": 210,
+					"can_win": true,
+					"card_id": "auto_stats",
+					"regret": 0,
+					"slot": 3
+				}
+			],
+			"seed": 244026,
+			"topic_id": "clean_data_topic"
+		},
+		{
+			"candidates": [
+				"auto_stats",
+				"unattended",
+				"converter"
+			],
+			"global_best_paper": 222,
+			"global_can_win": true,
+			"near_non_experiment": [
+				{
+					"best_paper": 222,
+					"can_win": true,
+					"card_id": "auto_stats",
+					"regret": 0,
+					"slot": 3
+				}
+			],
+			"seed": 244030,
+			"topic_id": "clean_data_topic"
+		},
+		{
+			"candidates": [
+				"loop_guard",
+				"unattended",
+				"all_nighter"
+			],
+			"global_best_paper": 215,
+			"global_can_win": true,
+			"near_non_experiment": [
+				{
+					"best_paper": 210,
+					"can_win": true,
+					"card_id": "all_nighter",
+					"regret": 5,
+					"slot": 4
+				}
+			],
+			"seed": 244032,
+			"topic_id": "literature_topic"
+		},
+		{
+			"candidates": [
+				"unattended",
+				"converter",
+				"cleaning"
+			],
+			"global_best_paper": 206,
+			"global_can_win": true,
+			"near_non_experiment": [
+				{
+					"best_paper": 206,
+					"can_win": true,
+					"card_id": "converter",
+					"regret": 0,
+					"slot": 2
+				}
+			],
+			"seed": 244034,
+			"topic_id": "clean_data_topic"
+		},
+		{
+			"candidates": [
+				"crawler",
+				"unattended",
+				"all_nighter"
+			],
+			"global_best_paper": 206,
+			"global_can_win": true,
+			"near_non_experiment": [
+				{
+					"best_paper": 206,
+					"can_win": true,
+					"card_id": "crawler",
+					"regret": 0,
+					"slot": 0
+				}
+			],
+			"seed": 244055,
+			"topic_id": "chart_topic"
+		},
+		{
+			"candidates": [
+				"loop_guard",
+				"unattended",
+				"cleaning"
+			],
+			"global_best_paper": 215,
+			"global_can_win": true,
+			"near_non_experiment": [
+				{
+					"best_paper": 210,
+					"can_win": true,
+					"card_id": "cleaning",
+					"regret": 5,
+					"slot": 2
+				}
+			],
+			"seed": 244069,
+			"topic_id": "experiment_topic"
+		},
+		{
+			"candidates": [
+				"cleaning",
+				"subscription",
+				"batch_experiment"
+			],
+			"global_best_paper": 215,
+			"global_can_win": true,
+			"near_non_experiment": [
+				{
+					"best_paper": 210,
+					"can_win": true,
+					"card_id": "subscription",
+					"regret": 5,
+					"slot": 0
+				}
+			],
+			"seed": 244082,
+			"topic_id": "clean_data_topic"
+		}
+	],
+	"selection_rule": "ascending seeds; first fill each audited slot to four near-best exposures, then fill remaining seats ascending",
+	"slot_exposures": {
+		"0": 4,
+		"2": 4,
+		"3": 7
+	},
+	"start_seed": 244000
+}

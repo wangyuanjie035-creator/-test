@@ -1,0 +1,239 @@
+[gd_resource type="Resource" script_class="CampusStageDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/campus_stage_definition.gd" id="1_stage"]
+[ext_resource type="Script" path="res://scripts/data/campus_interaction_definition.gd" id="2_interaction"]
+
+[sub_resource type="Resource" id="Interaction_delay_repair_meeting"]
+script = ExtResource("2_interaction")
+id = &"doctor4_delay_repair_meeting"
+display_name = "博四返修会"
+interaction_kind = &"event"
+route_node_id = &"E007"
+position = Vector2(802, 820)
+jitter_radius = 12
+marker_state = &"story_key"
+accent_color = Color(0.78, 0.54, 0.82, 1)
+
+[sub_resource type="Resource" id="Interaction_revision_night"]
+script = ExtResource("2_interaction")
+id = &"doctor4_revision_night"
+display_name = "返修长夜"
+interaction_kind = &"encounter"
+route_node_id = &"N008"
+position = Vector2(640, 320)
+jitter_radius = 14
+marker_state = &"story_key"
+accent_color = Color(0.56, 0.68, 0.86, 1)
+
+[sub_resource type="Resource" id="Interaction_supplementary_rehearsal"]
+script = ExtResource("2_interaction")
+id = &"doctor4_supplementary_rehearsal"
+display_name = "补答辩演练"
+interaction_kind = &"encounter"
+route_node_id = &"N007"
+position = Vector2(1220, 322)
+jitter_radius = 14
+accent_color = Color(0.4, 0.66, 0.86, 1)
+
+[sub_resource type="Resource" id="Interaction_supplementary_defense_room"]
+script = ExtResource("2_interaction")
+id = &"doctor4_supplementary_defense_room"
+display_name = "补答辩"
+interaction_kind = &"boss"
+route_node_id = &"B008"
+position = Vector2(1290, 836)
+jitter_radius = 10
+marker_state = &"boss_available"
+accent_color = Color(0.82, 0.36, 0.3, 1)
+
+[sub_resource type="Resource" id="Interaction_revision_matrix_notes"]
+script = ExtResource("2_interaction")
+id = &"doctor4_revision_matrix_notes"
+display_name = "返修矩阵"
+interaction_kind = &"resource"
+resource_id = &"methodology_notes"
+resource_amount = 2
+position = Vector2(572, 232)
+jitter_radius = 12
+accent_color = Color(0.86, 0.84, 0.48, 1)
+
+[sub_resource type="Resource" id="Interaction_old_feedback_archive"]
+script = ExtResource("2_interaction")
+id = &"doctor4_old_feedback_archive"
+display_name = "旧反馈归档"
+interaction_kind = &"resource"
+resource_id = &"methodology_notes"
+resource_amount = 1
+position = Vector2(690, 820)
+jitter_radius = 12
+accent_color = Color(0.86, 0.84, 0.48, 1)
+
+[sub_resource type="Resource" id="Interaction_corrected_manuscript_fragments"]
+script = ExtResource("2_interaction")
+id = &"doctor4_corrected_manuscript_fragments"
+display_name = "修订稿碎片"
+interaction_kind = &"resource"
+resource_id = &"paper_fragments"
+resource_amount = 2
+position = Vector2(724, 236)
+jitter_radius = 12
+accent_color = Color(0.88, 0.84, 0.62, 1)
+
+[sub_resource type="Resource" id="Interaction_supplementary_reputation_note"]
+script = ExtResource("2_interaction")
+id = &"doctor4_supplementary_reputation_note"
+display_name = "补答辩背书"
+interaction_kind = &"resource"
+resource_id = &"reputation"
+resource_amount = 1
+position = Vector2(300, 824)
+jitter_radius = 12
+accent_color = Color(0.74, 0.7, 0.92, 1)
+
+[sub_resource type="Resource" id="Interaction_defense_video_review"]
+script = ExtResource("2_interaction")
+id = &"doctor4_defense_video_review"
+display_name = "答辩录像复盘"
+interaction_kind = &"resource"
+resource_id = &"inspiration"
+resource_amount = 1
+position = Vector2(800, 500)
+jitter_radius = 18
+accent_color = Color(0.55, 0.8, 0.98, 1)
+
+[sub_resource type="Resource" id="Interaction_draft_patch_stack"]
+script = ExtResource("2_interaction")
+id = &"doctor4_draft_patch_stack"
+display_name = "补丁草稿"
+interaction_kind = &"resource"
+resource_id = &"draft"
+resource_amount = 2
+position = Vector2(248, 286)
+jitter_radius = 12
+accent_color = Color(0.92, 0.78, 0.42, 1)
+
+[sub_resource type="Resource" id="Interaction_revision_peer_review"]
+script = ExtResource("2_interaction")
+id = &"doctor4_revision_peer_review"
+display_name = "返修互审会"
+interaction_kind = &"encounter"
+route_node_id = &"N004"
+content_tags = Array[StringName]([&"peer", &"revision", &"writing", &"encounter"])
+position = Vector2(500, 342)
+jitter_radius = 14
+accent_color = Color(0.56, 0.68, 0.86, 1)
+
+[sub_resource type="Resource" id="Interaction_repair_energy_snack"]
+script = ExtResource("2_interaction")
+id = &"doctor4_repair_energy_snack"
+display_name = "返修补给餐"
+interaction_kind = &"resource"
+resource_id = &"inspiration"
+resource_amount = 1
+content_tags = Array[StringName]([&"canteen", &"self_care", &"inspiration", &"resource"])
+position = Vector2(380, 760)
+jitter_radius = 12
+accent_color = Color(0.55, 0.8, 0.98, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor4_revision_scope_meeting"]
+script = ExtResource("2_interaction")
+id = &"doctor4_revision_scope_meeting"
+display_name = "返修范围会"
+interaction_kind = &"event"
+route_node_id = &"E007"
+content_tags = Array[StringName]([&"revision", &"committee", &"meeting", &"event"])
+position = Vector2(832, 790)
+jitter_radius = 12
+accent_color = Color(0.72, 0.38, 0.48, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor4_supplemental_data_patch"]
+script = ExtResource("2_interaction")
+id = &"doctor4_supplemental_data_patch"
+display_name = "补充数据补丁"
+interaction_kind = &"resource"
+resource_id = &"data"
+resource_amount = 1
+content_tags = Array[StringName]([&"revision", &"data", &"lab", &"resource"])
+position = Vector2(1220, 320)
+jitter_radius = 12
+accent_color = Color(0.52, 0.86, 0.66, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor4_peer_morale_circle"]
+script = ExtResource("2_interaction")
+id = &"doctor4_peer_morale_circle"
+display_name = "返修同伴会"
+interaction_kind = &"encounter"
+route_node_id = &"N008"
+content_tags = Array[StringName]([&"peer", &"self_care", &"revision", &"encounter"])
+position = Vector2(520, 342)
+jitter_radius = 14
+accent_color = Color(0.56, 0.68, 0.86, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor4_final_response_letter"]
+script = ExtResource("2_interaction")
+id = &"doctor4_final_response_letter"
+display_name = "最终回复信"
+interaction_kind = &"resource"
+resource_id = &"draft"
+resource_amount = 1
+content_tags = Array[StringName]([&"revision", &"writing", &"committee", &"resource"])
+position = Vector2(630, 232)
+jitter_radius = 12
+accent_color = Color(0.92, 0.78, 0.42, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor4_revision_data_recheck"]
+script = ExtResource("2_interaction")
+id = &"doctor4_revision_data_recheck"
+display_name = "返修数据复核"
+interaction_kind = &"encounter"
+route_node_id = &"N008"
+content_tags = Array[StringName]([&"revision", &"data", &"lab", &"encounter"])
+position = Vector2(1230, 392)
+jitter_radius = 14
+accent_color = Color(0.56, 0.68, 0.86, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor4_committee_response_table"]
+script = ExtResource("2_interaction")
+id = &"doctor4_committee_response_table"
+display_name = "委员回复表"
+interaction_kind = &"resource"
+resource_id = &"methodology_notes"
+resource_amount = 1
+content_tags = Array[StringName]([&"revision", &"committee", &"writing", &"resource"])
+position = Vector2(1040, 820)
+jitter_radius = 12
+accent_color = Color(0.86, 0.84, 0.48, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor4_peer_night_shift"]
+script = ExtResource("2_interaction")
+id = &"doctor4_peer_night_shift"
+display_name = "返修夜班同伴"
+interaction_kind = &"encounter"
+route_node_id = &"N008"
+content_tags = Array[StringName]([&"peer", &"revision", &"self_care", &"encounter"])
+position = Vector2(430, 642)
+jitter_radius = 14
+accent_color = Color(0.56, 0.68, 0.86, 1)
+
+[sub_resource type="Resource" id="Interaction_doctor4_supplemental_defense_notice"]
+script = ExtResource("2_interaction")
+id = &"doctor4_supplemental_defense_notice"
+display_name = "补答辩通知"
+interaction_kind = &"event"
+route_node_id = &"E007"
+content_tags = Array[StringName]([&"defense", &"revision", &"administration", &"event"])
+position = Vector2(902, 790)
+jitter_radius = 12
+accent_color = Color(0.72, 0.38, 0.48, 1)
+
+[resource]
+script = ExtResource("1_stage")
+id = &"doctor4"
+display_name = "博四"
+debug_label = "博四"
+sort_order = 60
+generation_focus_tags = Array[StringName]([&"revision", &"defense", &"committee", &"writing", &"self_care", &"peer"])
+generation_required_tags = Array[StringName]([&"revision", &"defense", &"committee", &"writing", &"self_care", &"resource", &"boss"])
+generation_theme_ids = Array[StringName]([&"revision_day", &"defense_day", &"data_repair_day", &"social_day", &"recovery_day"])
+generation_candidate_interactions = Array[Resource]([SubResource("Interaction_delay_repair_meeting"), SubResource("Interaction_revision_night"), SubResource("Interaction_supplementary_rehearsal"), SubResource("Interaction_supplementary_defense_room"), SubResource("Interaction_revision_matrix_notes"), SubResource("Interaction_old_feedback_archive"), SubResource("Interaction_corrected_manuscript_fragments"), SubResource("Interaction_supplementary_reputation_note"), SubResource("Interaction_defense_video_review"), SubResource("Interaction_draft_patch_stack"), SubResource("Interaction_revision_peer_review"), SubResource("Interaction_repair_energy_snack"), SubResource("Interaction_doctor4_revision_scope_meeting"), SubResource("Interaction_doctor4_supplemental_data_patch"), SubResource("Interaction_doctor4_peer_morale_circle"), SubResource("Interaction_doctor4_final_response_letter"), SubResource("Interaction_doctor4_revision_data_recheck"), SubResource("Interaction_doctor4_committee_response_table"), SubResource("Interaction_doctor4_peer_night_shift"), SubResource("Interaction_doctor4_supplemental_defense_notice")])
+interactions = Array[Resource]([SubResource("Interaction_delay_repair_meeting"), SubResource("Interaction_revision_night"), SubResource("Interaction_supplementary_rehearsal"), SubResource("Interaction_supplementary_defense_room"), SubResource("Interaction_revision_matrix_notes"), SubResource("Interaction_old_feedback_archive"), SubResource("Interaction_corrected_manuscript_fragments"), SubResource("Interaction_supplementary_reputation_note"), SubResource("Interaction_defense_video_review"), SubResource("Interaction_draft_patch_stack"), SubResource("Interaction_revision_peer_review"), SubResource("Interaction_repair_energy_snack")])

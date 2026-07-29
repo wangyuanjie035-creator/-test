@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LabCardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/lab_engine/data/lab_card_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"unattended"
+display_name = "夜间无人值守"
+description = "每次灵感 2 → 原始 5；日终有输入时再运行一次"
+slot = 1
+effect = 3
+output_score_level_1 = 5
+output_score_level_2 = 6
+automation_card = true
+build_tags = Array[StringName]([&"automation", &"debt_burst"])
+candidate_tags = Array[StringName]([&"early_producer"])

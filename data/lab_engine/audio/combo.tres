@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="LabAudioCueDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/lab_engine/audio/lab_audio_cue_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"combo"
+frequencies = PackedFloat32Array(620, 780, 980)
+duration = 0.2
+amplitude = 0.2
+volume_db = -8.0
+level_volume_step_db = 1.0
+max_level_boost_db = 3.0

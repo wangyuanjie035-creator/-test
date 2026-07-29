@@ -1,0 +1,115 @@
+[gd_resource type="Resource" script_class="EventDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/event_definition.gd" id="1_event"]
+[ext_resource type="Script" path="res://scripts/data/event_choice_definition.gd" id="2_choice"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="3_effect"]
+
+[sub_resource type="Resource" id="Effect_matrix_methodology"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 3
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_matrix_energy"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 10
+resource = &"energy"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_matrix_fragments"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 2
+resource = &"paper_fragments"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_matrix_card"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"C033"
+
+[sub_resource type="Resource" id="Choice_matrix"]
+script = ExtResource("2_choice")
+id = &"compile_revision_matrix"
+label = "整理返修矩阵"
+preview = "把答辩现场意见整理成可执行清单。恢复 10 精力，获得 3 方法论笔记、2 论文碎片，并将 1 张论文主线图加入牌组。"
+effects = Array[Resource]([SubResource("Effect_matrix_energy"), SubResource("Effect_matrix_methodology"), SubResource("Effect_matrix_fragments"), SubResource("Effect_matrix_card")])
+risk_level = 1
+
+[sub_resource type="Resource" id="Effect_rehearsal_energy"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 8
+resource = &"energy"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_rehearsal_fragment"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"paper_fragments"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_rehearsal_methodology"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_rehearsal_card"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"C035"
+
+[sub_resource type="Resource" id="Choice_rehearsal"]
+script = ExtResource("2_choice")
+id = &"organize_supplementary_rehearsal"
+label = "组织补答辩演练"
+requirement = &"has_1_reputation"
+preview = "需要 1 声望。恢复 8 精力，获得 1 论文碎片和 1 方法论笔记，并将 1 张预答辩演练加入牌组。"
+effects = Array[Resource]([SubResource("Effect_rehearsal_energy"), SubResource("Effect_rehearsal_fragment"), SubResource("Effect_rehearsal_methodology"), SubResource("Effect_rehearsal_card")])
+
+[sub_resource type="Resource" id="Effect_recovery_energy"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 14
+resource = &"energy"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_recovery_lessons"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 4
+resource = &"experience_lessons"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_recovery_methodology"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Choice_recovery"]
+script = ExtResource("2_choice")
+id = &"stabilize_before_revision"
+label = "先保住人再改稿"
+preview = "先把状态从答辩现场拉回来。恢复 14 精力，获得 4 经验教训和 1 方法论笔记。"
+effects = Array[Resource]([SubResource("Effect_recovery_energy"), SubResource("Effect_recovery_lessons"), SubResource("Effect_recovery_methodology")])
+risk_level = 1
+
+[resource]
+script = ExtResource("1_event")
+id = &"E007"
+display_name = "博四返修会"
+stage_min = &"doctor_4"
+description = "答辩没有在这一次完成。导师组和委员会给出一份返修窗口：你需要决定把这次失败沉淀成哪一种下一局也能带走的经验。"
+choices = Array[Resource]([SubResource("Choice_matrix"), SubResource("Choice_rehearsal"), SubResource("Choice_recovery")])
+tags = PackedStringArray("delay", "revision", "doctor_4")

@@ -1,0 +1,161 @@
+[gd_resource type="Resource" script_class="BossDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/boss_definition.gd" id="1_boss"]
+[ext_resource type="Script" path="res://scripts/data/boss_intent_definition.gd" id="2_intent"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="3_effect"]
+
+[sub_resource type="Resource" id="Effect_add_info_overload"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S004"
+
+[sub_resource type="Resource" id="Effect_add_self_doubt"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S010"
+
+[sub_resource type="Resource" id="Effect_add_anxiety"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S002"
+
+[sub_resource type="Resource" id="Effect_add_delay"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S001"
+
+[sub_resource type="Resource" id="Effect_add_dazed"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S005"
+
+[sub_resource type="Resource" id="Effect_spend_paper"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = -1
+resource = &"paper_fragments"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_thesis_progress"]
+script = ExtResource("3_effect")
+effect_type = &"gain_progress"
+amount = 24
+target = &"self"
+
+[sub_resource type="Resource" id="Intent_thesis_claim"]
+script = ExtResource("2_intent")
+id = &"thesis_claim"
+display_name = "博士论文主张追问"
+intent_type = &"check"
+pressure = 0
+condition = &"has_3_paper_fragments"
+success_effects = Array[Resource]([SubResource("Effect_spend_paper"), SubResource("Effect_thesis_progress")])
+failure_effects = Array[Resource]([SubResource("Effect_add_self_doubt")])
+
+[sub_resource type="Resource" id="Intent_committee_vote"]
+script = ExtResource("2_intent")
+id = &"committee_vote"
+display_name = "委员会连续表决"
+intent_type = &"pressure"
+pressure = 16
+condition = &"has_2_reputation"
+failure_effects = Array[Resource]([SubResource("Effect_add_anxiety")])
+
+[sub_resource type="Resource" id="Effect_spend_methodology"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = -1
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_method_progress"]
+script = ExtResource("3_effect")
+effect_type = &"gain_progress"
+amount = 20
+target = &"self"
+
+[sub_resource type="Resource" id="Intent_method_validity"]
+script = ExtResource("2_intent")
+id = &"method_validity"
+display_name = "方法有效性追问"
+intent_type = &"check"
+pressure = 0
+condition = &"has_4_methodology_notes"
+success_effects = Array[Resource]([SubResource("Effect_spend_methodology"), SubResource("Effect_method_progress")])
+failure_effects = Array[Resource]([SubResource("Effect_add_info_overload")])
+
+[sub_resource type="Resource" id="Effect_next_progress_down"]
+script = ExtResource("3_effect")
+effect_type = &"modify_next_progress"
+amount = -6
+target = &"self"
+
+[sub_resource type="Resource" id="Intent_defense_countdown"]
+script = ExtResource("2_intent")
+id = &"defense_countdown"
+display_name = "答辩时间压缩"
+intent_type = &"interference"
+pressure = 10
+effects = Array[Resource]([SubResource("Effect_add_delay"), SubResource("Effect_next_progress_down")])
+
+[sub_resource type="Resource" id="Effect_publication_reputation"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"reputation"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_publication_progress"]
+script = ExtResource("3_effect")
+effect_type = &"gain_progress"
+amount = 14
+target = &"self"
+
+[sub_resource type="Resource" id="Intent_publication_trace"]
+script = ExtResource("2_intent")
+id = &"publication_trace"
+display_name = "成果链核对"
+intent_type = &"check"
+pressure = 0
+condition = &"has_2_paper_fragments"
+success_effects = Array[Resource]([SubResource("Effect_publication_reputation"), SubResource("Effect_publication_progress")])
+failure_effects = Array[Resource]([SubResource("Effect_add_dazed")])
+
+[sub_resource type="Resource" id="Effect_phase_progress"]
+script = ExtResource("3_effect")
+effect_type = &"gain_progress"
+amount = 24
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_phase_raise_target"]
+script = ExtResource("3_effect")
+effect_type = &"modify_target_progress"
+amount = 16
+target = &"self"
+
+[resource]
+script = ExtResource("1_boss")
+id = &"B007"
+display_name = "博士答辩"
+stage = &"doctor_3"
+target_progress = 220
+starting_status_cards = PackedStringArray("S004", "S010", "S002", "S001")
+passive_rules = PackedStringArray("开局将信息过载、自我怀疑、焦虑和拖延加入弃牌堆。", "进度达到 135 时触发一次答辩委员会表决。", "当前博士线终局 Boss，胜利进入博士毕业结算，失败进入答辩延期。")
+intents = Array[Resource]([SubResource("Intent_thesis_claim"), SubResource("Intent_committee_vote"), SubResource("Intent_method_validity"), SubResource("Intent_defense_countdown"), SubResource("Intent_publication_trace")])
+phase_trigger_progress = 135
+phase_condition = &"has_4_paper_fragments_or_2_reputation"
+phase_success_effects = Array[Resource]([SubResource("Effect_phase_progress")])
+phase_failure_effects = Array[Resource]([SubResource("Effect_add_anxiety"), SubResource("Effect_add_self_doubt"), SubResource("Effect_phase_raise_target")])
+phase_event_id = &"doctoral_defense_vote"
+victory_rewards = PackedStringArray("methodology_notes", "paper_fragments", "psychological_resilience")
+failure_result = &"doctoral_defense_delayed"

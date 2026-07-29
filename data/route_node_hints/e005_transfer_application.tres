@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="RouteNodeHintDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/route_node_hint_definition.gd" id="1_hint"]
+
+[resource]
+script = ExtResource("1_hint")
+id = &"E005"
+risk_label = "关键分支"
+reward_tendency = "转博分支"
+accent_color = Color(0.86, 0.70, 0.36, 1)

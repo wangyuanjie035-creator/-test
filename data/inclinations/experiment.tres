@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ResearchInclinationDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/research_inclination_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"experiment"
+display_name = "实验型"
+description = "先拿到可信的数据，再决定论文应该讲什么。"
+rule_text = "每场战斗第一张实验牌：额外获得 1 数据。"
+accent_color = Color(0.43, 0.82, 0.62, 1)
+remove_card_ids = PackedStringArray("C001", "C020")
+add_card_ids = PackedStringArray("C012", "C013")

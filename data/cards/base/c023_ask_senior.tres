@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_discover_action"]
+script = ExtResource("2_effect")
+effect_type = &"discover"
+amount = 1
+target = &"hand"
+tag_filter = &"action"
+
+[sub_resource type="Resource" id="Effect_discover_action_or_skill"]
+script = ExtResource("2_effect")
+effect_type = &"discover"
+amount = 1
+target = &"hand"
+tag_filter = &"action_or_skill"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C023"
+display_name = "请教师兄"
+card_type = &"cooperation"
+rarity = &"starter"
+cost = 1
+tags = PackedStringArray("network", "discover", "cooperation")
+description = "发现 1 张行动牌，本场战斗临时加入手牌。"
+upgraded_description = "发现 1 张行动牌或技能牌，本场战斗临时加入手牌。"
+effects = Array[Resource]([SubResource("Effect_discover_action")])
+upgraded_effects = Array[Resource]([SubResource("Effect_discover_action_or_skill")])

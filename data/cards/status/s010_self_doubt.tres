@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_modify_next_progress"]
+script = ExtResource("2_effect")
+effect_type = &"modify_next_progress"
+amount = -4
+target = &"self"
+
+[resource]
+script = ExtResource("1_card")
+id = &"S010"
+display_name = "自我怀疑"
+card_type = &"status"
+rarity = &"status"
+cost = -1
+tags = PackedStringArray("status")
+description = "抽到时获得的下一次进度 -4，最低为 0。"
+upgraded_description = "抽到时获得的下一次进度 -4，最低为 0。"
+effects = Array[Resource]([SubResource("Effect_modify_next_progress")])

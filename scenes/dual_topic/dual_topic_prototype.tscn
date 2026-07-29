@@ -1,0 +1,260 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/dual_topic/ui/dual_topic_prototype.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/dual_topic/run/dual_topic_session.gd" id="2"]
+[ext_resource type="Theme" path="res://data/dual_topic/ui/dual_topic_theme.tres" id="3"]
+
+[sub_resource type="StyleBoxFlat" id="TopicAStyle"]
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+bg_color = Color(0.055, 0.13, 0.13, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.25, 0.68, 0.58, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="TopicBStyle"]
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+bg_color = Color(0.14, 0.105, 0.055, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.82, 0.57, 0.24, 0.85)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="PhaseStyle"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.045, 0.065, 0.07, 0.98)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.58, 0.47, 0.25, 0.8)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[node name="DualTopicPrototype" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3")
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.035, 0.075, 0.09, 1)
+mouse_filter = 2
+
+[node name="Session" type="Node" parent="."]
+script = ExtResource("2")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 22.0
+offset_top = 18.0
+offset_right = -22.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Layout" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Margin/Layout/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "博三之前 · 双课题决策原型"
+
+[node name="HeaderSpacer" type="Control" parent="Margin/Layout/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WeekLabel" type="Label" parent="Margin/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+
+[node name="ResourceLabel" type="Label" parent="Margin/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+
+[node name="TimelineLabel" type="Label" parent="Margin/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.8, 0.76, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="ArchiveLabel" type="Label" parent="Margin/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.72, 0.38, 1)
+theme_override_font_sizes/font_size = 15
+text = "研究档案 · 尚无跨局成果"
+
+[node name="Main" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 14
+
+[node name="Research" type="VBoxContainer" parent="Margin/Layout/Main"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="RequirementPanel" type="PanelContainer" parent="Margin/Layout/Main/Research"]
+layout_mode = 2
+
+[node name="RequirementLabel" type="Label" parent="Margin/Layout/Main/Research/RequirementPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.77, 0.42, 1)
+theme_override_font_sizes/font_size = 17
+text = "公开要求"
+
+[node name="Topics" type="HBoxContainer" parent="Margin/Layout/Main/Research"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="TopicA" type="PanelContainer" parent="Margin/Layout/Main/Research/Topics"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("TopicAStyle")
+
+[node name="Stack" type="VBoxContainer" parent="Margin/Layout/Main/Research/Topics/TopicA"]
+layout_mode = 2
+
+[node name="TopicAButton" type="Button" parent="Margin/Layout/Main/Research/Topics/TopicA/Stack"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "课题 A"
+
+[node name="TopicABody" type="RichTextLabel" parent="Margin/Layout/Main/Research/Topics/TopicA/Stack"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 225)
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+fit_content = true
+
+[node name="TopicB" type="PanelContainer" parent="Margin/Layout/Main/Research/Topics"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("TopicBStyle")
+
+[node name="Stack" type="VBoxContainer" parent="Margin/Layout/Main/Research/Topics/TopicB"]
+layout_mode = 2
+
+[node name="TopicBButton" type="Button" parent="Margin/Layout/Main/Research/Topics/TopicB/Stack"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "课题 B"
+
+[node name="TopicBBody" type="RichTextLabel" parent="Margin/Layout/Main/Research/Topics/TopicB/Stack"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 225)
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+fit_content = true
+
+[node name="FeedbackLabel" type="Label" parent="Margin/Layout/Main/Research"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "反馈"
+autowrap_mode = 2
+
+[node name="HandTitle" type="Label" parent="Margin/Layout/Main/Research"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "本周方法牌 · 选择目标后使用"
+
+[node name="HandScroll" type="ScrollContainer" parent="Margin/Layout/Main/Research"]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+horizontal_scroll_mode = 2
+vertical_scroll_mode = 0
+
+[node name="HandContainer" type="HBoxContainer" parent="Margin/Layout/Main/Research/HandScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="PhasePanel" type="PanelContainer" parent="Margin/Layout/Main"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("PhaseStyle")
+
+[node name="PhaseMargin" type="MarginContainer" parent="Margin/Layout/Main/PhasePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 14
+
+[node name="PhaseStack" type="VBoxContainer" parent="Margin/Layout/Main/PhasePanel/PhaseMargin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PhaseTitle" type="Label" parent="Margin/Layout/Main/PhasePanel/PhaseMargin/PhaseStack"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "本周研究安排"
+
+[node name="PhaseBody" type="Label" parent="Margin/Layout/Main/PhasePanel/PhaseMargin/PhaseStack"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "说明"
+autowrap_mode = 2
+
+[node name="PhaseActions" type="VBoxContainer" parent="Margin/Layout/Main/PhasePanel/PhaseMargin/PhaseStack"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="EndWeekButton" type="Button" parent="Margin/Layout/Main/PhasePanel/PhaseMargin/PhaseStack"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 54)
+layout_mode = 2
+theme_override_font_sizes/font_size = 19
+text = "结束本周"

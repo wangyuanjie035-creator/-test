@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EncounterDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/encounter_definition.gd" id="1_encounter"]
+
+[resource]
+script = ExtResource("1_encounter")
+id = &"N003"
+display_name = "设备排队"
+stage = &"master_1"
+target_progress = 34
+pressure_per_turn = 5
+intent_name = "窗口期压缩"
+description = "核心设备档期有限，必须趁窗口期推进实验。压力偏低，但容易让实验流派感到节奏紧。"
+victory_rewards = PackedStringArray("C012", "C014", "C015", "C028", "C038")

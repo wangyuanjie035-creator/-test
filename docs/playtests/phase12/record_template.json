@@ -1,0 +1,47 @@
+{
+	"schema_version": 1,
+	"test_id": "P12-EXT-001",
+	"sample_type": "external_first_exposure",
+	"participant_id": "",
+	"seed": 0,
+	"topic_id": "",
+	"candidate_ids": [],
+	"eligible_non_experiment": [],
+	"evidence": {
+		"choice_screen": "",
+		"chosen_state_snapshot": "",
+		"day_one_result": "",
+		"event_log": ""
+	},
+	"timing": {
+		"interface_ready_unix_ms": 0,
+		"first_confirm_unix_ms": 0,
+		"decision_ms": 0,
+		"source": "automatic"
+	},
+	"unprompted": {
+		"chosen_card_id": "",
+		"player_words": "",
+		"spontaneous_comparison": "",
+		"acceptable_alternative": "",
+		"confidence_1_to_5": 0
+	},
+	"neutral_follow_up": {
+		"noticed_differences": "",
+		"expected_outcome": ""
+	},
+	"structured_follow_up": {
+		"used": false,
+		"immediate_expectation": "",
+		"day_three_four_expectation": ""
+	},
+	"researcher_summary": "",
+	"actual_day_one_result": "",
+	"expectation_match": "unscored",
+	"blind_coding": {
+		"coder_a": {},
+		"coder_b": {},
+		"resolved": false,
+		"resolution": ""
+	}
+}

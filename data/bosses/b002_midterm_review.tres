@@ -1,0 +1,119 @@
+[gd_resource type="Resource" script_class="BossDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/boss_definition.gd" id="1_boss"]
+[ext_resource type="Script" path="res://scripts/data/boss_intent_definition.gd" id="2_intent"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="3_effect"]
+
+[sub_resource type="Resource" id="Intent_progress_report"]
+script = ExtResource("2_intent")
+id = &"progress_report"
+display_name = "汇报进展"
+intent_type = &"pressure"
+pressure = 8
+
+[sub_resource type="Resource" id="Effect_spend_data"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = -1
+resource = &"data"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_data_check_progress"]
+script = ExtResource("3_effect")
+effect_type = &"gain_progress"
+amount = 12
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_add_irreproducible"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S003"
+
+[sub_resource type="Resource" id="Intent_data_authenticity"]
+script = ExtResource("2_intent")
+id = &"data_authenticity"
+display_name = "数据真实性检查"
+intent_type = &"check"
+pressure = 0
+condition = &"has_data"
+success_effects = Array[Resource]([SubResource("Effect_spend_data"), SubResource("Effect_data_check_progress")])
+failure_effects = Array[Resource]([SubResource("Effect_add_irreproducible")])
+
+[sub_resource type="Resource" id="Effect_add_delay"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S001"
+
+[sub_resource type="Resource" id="Intent_timeline_question"]
+script = ExtResource("2_intent")
+id = &"timeline_question"
+display_name = "时间表追问"
+intent_type = &"pressure"
+pressure = 10
+condition = &"has_2_draft"
+failure_effects = Array[Resource]([SubResource("Effect_add_delay")])
+
+[sub_resource type="Resource" id="Effect_add_anxiety"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S002"
+
+[sub_resource type="Resource" id="Intent_horizontal_compare"]
+script = ExtResource("2_intent")
+id = &"horizontal_compare"
+display_name = "横向比较"
+intent_type = &"interference"
+pressure = 6
+effects = Array[Resource]([SubResource("Effect_add_anxiety")])
+
+[sub_resource type="Resource" id="Effect_gain_reputation"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"reputation"
+target = &"self"
+
+[sub_resource type="Resource" id="Intent_material_spot_check"]
+script = ExtResource("2_intent")
+id = &"material_spot_check"
+display_name = "阶段材料抽查"
+intent_type = &"check"
+pressure = 0
+condition = &"gained_2_data_and_3_draft"
+success_effects = Array[Resource]([SubResource("Effect_gain_reputation")])
+failure_effects = Array[Resource]([SubResource("Effect_add_delay")])
+
+[sub_resource type="Resource" id="Effect_phase_progress"]
+script = ExtResource("3_effect")
+effect_type = &"gain_progress"
+amount = 8
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_phase_raise_target"]
+script = ExtResource("3_effect")
+effect_type = &"modify_target_progress"
+amount = 8
+target = &"self"
+
+[resource]
+script = ExtResource("1_boss")
+id = &"B002"
+display_name = "中期考核"
+stage = &"master_2"
+target_progress = 95
+starting_status_cards = PackedStringArray("S005")
+passive_rules = PackedStringArray("开局将 1 张恍惚加入弃牌堆。", "进度达到 50 时进行一次专家组建议检查。")
+intents = Array[Resource]([SubResource("Intent_progress_report"), SubResource("Intent_data_authenticity"), SubResource("Intent_timeline_question"), SubResource("Intent_horizontal_compare"), SubResource("Intent_material_spot_check")])
+phase_trigger_progress = 50
+phase_condition = &"gained_2_data_or_3_draft"
+phase_success_effects = Array[Resource]([SubResource("Effect_gain_reputation"), SubResource("Effect_phase_progress")])
+phase_failure_effects = Array[Resource]([SubResource("Effect_add_anxiety"), SubResource("Effect_phase_raise_target")])
+phase_event_id = &"midterm_panel_advice"
+victory_rewards = PackedStringArray("methodology_notes", "paper_fragments")
+failure_result = &"midterm_warning"

@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_block"]
+script = ExtResource("2_effect")
+effect_type = &"gain_block"
+amount = 4
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_progress_if_funded"]
+script = ExtResource("2_effect")
+effect_type = &"gain_progress"
+amount = 5
+target = &"self"
+condition = &"has_2_funds"
+
+[sub_resource type="Resource" id="Effect_upgraded_block"]
+script = ExtResource("2_effect")
+effect_type = &"gain_block"
+amount = 6
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_progress_if_funded"]
+script = ExtResource("2_effect")
+effect_type = &"gain_progress"
+amount = 7
+target = &"self"
+condition = &"has_2_funds"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C034"
+display_name = "项目排期表"
+card_type = &"skill"
+rarity = &"doctoral"
+cost = 0
+tags = PackedStringArray("doctor", "project", "funds", "block")
+description = "获得 4 防护；若有至少 2 经费，获得 5 进度。"
+upgraded_description = "获得 6 防护；若有至少 2 经费，获得 7 进度。"
+effects = Array[Resource]([SubResource("Effect_block"), SubResource("Effect_progress_if_funded")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_block"), SubResource("Effect_upgraded_progress_if_funded")])

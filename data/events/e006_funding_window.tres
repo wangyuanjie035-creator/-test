@@ -1,0 +1,150 @@
+[gd_resource type="Resource" script_class="EventDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/event_definition.gd" id="1_event"]
+[ext_resource type="Script" path="res://scripts/data/event_choice_definition.gd" id="2_choice"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="3_effect"]
+
+[sub_resource type="Resource" id="Effect_grant_spend_methodology"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = -1
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_grant_lose_energy"]
+script = ExtResource("3_effect")
+effect_type = &"lose_energy"
+amount = 5
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_grant_funds"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 3
+resource = &"funds"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_grant_reputation"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"reputation"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_grant_fragment"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"paper_fragments"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_grant_anxiety"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S002"
+
+[sub_resource type="Resource" id="Choice_grant"]
+script = ExtResource("2_choice")
+id = &"rush_young_grant"
+label = "冲刺青年基金"
+requirement = &"has_3_methodology_notes_or_2_paper_fragments"
+preview = "需要 3 方法论笔记或 2 论文碎片。消耗 1 方法论笔记，失去 5 精力，获得 3 经费、1 声望、1 论文碎片，并将 1 张焦虑加入牌组。"
+effects = Array[Resource]([SubResource("Effect_grant_spend_methodology"), SubResource("Effect_grant_lose_energy"), SubResource("Effect_grant_funds"), SubResource("Effect_grant_reputation"), SubResource("Effect_grant_fragment"), SubResource("Effect_grant_anxiety")])
+risk_level = 2
+
+[sub_resource type="Resource" id="Effect_paper_fragment"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 2
+resource = &"paper_fragments"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_paper_card"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"C007"
+
+[sub_resource type="Resource" id="Choice_paper"]
+script = ExtResource("2_choice")
+id = &"protect_paper_pipeline"
+label = "先保论文管线"
+requirement = &"has_2_paper_fragments"
+preview = "需要 2 论文碎片。获得 2 论文碎片，并将 1 张润色摘要加入牌组。"
+effects = Array[Resource]([SubResource("Effect_paper_fragment"), SubResource("Effect_paper_card")])
+
+[sub_resource type="Resource" id="Effect_project_funds"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 2
+resource = &"funds"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_project_methodology"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_project_card"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"C012"
+
+[sub_resource type="Resource" id="Effect_project_overload"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S004"
+
+[sub_resource type="Resource" id="Choice_project"]
+script = ExtResource("2_choice")
+id = &"take_horizontal_project"
+label = "接一个横向项目"
+preview = "获得 2 经费和 1 方法论笔记，将 1 张样本制备和 1 张信息过载加入牌组。"
+effects = Array[Resource]([SubResource("Effect_project_funds"), SubResource("Effect_project_methodology"), SubResource("Effect_project_card"), SubResource("Effect_project_overload")])
+risk_level = 1
+
+[sub_resource type="Resource" id="Effect_delay_lessons"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 2
+resource = &"experience_lessons"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_delay_methodology"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_delay_energy"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 3
+resource = &"energy"
+target = &"self"
+
+[sub_resource type="Resource" id="Choice_delay"]
+script = ExtResource("2_choice")
+id = &"delay_application"
+label = "暂缓申请"
+preview = "恢复 3 精力，获得 2 经验教训和 1 方法论笔记。"
+effects = Array[Resource]([SubResource("Effect_delay_energy"), SubResource("Effect_delay_lessons"), SubResource("Effect_delay_methodology")])
+
+[resource]
+script = ExtResource("1_event")
+id = &"E006"
+display_name = "基金申请窗口"
+stage_min = &"doctor_2"
+description = "博二刚开始，院里提醒青年基金和横向项目都到了窗口期。你可以争取资源，也可以先稳住论文管线。"
+choices = Array[Resource]([SubResource("Choice_grant"), SubResource("Choice_paper"), SubResource("Choice_project"), SubResource("Choice_delay")])
+tags = PackedStringArray("funding", "project", "doctor_2")

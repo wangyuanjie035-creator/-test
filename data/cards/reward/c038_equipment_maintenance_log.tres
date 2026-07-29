@@ -1,0 +1,77 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_block"]
+script = ExtResource("2_effect")
+effect_type = &"gain_block"
+amount = 4
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_data_if_funded"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"data"
+target = &"self"
+condition = &"has_funds"
+
+[sub_resource type="Resource" id="Effect_methodology_if_funded"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"methodology_notes"
+target = &"self"
+condition = &"has_funds"
+
+[sub_resource type="Resource" id="Effect_spend_funds"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = -1
+resource = &"funds"
+target = &"self"
+condition = &"has_funds"
+
+[sub_resource type="Resource" id="Effect_upgraded_block"]
+script = ExtResource("2_effect")
+effect_type = &"gain_block"
+amount = 6
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_data_if_funded"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"data"
+target = &"self"
+condition = &"has_funds"
+
+[sub_resource type="Resource" id="Effect_upgraded_methodology_if_funded"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 2
+resource = &"methodology_notes"
+target = &"self"
+condition = &"has_funds"
+
+[sub_resource type="Resource" id="Effect_upgraded_spend_funds"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = -1
+resource = &"funds"
+target = &"self"
+condition = &"has_funds"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C038"
+display_name = "设备维护记录"
+card_type = &"skill"
+rarity = &"common"
+cost = 1
+tags = PackedStringArray("equipment", "funds", "methodology", "data")
+description = "获得 4 防护；若有经费，消耗 1 经费，获得 1 数据和 1 方法论笔记。"
+upgraded_description = "获得 6 防护；若有经费，消耗 1 经费，获得 1 数据和 2 方法论笔记。"
+effects = Array[Resource]([SubResource("Effect_block"), SubResource("Effect_data_if_funded"), SubResource("Effect_methodology_if_funded"), SubResource("Effect_spend_funds")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_block"), SubResource("Effect_upgraded_data_if_funded"), SubResource("Effect_upgraded_methodology_if_funded"), SubResource("Effect_upgraded_spend_funds")])

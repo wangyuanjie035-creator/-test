@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_progress"]
+script = ExtResource("2_effect")
+effect_type = &"gain_progress"
+amount = 7
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_reputation_if_data"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"reputation"
+target = &"self"
+condition = &"has_data"
+
+[sub_resource type="Resource" id="Effect_upgraded_progress"]
+script = ExtResource("2_effect")
+effect_type = &"gain_progress"
+amount = 10
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_reputation_if_data"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"reputation"
+target = &"self"
+condition = &"has_data"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C025"
+display_name = "组会汇报"
+card_type = &"action"
+rarity = &"common"
+cost = 1
+tags = PackedStringArray("mentor", "reputation")
+description = "获得 7 进度；若有数据，获得 1 声望。"
+upgraded_description = "获得 10 进度；若有数据，获得 1 声望。"
+effects = Array[Resource]([SubResource("Effect_progress"), SubResource("Effect_reputation_if_data")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_progress"), SubResource("Effect_upgraded_reputation_if_data")])

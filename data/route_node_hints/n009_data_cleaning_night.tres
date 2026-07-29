@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="RouteNodeHintDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/route_node_hint_definition.gd" id="1_hint"]
+
+[resource]
+script = ExtResource("1_hint")
+id = &"N009"
+reward_tendency = "数据 / 复现"
+accent_color = Color(0.46, 0.72, 0.92, 1)
+experiment_focus_weight = 9
+experiment_noise_weight = 8
+funds_weight = 2
+paper_focus_weight = 4
+paper_fragments_weight = 3

@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_gain_draft"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 2
+resource = &"draft"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_upgraded_gain_draft"]
+script = ExtResource("2_effect")
+effect_type = &"gain_resource"
+amount = 3
+resource = &"draft"
+target = &"self"
+
+[resource]
+script = ExtResource("1_card")
+id = &"C006"
+display_name = "写草稿"
+card_type = &"action"
+rarity = &"starter"
+cost = 1
+tags = PackedStringArray("draft")
+description = "获得 2 草稿。"
+upgraded_description = "获得 3 草稿。"
+effects = Array[Resource]([SubResource("Effect_gain_draft")])
+upgraded_effects = Array[Resource]([SubResource("Effect_upgraded_gain_draft")])

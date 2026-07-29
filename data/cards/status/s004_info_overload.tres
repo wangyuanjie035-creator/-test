@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="CardDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/card_definition.gd" id="1_card"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_discard"]
+script = ExtResource("2_effect")
+effect_type = &"discard"
+amount = 1
+target = &"hand"
+
+[resource]
+script = ExtResource("1_card")
+id = &"S004"
+display_name = "信息过载"
+card_type = &"status"
+rarity = &"status"
+cost = -1
+tags = PackedStringArray("status")
+description = "抽到时弃 1 张牌。"
+upgraded_description = "抽到时弃 1 张牌。"
+effects = Array[Resource]([SubResource("Effect_discard")])

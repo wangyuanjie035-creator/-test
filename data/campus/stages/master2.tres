@@ -1,0 +1,237 @@
+[gd_resource type="Resource" script_class="CampusStageDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/campus_stage_definition.gd" id="1_stage"]
+[ext_resource type="Script" path="res://scripts/data/campus_interaction_definition.gd" id="2_interaction"]
+
+[sub_resource type="Resource" id="Interaction_data_cleaning_night"]
+script = ExtResource("2_interaction")
+id = &"data_cleaning_night"
+display_name = "数据清洗夜"
+interaction_kind = &"encounter"
+route_node_id = &"N009"
+position = Vector2(1220, 330)
+jitter_radius = 14
+accent_color = Color(0.42, 0.76, 0.88, 1)
+
+[sub_resource type="Resource" id="Interaction_submission_rehearsal"]
+script = ExtResource("2_interaction")
+id = &"submission_rehearsal"
+display_name = "截稿前复盘"
+interaction_kind = &"encounter"
+route_node_id = &"N004"
+position = Vector2(630, 318)
+jitter_radius = 14
+accent_color = Color(0.88, 0.62, 0.38, 1)
+
+[sub_resource type="Resource" id="Interaction_replication_alarm"]
+script = ExtResource("2_interaction")
+id = &"replication_alarm"
+display_name = "设备复现警报"
+interaction_kind = &"event"
+route_node_id = &"E003"
+position = Vector2(1360, 334)
+jitter_radius = 12
+accent_color = Color(0.82, 0.44, 0.4, 1)
+
+[sub_resource type="Resource" id="Interaction_transfer_office"]
+script = ExtResource("2_interaction")
+id = &"transfer_office"
+display_name = "转博申请窗口"
+interaction_kind = &"event"
+route_node_id = &"E005"
+position = Vector2(780, 810)
+jitter_radius = 12
+marker_state = &"story_key"
+accent_color = Color(0.78, 0.54, 0.82, 1)
+
+[sub_resource type="Resource" id="Interaction_midterm_room"]
+script = ExtResource("2_interaction")
+id = &"midterm_room"
+display_name = "中期考核"
+interaction_kind = &"boss"
+route_node_id = &"B002"
+position = Vector2(1260, 836)
+jitter_radius = 10
+marker_state = &"boss_available"
+accent_color = Color(0.82, 0.36, 0.3, 1)
+
+[sub_resource type="Resource" id="Interaction_blind_review_room"]
+script = ExtResource("2_interaction")
+id = &"blind_review_room"
+display_name = "盲审专家"
+interaction_kind = &"boss"
+route_node_id = &"B003"
+position = Vector2(1376, 828)
+jitter_radius = 10
+marker_state = &"boss_available"
+accent_color = Color(0.72, 0.38, 0.48, 1)
+
+[sub_resource type="Resource" id="Interaction_replication_data_pack"]
+script = ExtResource("2_interaction")
+id = &"replication_data_pack"
+display_name = "复现数据包"
+interaction_kind = &"resource"
+resource_id = &"data"
+resource_amount = 2
+position = Vector2(1160, 236)
+jitter_radius = 12
+accent_color = Color(0.52, 0.86, 0.66, 1)
+
+[sub_resource type="Resource" id="Interaction_archived_draft_stack"]
+script = ExtResource("2_interaction")
+id = &"archived_draft_stack"
+display_name = "归档草稿"
+interaction_kind = &"resource"
+resource_id = &"draft"
+resource_amount = 2
+position = Vector2(580, 236)
+jitter_radius = 12
+accent_color = Color(0.92, 0.78, 0.42, 1)
+
+[sub_resource type="Resource" id="Interaction_review_reputation_note"]
+script = ExtResource("2_interaction")
+id = &"review_reputation_note"
+display_name = "送审口碑"
+interaction_kind = &"resource"
+resource_id = &"reputation"
+resource_amount = 1
+position = Vector2(300, 824)
+jitter_radius = 12
+accent_color = Color(0.74, 0.7, 0.92, 1)
+
+[sub_resource type="Resource" id="Interaction_paper_fragments_pinboard"]
+script = ExtResource("2_interaction")
+id = &"paper_fragments_pinboard"
+display_name = "论文碎片墙"
+interaction_kind = &"resource"
+resource_id = &"paper_fragments"
+resource_amount = 1
+position = Vector2(688, 820)
+jitter_radius = 12
+accent_color = Color(0.88, 0.84, 0.62, 1)
+
+[sub_resource type="Resource" id="Interaction_preprint_discussion"]
+script = ExtResource("2_interaction")
+id = &"preprint_discussion"
+display_name = "预印本争论"
+interaction_kind = &"encounter"
+route_node_id = &"N002"
+content_tags = Array[StringName]([&"peer", &"library", &"writing", &"encounter"])
+position = Vector2(496, 338)
+jitter_radius = 14
+accent_color = Color(0.44, 0.66, 0.9, 1)
+
+[sub_resource type="Resource" id="Interaction_review_checklist"]
+script = ExtResource("2_interaction")
+id = &"review_checklist"
+display_name = "送审清单"
+interaction_kind = &"resource"
+resource_id = &"methodology_notes"
+resource_amount = 1
+content_tags = Array[StringName]([&"advisor", &"writing", &"method", &"resource"])
+position = Vector2(884, 646)
+jitter_radius = 12
+accent_color = Color(0.86, 0.84, 0.48, 1)
+
+[sub_resource type="Resource" id="Interaction_advisor_review_slot"]
+script = ExtResource("2_interaction")
+id = &"advisor_review_slot"
+display_name = "导师送审排期"
+interaction_kind = &"event"
+route_node_id = &"E008"
+content_tags = Array[StringName]([&"advisor", &"writing", &"meeting", &"event"])
+position = Vector2(820, 792)
+jitter_radius = 12
+accent_color = Color(0.78, 0.54, 0.82, 1)
+
+[sub_resource type="Resource" id="Interaction_equipment_benchmark_room"]
+script = ExtResource("2_interaction")
+id = &"equipment_benchmark_room"
+display_name = "设备基准测试"
+interaction_kind = &"encounter"
+route_node_id = &"N003"
+content_tags = Array[StringName]([&"equipment", &"lab", &"data", &"encounter"])
+position = Vector2(1320, 320)
+jitter_radius = 14
+accent_color = Color(0.42, 0.76, 0.88, 1)
+
+[sub_resource type="Resource" id="Interaction_committee_precheck_note"]
+script = ExtResource("2_interaction")
+id = &"committee_precheck_note"
+display_name = "委员会预审意见"
+interaction_kind = &"resource"
+resource_id = &"reputation"
+resource_amount = 1
+content_tags = Array[StringName]([&"committee", &"advisor", &"writing", &"resource"])
+position = Vector2(1040, 820)
+jitter_radius = 12
+accent_color = Color(0.74, 0.7, 0.92, 1)
+
+[sub_resource type="Resource" id="Interaction_draft_version_control"]
+script = ExtResource("2_interaction")
+id = &"draft_version_control"
+display_name = "草稿版本库"
+interaction_kind = &"encounter"
+route_node_id = &"N004"
+content_tags = Array[StringName]([&"draft", &"writing", &"paper_fragments", &"encounter"])
+position = Vector2(620, 300)
+jitter_radius = 14
+accent_color = Color(0.88, 0.62, 0.38, 1)
+
+[sub_resource type="Resource" id="Interaction_review_storyboard_wall"]
+script = ExtResource("2_interaction")
+id = &"master2_review_storyboard_wall"
+display_name = "盲审叙事墙"
+interaction_kind = &"encounter"
+route_node_id = &"N004"
+content_tags = Array[StringName]([&"writing", &"committee", &"paper_fragments", &"encounter"])
+position = Vector2(704, 760)
+jitter_radius = 14
+accent_color = Color(0.88, 0.62, 0.38, 1)
+
+[sub_resource type="Resource" id="Interaction_replication_lab_log"]
+script = ExtResource("2_interaction")
+id = &"master2_replication_lab_log"
+display_name = "复现实验日志"
+interaction_kind = &"resource"
+resource_id = &"data"
+resource_amount = 1
+content_tags = Array[StringName]([&"data", &"equipment", &"lab", &"resource"])
+position = Vector2(1276, 244)
+jitter_radius = 12
+accent_color = Color(0.52, 0.86, 0.66, 1)
+
+[sub_resource type="Resource" id="Interaction_transfer_peer_roundtable"]
+script = ExtResource("2_interaction")
+id = &"master2_transfer_peer_roundtable"
+display_name = "转博同门圆桌"
+interaction_kind = &"event"
+route_node_id = &"E005"
+content_tags = Array[StringName]([&"peer", &"advisor", &"committee", &"event"])
+position = Vector2(430, 642)
+jitter_radius = 12
+accent_color = Color(0.78, 0.54, 0.82, 1)
+
+[sub_resource type="Resource" id="Interaction_reviewer_response_draft"]
+script = ExtResource("2_interaction")
+id = &"master2_reviewer_response_draft"
+display_name = "审稿回复草稿"
+interaction_kind = &"resource"
+resource_id = &"draft"
+resource_amount = 1
+content_tags = Array[StringName]([&"draft", &"writing", &"committee", &"resource"])
+position = Vector2(540, 820)
+jitter_radius = 12
+accent_color = Color(0.92, 0.78, 0.42, 1)
+
+[resource]
+script = ExtResource("1_stage")
+id = &"master2"
+display_name = "研二"
+debug_label = "研二"
+sort_order = 20
+generation_focus_tags = Array[StringName]([&"data", &"draft", &"writing", &"advisor", &"committee", &"equipment", &"paper_fragments"])
+generation_required_tags = Array[StringName]([&"data", &"draft", &"writing", &"advisor", &"committee", &"resource", &"event", &"boss"])
+generation_theme_ids = Array[StringName]([&"writing_day", &"experiment_day", &"committee_day", &"transfer_day", &"advisor_day"])
+generation_candidate_interactions = Array[Resource]([SubResource("Interaction_data_cleaning_night"), SubResource("Interaction_submission_rehearsal"), SubResource("Interaction_replication_alarm"), SubResource("Interaction_transfer_office"), SubResource("Interaction_midterm_room"), SubResource("Interaction_blind_review_room"), SubResource("Interaction_replication_data_pack"), SubResource("Interaction_archived_draft_stack"), SubResource("Interaction_review_reputation_note"), SubResource("Interaction_paper_fragments_pinboard"), SubResource("Interaction_preprint_discussion"), SubResource("Interaction_review_checklist"), SubResource("Interaction_advisor_review_slot"), SubResource("Interaction_equipment_benchmark_room"), SubResource("Interaction_committee_precheck_note"), SubResource("Interaction_draft_version_control"), SubResource("Interaction_review_storyboard_wall"), SubResource("Interaction_replication_lab_log"), SubResource("Interaction_transfer_peer_roundtable"), SubResource("Interaction_reviewer_response_draft")])
+interactions = Array[Resource]([SubResource("Interaction_data_cleaning_night"), SubResource("Interaction_submission_rehearsal"), SubResource("Interaction_replication_alarm"), SubResource("Interaction_transfer_office"), SubResource("Interaction_midterm_room"), SubResource("Interaction_blind_review_room"), SubResource("Interaction_replication_data_pack"), SubResource("Interaction_archived_draft_stack"), SubResource("Interaction_review_reputation_note"), SubResource("Interaction_paper_fragments_pinboard"), SubResource("Interaction_preprint_discussion"), SubResource("Interaction_review_checklist")])

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ResearchTopicArchetype" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/topic_pool/data/research_topic_archetype.gd" id="1"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/baseline_failure.tres" id="2"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/data_shift.tres" id="3"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/argument_gap.tres" id="4"]
+[ext_resource type="Resource" path="res://data/dual_topic/risks/theory_gap.tres" id="5"]
+
+[resource]
+script = ExtResource("1")
+id = &"baseline_reproduction"
+display_name = "复现公开基线"
+premise = "从已有成果出发，验证方法能否在本地数据和设备上成立。"
+discipline = &"computer_science"
+tags = PackedStringArray("复现", "稳健")
+difficulty_tier = 0
+base_potential = 0
+base_risk_count = 1
+base_reward = 1
+min_deadline_weeks = 4
+max_deadline_weeks = 6
+special_rule = &"reproduction_bonus"
+risk_pool = Array[Resource]([ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5")])

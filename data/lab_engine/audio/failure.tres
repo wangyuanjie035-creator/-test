@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LabAudioCueDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/lab_engine/audio/lab_audio_cue_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"failure"
+frequencies = PackedFloat32Array(190, 145)
+duration = 0.16
+amplitude = 0.2
+volume_db = -8.0

@@ -1,0 +1,110 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/topic_pool/ui/dynamic_topic_entry.gd" id="1"]
+[ext_resource type="Theme" path="res://data/dual_topic/ui/dual_topic_theme.tres" id="2"]
+
+[node name="DynamicTopicEntry" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2")
+script = ExtResource("1")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.035, 0.075, 0.09, 1)
+mouse_filter = 2
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 22
+
+[node name="Layout" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Header" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Margin/Layout/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 28
+text = "研究档案桌 · 课题立项"
+
+[node name="SeedLabel" type="Label" parent="Margin/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Seed"
+
+[node name="ArchiveButton" type="Button" parent="Margin/Layout"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "归档完成 · 返回候选课题"
+
+[node name="ChoiceArea" type="VBoxContainer" parent="Margin/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="InstructionLabel" type="Label" parent="Margin/Layout/ChoiceArea"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.61, 0.82, 0.86, 1)
+theme_override_font_sizes/font_size = 18
+text = "选择一个候选课题"
+autowrap_mode = 2
+
+[node name="WindowLabel" type="Label" parent="Margin/Layout/ChoiceArea"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.86, 0.69, 0.35, 1)
+theme_override_font_sizes/font_size = 22
+text = "第 1 / 3 周期 · 春季工作坊"
+
+[node name="YearSummaryLabel" type="Label" parent="Margin/Layout/ChoiceArea"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.82, 1)
+theme_override_font_sizes/font_size = 16
+text = "研究窗口与学年档案"
+autowrap_mode = 2
+
+[node name="CandidateScroll" type="ScrollContainer" parent="Margin/Layout/ChoiceArea"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="CandidateGrid" type="GridContainer" parent="Margin/Layout/ChoiceArea/CandidateScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 14
+theme_override_constants/v_separation = 14
+columns = 3
+
+[node name="CycleHost" type="Control" parent="Margin/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3

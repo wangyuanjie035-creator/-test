@@ -1,0 +1,136 @@
+[gd_resource type="Resource" script_class="EventDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/event_definition.gd" id="1_event"]
+[ext_resource type="Script" path="res://scripts/data/event_choice_definition.gd" id="2_choice"]
+[ext_resource type="Script" path="res://scripts/data/effect_definition.gd" id="3_effect"]
+
+[sub_resource type="Resource" id="Effect_transfer_fragment"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"paper_fragments"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_transfer_reputation"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"reputation"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_transfer_self_doubt"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"S010"
+
+[sub_resource type="Resource" id="Choice_transfer"]
+script = ExtResource("2_choice")
+id = &"transfer_journal"
+label = "转投稳妥期刊"
+preview = "获得 1 论文碎片和 1 声望，将 1 张自我怀疑加入牌组。"
+effects = Array[Resource]([SubResource("Effect_transfer_fragment"), SubResource("Effect_transfer_reputation"), SubResource("Effect_transfer_self_doubt")])
+risk_level = 1
+
+[sub_resource type="Resource" id="Effect_revise_spend_draft"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = -2
+resource = &"draft"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_revise_progress"]
+script = ExtResource("3_effect")
+effect_type = &"gain_progress"
+amount = 8
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_revise_fragment"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"paper_fragments"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_revise_card"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"C007"
+
+[sub_resource type="Resource" id="Choice_revise"]
+script = ExtResource("2_choice")
+id = &"major_revision"
+label = "大修重投"
+requirement = &"has_2_draft"
+preview = "消耗 2 草稿，获得 8 进度和 1 论文碎片，将 1 张润色摘要加入牌组。"
+effects = Array[Resource]([SubResource("Effect_revise_spend_draft"), SubResource("Effect_revise_progress"), SubResource("Effect_revise_fragment"), SubResource("Effect_revise_card")])
+risk_level = 1
+
+[sub_resource type="Resource" id="Effect_reframe_spend_inspiration"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = -2
+resource = &"inspiration"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_reframe_remove_self_doubt"]
+script = ExtResource("3_effect")
+effect_type = &"remove_status"
+amount = 1
+target = &"discard"
+card_id = &"S010"
+
+[sub_resource type="Resource" id="Effect_reframe_methodology"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 1
+resource = &"methodology_notes"
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_reframe_card"]
+script = ExtResource("3_effect")
+effect_type = &"add_card_to_deck"
+amount = 1
+target = &"deck"
+card_id = &"C004"
+
+[sub_resource type="Resource" id="Choice_reframe"]
+script = ExtResource("2_choice")
+id = &"reframe_story"
+label = "换一个叙事角度"
+requirement = &"has_2_inspiration"
+preview = "消耗 2 灵感，尝试移除 1 张自我怀疑，获得 1 方法论笔记，将 1 张整理笔记加入牌组。"
+effects = Array[Resource]([SubResource("Effect_reframe_spend_inspiration"), SubResource("Effect_reframe_remove_self_doubt"), SubResource("Effect_reframe_methodology"), SubResource("Effect_reframe_card")])
+
+[sub_resource type="Resource" id="Effect_breakdown_energy"]
+script = ExtResource("3_effect")
+effect_type = &"lose_energy"
+amount = 4
+target = &"self"
+
+[sub_resource type="Resource" id="Effect_breakdown_lessons"]
+script = ExtResource("3_effect")
+effect_type = &"gain_resource"
+amount = 2
+resource = &"experience_lessons"
+target = &"self"
+
+[sub_resource type="Resource" id="Choice_breakdown"]
+script = ExtResource("2_choice")
+id = &"breakdown_day"
+label = "破防一天"
+preview = "失去 4 精力，获得 2 经验教训。"
+effects = Array[Resource]([SubResource("Effect_breakdown_energy"), SubResource("Effect_breakdown_lessons")])
+risk_level = 2
+
+[resource]
+script = ExtResource("1_event")
+id = &"E004"
+display_name = "论文被拒"
+stage_min = &"master_2"
+description = "邮箱里弹出新邮件，标题只有几个字：Decision on your manuscript。"
+choices = Array[Resource]([SubResource("Choice_transfer"), SubResource("Choice_revise"), SubResource("Choice_reframe"), SubResource("Choice_breakdown")])
+tags = PackedStringArray("paper", "setback")

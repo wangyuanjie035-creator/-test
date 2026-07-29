@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DualTopicRiskDefinition" format=3]
+
+[ext_resource type="Script" path="res://scripts/dual_topic/data/dual_topic_risk_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"theory_gap"
+display_name = "理论依据薄弱"
+kind = 0
+description = "核心假设缺少足够可靠的理论支撑。"
