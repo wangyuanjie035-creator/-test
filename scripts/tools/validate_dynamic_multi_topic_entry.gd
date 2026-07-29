@@ -23,7 +23,9 @@ func _run() -> void:
 		return
 	(grid.get_child(0) as Button).pressed.emit()
 	await process_frame
-	(grid.get_child(0) as Button).pressed.emit()
+	# The selected topic remains visible at index 0 so the player can undo it.
+	# Pick the next candidate rather than toggling the first selection off.
+	(grid.get_child(1) as Button).pressed.emit()
 	await process_frame
 	if entry.portfolio.active_topics.size() != 2:
 		_fail("The entry desk did not retain two selected topics.")

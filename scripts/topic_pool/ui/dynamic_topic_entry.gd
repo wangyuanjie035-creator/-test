@@ -101,6 +101,16 @@ func _get_generation_context_tags() -> PackedStringArray:
 func _refresh_candidate_cards() -> void:
 	for child: Node in candidate_grid.get_children():
 		child.queue_free()
+	for candidate: ResearchTopicCandidate in portfolio.active_topics:
+		var selected_card := Button.new()
+		selected_card.custom_minimum_size = Vector2(320.0, 250.0)
+		selected_card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		selected_card.focus_mode = Control.FOCUS_ALL
+		selected_card.text = "✓ 已立项｜点击撤回选择\n%s" % _candidate_card_text(candidate)
+		selected_card.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		selected_card.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		selected_card.pressed.connect(_deselect_candidate.bind(candidate.candidate_id))
+		candidate_grid.add_child(selected_card)
 	for candidate: ResearchTopicCandidate in portfolio.candidates:
 		var card := Button.new()
 		card.custom_minimum_size = Vector2(320.0, 250.0)
@@ -131,6 +141,27 @@ func _select_candidate(candidate_id: StringName) -> void:
 	archive_button.visible = true
 	_refresh_candidate_cards()
 	archive_button.grab_focus()
+
+
+func _deselect_candidate(candidate_id: StringName) -> void:
+	var selection: Dictionary = portfolio.deselect_candidate(candidate_id)
+	if not bool(selection.get("success", false)):
+		instruction_label.text = "无法撤回立项选择：%s" % selection.get("reason", &"unknown")
+		return
+	if portfolio.active_topics.is_empty():
+		current_candidate_id = &""
+		instruction_label.text = "尚未立项。请选择一个课题，再比较是否开启第二课题。"
+		archive_button.visible = false
+	else:
+		current_candidate_id = portfolio.active_topics[0].candidate_id
+		instruction_label.text = "已选 %d/%d 个课题。%s" % [
+			portfolio.active_topics.size(),
+			portfolio.slot_capacity,
+			_selection_relation_text(),
+		]
+		archive_button.text = "开始研究周期（%d 个课题）" % portfolio.active_topics.size()
+		archive_button.visible = true
+	_refresh_candidate_cards()
 
 
 func _begin_selected_cycle() -> void:

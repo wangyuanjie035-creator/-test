@@ -36,6 +36,20 @@ func select_candidate(candidate_id: StringName) -> Dictionary:
 	}
 
 
+func deselect_candidate(candidate_id: StringName) -> Dictionary:
+	var active_index: int = _find_active_index(candidate_id)
+	if active_index < 0:
+		return {"success": false, "reason": &"active_topic_not_found"}
+	var deselected: ResearchTopicCandidate = active_topics.pop_at(active_index)
+	candidates.append(deselected)
+	return {
+		"success": true,
+		"candidate_id": deselected.candidate_id,
+		"active_count": active_topics.size(),
+		"free_slots": get_free_slot_count(),
+	}
+
+
 func archive_active_topic(candidate_id: StringName, result: Dictionary) -> Dictionary:
 	var active_index: int = _find_active_index(candidate_id)
 	if active_index < 0:
