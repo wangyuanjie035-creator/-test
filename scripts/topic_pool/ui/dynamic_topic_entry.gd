@@ -61,7 +61,13 @@ func _start_candidate_round() -> void:
 	if not generator.setup(run_seed, growth_rank, typed_archetypes):
 		instruction_label.text = "候选课题生成失败。"
 		return
+	generator.configure_context(_get_generation_context_tags())
 	var candidates: Array[ResearchTopicCandidate] = generator.generate_candidates()
+	if candidates.size() < ResearchTopicGenerator.MIN_CANDIDATES:
+		instruction_label.text = "当前能力与方法无法形成合法课题组合。%s" % (
+			"；".join(generator.generation_diagnostics)
+		)
+		return
 	var capacity := 2 if growth_rank >= 1 else 1
 	portfolio = ResearchPortfolioModel.new()
 	portfolio.setup(candidates, capacity)
@@ -77,6 +83,13 @@ func _start_candidate_round() -> void:
 	archive_button.visible = false
 	last_cycle_result.clear()
 	_refresh_candidate_cards()
+
+
+func _get_generation_context_tags() -> PackedStringArray:
+	var tags := PackedStringArray()
+	if growth_rank >= 2:
+		tags.append("advanced_equipment")
+	return tags
 
 
 func _refresh_candidate_cards() -> void:
