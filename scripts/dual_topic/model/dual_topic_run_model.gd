@@ -1278,7 +1278,7 @@ func _apply_method_effect(
 			if topic != null and topic.evidence >= 3:
 				result["bonus_completion"] = topic.add_completion(1, effect_id)
 		&"synthesis":
-			if topic != null and _count_revealed_risks(topic) >= 2:
+			if topic != null and _are_all_risks_revealed(topic):
 				result["bonus_evidence"] = topic.add_evidence(1, effect_id)
 		&"milestone":
 			if topic != null and topic.evidence >= 4:
@@ -1323,6 +1323,13 @@ func _count_revealed_risks(topic: DualTopicState) -> int:
 		if risk.knowledge_state != DualTopicRiskState.KnowledgeState.UNKNOWN:
 			count += 1
 	return count
+
+
+func _are_all_risks_revealed(topic: DualTopicState) -> bool:
+	return (
+		not topic.risks.is_empty()
+		and _count_revealed_risks(topic) == topic.risks.size()
+	)
 
 
 func _count_unknown_risks(topic: DualTopicState) -> int:
