@@ -118,7 +118,14 @@ func _refresh_phase_panel() -> void:
 		_show_submission()
 	else:
 		phase_title.text = "本周研究安排"
-		phase_body.text = "%s\n选择课题 A/B，再使用方法牌。手牌不合适时可使用低效基础行动；基础行动不触发卡牌效果或专精。" % session.get_method_mastery_summary()
+		phase_body.text = (
+			"%s\n%s\n"
+			+ "选择课题 A/B，再使用方法牌。手牌不合适时可使用低效基础行动；"
+			+ "基础行动不触发卡牌效果、专精或周期机会规则。"
+		) % [
+			session.get_academic_cycle_rule_summary(),
+			session.get_method_mastery_summary(),
+		]
 		_show_basic_actions()
 		_show_blocked_card_cycle()
 		_show_portfolio_actions()

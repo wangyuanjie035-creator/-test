@@ -38,6 +38,8 @@ var carryover_history: Array[Dictionary] = []
 var carryover_applied: bool = false
 var opening_modifier_applied: bool = false
 var opening_modifier_history: Array[Dictionary] = []
+var academic_cycle_rule_id: StringName = &""
+var academic_rule_triggered_weeks: Dictionary[int, bool] = {}
 var method_category_uses: Array[int] = [0, 0, 0, 0, 0]
 var cooperation_result_count: int = 0
 var cross_topic_synergy_count: int = 0
@@ -81,6 +83,8 @@ func setup(run_seed: int, topic_definitions: Array[DualTopicDefinition]) -> bool
 	carryover_applied = false
 	opening_modifier_applied = false
 	opening_modifier_history.clear()
+	academic_cycle_rule_id = &""
+	academic_rule_triggered_weeks.clear()
 	method_category_uses = [0, 0, 0, 0, 0]
 	cooperation_result_count = 0
 	cross_topic_synergy_count = 0
@@ -152,6 +156,7 @@ func apply_opening_modifier(
 			break
 		risks_revealed += 1
 	action_points += action_points_gain
+	academic_cycle_rule_id = StringName(modifier.get("cycle_rule_id", &""))
 	opening_modifier_applied = true
 	var record: Dictionary = {
 		"id": StringName(modifier.get("id", &"")),
@@ -160,6 +165,7 @@ func apply_opening_modifier(
 		"completion_gain": completion_gain,
 		"risks_revealed": risks_revealed,
 		"summary": String(modifier.get("summary", "")),
+		"cycle_rule_id": academic_cycle_rule_id,
 	}
 	opening_modifier_history.append(record.duplicate(true))
 	return {"success": true, "record": record}
@@ -290,12 +296,87 @@ func perform_method_card(
 	if card.category == DualTopicMethodCardDefinition.Category.COLLABORATION:
 		cooperation_result_count += 1
 	_apply_method_mastery(card.category, topic, result)
+	_apply_academic_cycle_rule(card, topic, result)
 	result["card_id"] = card.id
 	result["category"] = int(card.category)
 	result["category_uses"] = method_category_uses[card.category]
 	if not action_history.is_empty():
 		action_history[action_history.size() - 1] = result.duplicate(true)
 	return result
+
+
+func get_academic_cycle_rule_summary() -> String:
+	match academic_cycle_rule_id:
+		&"collaboration_rhythm":
+			return "周期规则 · 协作节奏：每周首次组织或协作方法返还 1 行动。"
+		&"industry_milestone":
+			return "周期规则 · 产业里程碑：每周首次完成受控实验，完成度 +1。"
+		&"prototype_learning":
+			return "周期规则 · 原型学习：每周首次盲试、异常或失败转为证据 +1、完成度 +1。"
+		_:
+			return "周期规则 · 本周期没有外部机会加成。"
+
+
+func _apply_academic_cycle_rule(
+	card: DualTopicMethodCardDefinition,
+	topic: DualTopicState,
+	result: Dictionary
+) -> void:
+	if academic_cycle_rule_id == &"" or academic_rule_triggered_weeks.has(week):
+		return
+	match academic_cycle_rule_id:
+		&"collaboration_rhythm":
+			if card.category not in [
+				DualTopicMethodCardDefinition.Category.ORGANIZATION,
+				DualTopicMethodCardDefinition.Category.COLLABORATION,
+			]:
+				return
+			action_points += 1
+			result["academic_rule_action_refund"] = 1
+			result["academic_rule_text"] = "协作节奏触发：返还 1 行动。"
+		&"industry_milestone":
+			if (
+				topic == null
+				or card.category != DualTopicMethodCardDefinition.Category.EXPERIMENT
+				or StringName(result.get("outcome", &"")) not in [
+					&"normal",
+					&"anomaly",
+					&"failed",
+				]
+			):
+				return
+			var completion_gain: int = topic.add_completion(
+				1,
+				&"industry_milestone"
+			)
+			result["academic_rule_completion"] = completion_gain
+			result["academic_rule_text"] = "产业里程碑触发：完成度 +%d。" % completion_gain
+		&"prototype_learning":
+			if (
+				topic == null
+				or card.category != DualTopicMethodCardDefinition.Category.EXPERIMENT
+				or StringName(result.get("outcome", &"")) not in [
+					&"blind_probe",
+					&"anomaly",
+					&"failed",
+				]
+			):
+				return
+			var evidence_gain: int = topic.add_evidence(1, &"prototype_learning")
+			var completion_gain: int = topic.add_completion(
+				1,
+				&"prototype_learning"
+			)
+			result["academic_rule_evidence"] = evidence_gain
+			result["academic_rule_completion"] = completion_gain
+			result["academic_rule_text"] = (
+				"原型学习触发：证据 +%d、完成度 +%d。"
+				% [evidence_gain, completion_gain]
+			)
+		_:
+			return
+	academic_rule_triggered_weeks[week] = true
+	result["action_points_left"] = action_points
 
 
 func can_perform_basic_action(

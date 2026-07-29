@@ -388,6 +388,12 @@ func get_method_mastery_summary() -> String:
 	return run_model.get_method_mastery_summary()
 
 
+func get_academic_cycle_rule_summary() -> String:
+	if run_model == null:
+		return ""
+	return run_model.get_academic_cycle_rule_summary()
+
+
 func get_action_failure_text(reason: StringName) -> String:
 	return _action_failure_text(reason)
 
@@ -561,6 +567,9 @@ func _action_result_text(result: Dictionary) -> String:
 	var special_feedback := _special_rule_feedback(result)
 	if not special_feedback.is_empty():
 		outcome += "\n" + special_feedback
+	var academic_rule_text: String = String(result.get("academic_rule_text", ""))
+	if not academic_rule_text.is_empty():
+		outcome += "\n" + academic_rule_text
 	return "「%s」已作用于课题 %s：%s" % [
 		card_id,
 		"A" if selected_topic_index == 0 else "B",
