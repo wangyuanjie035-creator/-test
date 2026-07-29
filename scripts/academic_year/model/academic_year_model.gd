@@ -64,6 +64,11 @@ func get_cycle_start_pressure() -> int:
 	return mini(MAX_PRESSURE, carried_pressure + window.pressure_on_entry)
 
 
+func add_transition_pressure(amount: int) -> int:
+	carried_pressure = clampi(carried_pressure + maxi(0, amount), 0, MAX_PRESSURE)
+	return carried_pressure
+
+
 func get_growth_rank() -> int:
 	return clampi(cycle_index, 0, 2)
 

@@ -31,7 +31,13 @@ const ROUTE_PRESENTER := preload(
 @onready var year_summary_label: Label = %YearSummaryLabel
 @onready var calibration_row: HBoxContainer = %CalibrationRow
 @onready var information_level_option: OptionButton = %InformationLevelOption
+@onready var candidate_scroll: ScrollContainer = %CandidateScroll
 @onready var candidate_grid: GridContainer = %CandidateGrid
+@onready var opportunity_panel: PanelContainer = %OpportunityPanel
+@onready var opportunity_title: Label = %OpportunityTitle
+@onready var opportunity_description: Label = %OpportunityDescription
+@onready var accept_opportunity_button: Button = %AcceptOpportunityButton
+@onready var reject_opportunity_button: Button = %RejectOpportunityButton
 @onready var choice_area: Control = %ChoiceArea
 @onready var cycle_host: Control = %CycleHost
 @onready var archive_button: Button = %ArchiveButton
@@ -51,6 +57,8 @@ var candidate_information_level: ResearchTopicCandidatePresenter.InformationLeve
 
 func _ready() -> void:
 	archive_button.pressed.connect(_on_primary_button_pressed)
+	accept_opportunity_button.pressed.connect(_resolve_opportunity.bind(true))
+	reject_opportunity_button.pressed.connect(_resolve_opportunity.bind(false))
 	_setup_information_calibration()
 	year_session = ACADEMIC_YEAR_SESSION.new() as AcademicYearSession
 	add_child(year_session)
@@ -87,6 +95,9 @@ func _on_information_level_selected(index: int) -> void:
 func _start_candidate_round() -> void:
 	cycle_host.visible = false
 	choice_area.visible = true
+	opportunity_panel.visible = false
+	calibration_row.visible = show_information_calibration
+	candidate_scroll.visible = true
 	if year_session != null and year_session.phase == AcademicYearSession.Phase.ARCHIVE_DESK:
 		var begun: Dictionary = year_session.begin_current_cycle()
 		if not bool(begun.get("success", false)):
@@ -287,8 +298,46 @@ func _return_to_archive() -> void:
 	if bool(transition.get("year_finished", false)):
 		_show_year_ending(Dictionary(transition.get("ending", {})))
 		return
+	if bool(transition.get("opportunity_pending", false)):
+		_show_opportunity(Dictionary(transition.get("opportunity", {})))
+		return
 	_apply_current_cycle_context()
 	instruction_label.text = "上一周期成果已进入档案。请选择下一投稿窗口的研究课题。"
+	_start_candidate_round()
+
+
+func _show_opportunity(opportunity: Dictionary) -> void:
+	opportunity_panel.visible = true
+	calibration_row.visible = false
+	candidate_scroll.visible = false
+	archive_button.visible = false
+	window_label.text = "周期机会 · 是否为下一阶段承担额外投入"
+	opportunity_title.text = String(opportunity.get("display_name", "学术机会"))
+	opportunity_description.text = "%s\n\n公开代价：下一周期压力 +%d\n可能收获：%s" % [
+		String(opportunity.get("description", "")),
+		int(opportunity.get("pressure_cost", 0)),
+		String(opportunity.get("public_effect_text", "")),
+	]
+	instruction_label.text = "机会不是免费奖励：接受会改变下一周期开局，放弃则保留当前节奏。"
+	accept_opportunity_button.grab_focus()
+
+
+func _resolve_opportunity(accepted: bool) -> void:
+	var result: Dictionary = year_session.resolve_opportunity(accepted)
+	if not bool(result.get("success", false)):
+		instruction_label.text = "无法处理周期机会：%s" % result.get("reason", &"unknown")
+		return
+	var decision: Dictionary = result.get("decision", {})
+	_apply_cycle_context(Dictionary(result.get("context", {})))
+	if accepted:
+		instruction_label.text = "已接受“%s”：下一周期压力 +%d。现在选择课题。" % [
+			opportunity_title.text,
+			int(decision.get("pressure_cost", 0)),
+		]
+	else:
+		instruction_label.text = "已放弃“%s”：不增加下一周期压力。现在选择课题。" % (
+			opportunity_title.text
+		)
 	_start_candidate_round()
 
 
