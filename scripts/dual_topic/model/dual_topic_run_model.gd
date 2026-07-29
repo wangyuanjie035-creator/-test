@@ -33,6 +33,9 @@ var final_legacy: Dictionary = {}
 var carryover_history: Array[Dictionary] = []
 var carryover_applied: bool = false
 var method_category_uses: Array[int] = [0, 0, 0, 0, 0]
+var cooperation_result_count: int = 0
+var cross_topic_synergy_count: int = 0
+var converted_failure_asset_count: int = 0
 var review_revision_used: bool = false
 var transferred_venue: bool = false
 var _double_down_triggered_topics: Dictionary[int, bool] = {}
@@ -67,6 +70,9 @@ func setup(run_seed: int, topic_definitions: Array[DualTopicDefinition]) -> bool
 	carryover_history.clear()
 	carryover_applied = false
 	method_category_uses = [0, 0, 0, 0, 0]
+	cooperation_result_count = 0
+	cross_topic_synergy_count = 0
+	converted_failure_asset_count = 0
 	review_revision_used = false
 	transferred_venue = false
 	_double_down_triggered_topics.clear()
@@ -216,6 +222,8 @@ func perform_method_card(
 		topic = topics[topic_index]
 	_apply_method_effect(card.effect_id, topic, result)
 	method_category_uses[card.category] += 1
+	if card.category == DualTopicMethodCardDefinition.Category.COLLABORATION:
+		cooperation_result_count += 1
 	_apply_method_mastery(card.category, topic, result)
 	result["card_id"] = card.id
 	result["category"] = int(card.category)
@@ -251,6 +259,8 @@ func resolve_run(mode: StringName, topic_index: int = -1) -> Dictionary:
 			diagnosis = _diagnose_failure(topic)
 		review_comments = _build_review_comments(topic_index, topic, diagnosis)
 	final_legacy = _create_final_legacy(mode, grade, topic_index, topic, diagnosis)
+	if mode == &"withdraw" or grade == &"failed":
+		converted_failure_asset_count += 1
 	final_resolution = {
 		"success": true,
 		"mode": mode,
@@ -269,6 +279,7 @@ func resolve_run(mode: StringName, topic_index: int = -1) -> Dictionary:
 		),
 		"submission_route": &"transferred" if transferred_venue else &"original",
 		"special_rule": topic.definition.special_rule,
+		"cooperation_trajectory": get_cooperation_trajectory(),
 	}
 	final_resolved = true
 	return final_resolution.duplicate(true)
@@ -835,6 +846,7 @@ func to_debug_dict() -> Dictionary:
 		"carryover_history": carryover_history.duplicate(true),
 		"carryover_applied": carryover_applied,
 		"method_category_uses": method_category_uses.duplicate(),
+		"cooperation_trajectory": get_cooperation_trajectory(),
 		"review_revision_used": review_revision_used,
 		"transferred_venue": transferred_venue,
 		"midterm_resolved": midterm_resolved,
@@ -842,6 +854,14 @@ func to_debug_dict() -> Dictionary:
 		"final_resolved": final_resolved,
 		"final_resolution": final_resolution.duplicate(true),
 		"final_legacy": final_legacy.duplicate(true),
+	}
+
+
+func get_cooperation_trajectory() -> Dictionary:
+	return {
+		"cooperation_results": cooperation_result_count,
+		"cross_topic_synergies": cross_topic_synergy_count,
+		"converted_failure_assets": converted_failure_asset_count,
 	}
 
 
@@ -1121,6 +1141,7 @@ func _apply_cross_topic_synergy(topic_index: int, result: Dictionary) -> void:
 	if shared_gain <= 0:
 		return
 	_synergy_triggered_weeks[week] = true
+	cross_topic_synergy_count += 1
 	result["synergy_evidence"] = shared_gain
 	result["synergy_target_index"] = other_index
 	result["synergy_tags"] = get_shared_synergy_tags()
