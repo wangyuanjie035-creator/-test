@@ -90,6 +90,28 @@ theme_override_font_sizes/font_size = 16
 text = "研究窗口与学年档案"
 autowrap_mode = 2
 
+[node name="CalibrationRow" type="HBoxContainer" parent="Margin/Layout/ChoiceArea"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CalibrationLabel" type="Label" parent="Margin/Layout/ChoiceArea/CalibrationRow"]
+layout_mode = 2
+text = "开发校准｜风险信息"
+
+[node name="InformationLevelOption" type="OptionButton" parent="Margin/Layout/ChoiceArea/CalibrationRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 40)
+layout_mode = 2
+focus_mode = 2
+
+[node name="CalibrationHint" type="Label" parent="Margin/Layout/ChoiceArea/CalibrationRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.61, 0.82, 0.86, 1)
+text = "同一 Seed 与候选，仅切换公开信息量；正式默认：平衡"
+autowrap_mode = 2
+
 [node name="CandidateScroll" type="ScrollContainer" parent="Margin/Layout/ChoiceArea"]
 layout_mode = 2
 size_flags_vertical = 3

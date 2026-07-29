@@ -22,12 +22,15 @@ const ROUTE_PRESENTER := preload(
 
 @export var run_seed: int = 240731
 @export_range(0, 3, 1) var growth_rank: int = 0
+@export var show_information_calibration: bool = true
 
 @onready var seed_label: Label = %SeedLabel
 @onready var header: Control = $Margin/Layout/Header
 @onready var instruction_label: Label = %InstructionLabel
 @onready var window_label: Label = %WindowLabel
 @onready var year_summary_label: Label = %YearSummaryLabel
+@onready var calibration_row: HBoxContainer = %CalibrationRow
+@onready var information_level_option: OptionButton = %InformationLevelOption
 @onready var candidate_grid: GridContainer = %CandidateGrid
 @onready var choice_area: Control = %ChoiceArea
 @onready var cycle_host: Control = %CycleHost
@@ -41,15 +44,44 @@ var pending_cycle_assets: Array[Dictionary] = []
 var last_cycle_result: Dictionary = {}
 var current_route_id: StringName = &"single"
 var year_finished: bool = false
+var candidate_information_level: ResearchTopicCandidatePresenter.InformationLevel = (
+	ResearchTopicCandidatePresenter.InformationLevel.BALANCED
+)
 
 
 func _ready() -> void:
 	archive_button.pressed.connect(_on_primary_button_pressed)
+	_setup_information_calibration()
 	year_session = ACADEMIC_YEAR_SESSION.new() as AcademicYearSession
 	add_child(year_session)
 	year_session.start_academic_year(run_seed)
 	_apply_current_cycle_context()
 	_start_candidate_round()
+
+
+func _setup_information_calibration() -> void:
+	calibration_row.visible = show_information_calibration
+	information_level_option.clear()
+	information_level_option.add_item(
+		"遮蔽",
+		ResearchTopicCandidatePresenter.InformationLevel.VEILED
+	)
+	information_level_option.add_item(
+		"平衡（正式默认）",
+		ResearchTopicCandidatePresenter.InformationLevel.BALANCED
+	)
+	information_level_option.add_item(
+		"引导",
+		ResearchTopicCandidatePresenter.InformationLevel.GUIDED
+	)
+	information_level_option.select(1)
+	information_level_option.item_selected.connect(_on_information_level_selected)
+
+
+func _on_information_level_selected(index: int) -> void:
+	candidate_information_level = information_level_option.get_item_id(index)
+	if portfolio != null:
+		_refresh_candidate_cards()
 
 
 func _start_candidate_round() -> void:
@@ -406,4 +438,7 @@ func _selection_relation_text() -> String:
 
 
 func _candidate_card_text(candidate: ResearchTopicCandidate) -> String:
-	return CANDIDATE_PRESENTER.format_candidate_card(candidate)
+	return CANDIDATE_PRESENTER.format_candidate_card(
+		candidate,
+		candidate_information_level
+	)
