@@ -16,6 +16,9 @@ const ACADEMIC_YEAR_SESSION := preload(
 const CANDIDATE_PRESENTER := preload(
 	"res://scripts/topic_pool/ui/research_topic_candidate_presenter.gd"
 )
+const ROUTE_PRESENTER := preload(
+	"res://scripts/topic_pool/ui/research_portfolio_route_presenter.gd"
+)
 
 @export var run_seed: int = 240731
 @export_range(0, 3, 1) var growth_rank: int = 0
@@ -368,17 +371,7 @@ func _route_text(route_id: StringName) -> String:
 
 
 func _selection_relation_text() -> String:
-	if portfolio.active_topics.size() < 2:
-		return "可以直接开始单课题路线，也可以再选一个课题。"
-	var first: ResearchTopicCandidate = portfolio.active_topics[0]
-	var second: ResearchTopicCandidate = portfolio.active_topics[1]
-	var shared := PackedStringArray()
-	for tag: String in first.archetype.tags:
-		if second.archetype.tags.has(tag):
-			shared.append(tag)
-	if shared.is_empty():
-		return "组合冲突：两个课题无共享标签，每周压力 +1。"
-	return "组合协同：共享“%s”；每周首次产出证据时，另一课题证据 +1。" % "、".join(shared)
+	return ROUTE_PRESENTER.format_route_profile(portfolio.active_topics)
 
 
 func _candidate_card_text(candidate: ResearchTopicCandidate) -> String:
