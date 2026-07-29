@@ -115,10 +115,36 @@ func _refresh_phase_panel() -> void:
 		_show_submission()
 	else:
 		phase_title.text = "本周研究安排"
-		phase_body.text = "%s\n选择课题 A/B，再使用方法牌。连续投入同类方法会形成专精；未使用的机会不会保留。" % session.get_method_mastery_summary()
+		phase_body.text = "%s\n选择课题 A/B，再使用方法牌。手牌不合适时可使用低效基础行动；基础行动不触发卡牌效果或专精。" % session.get_method_mastery_summary()
+		_show_basic_actions()
 		_show_portfolio_actions()
 		end_week_button.visible = true
 		end_week_button.disabled = false
+
+
+func _show_basic_actions() -> void:
+	var row := HBoxContainer.new()
+	var organize := Button.new()
+	organize.text = "整理现有材料（基础）"
+	organize.tooltip_text = "消耗 1 行动和 1 精力；获得少量证据或完成度，不触发卡牌效果与专精。"
+	organize.disabled = not session.can_play_basic_action(
+		DualTopicRunModel.ActionType.ORGANIZE
+	)
+	organize.pressed.connect(
+		session.play_basic_action.bind(DualTopicRunModel.ActionType.ORGANIZE)
+	)
+	row.add_child(organize)
+	var recover := Button.new()
+	recover.text = "喘口气（基础）"
+	recover.tooltip_text = "消耗 1 行动，恢复精力或缓解压力。"
+	recover.disabled = not session.can_play_basic_action(
+		DualTopicRunModel.ActionType.RECOVER
+	)
+	recover.pressed.connect(
+		session.play_basic_action.bind(DualTopicRunModel.ActionType.RECOVER)
+	)
+	row.add_child(recover)
+	phase_actions.add_child(row)
 
 
 func _show_portfolio_actions() -> void:

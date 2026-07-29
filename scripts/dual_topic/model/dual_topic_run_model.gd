@@ -247,6 +247,42 @@ func perform_method_card(
 	return result
 
 
+func can_perform_basic_action(
+	action_type: ActionType,
+	topic_index: int = -1
+) -> bool:
+	if action_points <= 0 or final_resolved:
+		return false
+	match action_type:
+		ActionType.ORGANIZE:
+			return (
+				energy > 0
+				and topic_index >= 0
+				and topic_index < topics.size()
+				and not topics[topic_index].is_closed
+				and not frozen_topic_indices.get(topic_index, false)
+			)
+		ActionType.RECOVER:
+			return energy < MAX_ENERGY or pressure > 0
+		_:
+			return false
+
+
+func perform_basic_action(
+	action_type: ActionType,
+	topic_index: int = -1
+) -> Dictionary:
+	if not can_perform_basic_action(action_type, topic_index):
+		return _failed_action(&"basic_action_unavailable")
+	var result: Dictionary = perform_action(action_type, topic_index)
+	if not bool(result.get("success", false)):
+		return result
+	result["basic_action"] = true
+	if not action_history.is_empty():
+		action_history[action_history.size() - 1] = result.duplicate(true)
+	return result
+
+
 func resolve_run(mode: StringName, topic_index: int = -1) -> Dictionary:
 	if week != MAX_WEEKS:
 		return {"success": false, "reason": &"not_final_week"}

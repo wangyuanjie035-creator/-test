@@ -90,6 +90,34 @@ func play_hand_card(hand_index: int) -> void:
 	state_changed.emit()
 
 
+func play_basic_action(action_type: DualTopicRunModel.ActionType) -> void:
+	if not can_play_actions():
+		feedback_changed.emit("请先完成当前阶段的必要决策。", true)
+		return
+	var topic_index: int = -1
+	if action_type == DualTopicRunModel.ActionType.ORGANIZE:
+		topic_index = _get_basic_action_topic_index()
+	var result: Dictionary = run_model.perform_basic_action(action_type, topic_index)
+	if not bool(result.get("success", false)):
+		feedback_changed.emit(_action_failure_text(result.get("reason", &"unknown")), true)
+		state_changed.emit()
+		return
+	if topic_index >= 0:
+		selected_topic_index = topic_index
+		topic_investments[topic_index] += 1
+	feedback_changed.emit("基础行动 · %s" % _action_result_text(result), false)
+	state_changed.emit()
+
+
+func can_play_basic_action(action_type: DualTopicRunModel.ActionType) -> bool:
+	if not can_play_actions():
+		return false
+	var topic_index: int = -1
+	if action_type == DualTopicRunModel.ActionType.ORGANIZE:
+		topic_index = _get_basic_action_topic_index()
+	return run_model.can_perform_basic_action(action_type, topic_index)
+
+
 func freeze_topic_for_week(topic_index: int) -> void:
 	if not can_play_actions():
 		return
@@ -351,6 +379,23 @@ func can_play_actions() -> bool:
 func _draw_week_hand() -> void:
 	var draw_count: int = 5 - run_model.get_draw_penalty()
 	method_deck.draw_week_hand(draw_count)
+
+
+func _get_basic_action_topic_index() -> int:
+	if (
+		selected_topic_index >= 0
+		and selected_topic_index < run_model.topics.size()
+		and not run_model.topics[selected_topic_index].is_closed
+		and not run_model.frozen_topic_indices.get(selected_topic_index, false)
+	):
+		return selected_topic_index
+	for index: int in range(run_model.topics.size()):
+		if (
+			not run_model.topics[index].is_closed
+			and not run_model.frozen_topic_indices.get(index, false)
+		):
+			return index
+	return -1
 
 
 func _catalog_as_resources() -> Array[Resource]:
