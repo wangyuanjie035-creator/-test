@@ -499,6 +499,9 @@ func _action_failure_text(reason: StringName) -> String:
 func _action_result_text(result: Dictionary) -> String:
 	var card_id: String = String(result.get("card_id", "方法"))
 	var outcome: String = _outcome_text(StringName(result.get("outcome", &"")))
+	var risk_feedback := _risk_reveal_feedback(result)
+	if not risk_feedback.is_empty():
+		outcome += "\n" + risk_feedback
 	var special_feedback := _special_rule_feedback(result)
 	if not special_feedback.is_empty():
 		outcome += "\n" + special_feedback
@@ -507,6 +510,35 @@ func _action_result_text(result: Dictionary) -> String:
 		"A" if selected_topic_index == 0 else "B",
 		outcome,
 	]
+
+
+func _risk_reveal_feedback(result: Dictionary) -> String:
+	if result.get("outcome", &"") != &"risk_identified":
+		return ""
+	var risk_name := String(result.get("risk_name", "未知问题"))
+	var tier_names: Array[String] = ["低", "中", "高"]
+	var tier: int = clampi(int(result.get("tier", 0)), 0, tier_names.size() - 1)
+	var route_hint: String
+	match int(result.get("risk_kind", -1)):
+		DualTopicRiskDefinition.RiskKind.THEORY:
+			route_hint = "优先继续调查或组织论证，再决定是否试验"
+		DualTopicRiskDefinition.RiskKind.DATA:
+			route_hint = "优先复现、共享协议或外部评审"
+		DualTopicRiskDefinition.RiskKind.TECHNICAL:
+			route_hint = "优先进行受控试验，避免直接写作兑现"
+		DualTopicRiskDefinition.RiskKind.EXPRESSION:
+			route_hint = "优先整理证据并补足写作结构"
+		_:
+			route_hint = "根据当前方法牌决定继续验证或止损"
+	var submission_effect := (
+		"未处理将阻断投稿"
+		if bool(result.get("submission_blocked", false))
+		else "验证后可继续推进投稿"
+	)
+	return (
+		"新发现：「%s」· %s风险；%s。\n"
+		+ "继续：%s；现在止损：保留风险认知。"
+	) % [risk_name, tier_names[tier], submission_effect, route_hint]
 
 
 func _special_rule_feedback(result: Dictionary) -> String:

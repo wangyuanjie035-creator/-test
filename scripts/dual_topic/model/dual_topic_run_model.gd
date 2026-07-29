@@ -1021,7 +1021,11 @@ func _perform_investigate(topic: DualTopicState) -> Dictionary:
 		"success": true,
 		"outcome": &"risk_identified",
 		"risk_id": risk.definition.id,
+		"risk_name": risk.definition.display_name,
+		"risk_kind": int(risk.definition.kind),
 		"tier": risk.tier,
+		"submission_blocked": risk.is_high_unhandled(),
+		"withdrawal_asset": &"risk_insight",
 	}
 
 
