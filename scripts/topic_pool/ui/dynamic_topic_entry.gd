@@ -13,6 +13,9 @@ const CYCLE_ADAPTER := preload(
 const ACADEMIC_YEAR_SESSION := preload(
 	"res://scripts/academic_year/run/academic_year_session.gd"
 )
+const CANDIDATE_PRESENTER := preload(
+	"res://scripts/topic_pool/ui/research_topic_candidate_presenter.gd"
+)
 
 @export var run_seed: int = 240731
 @export_range(0, 3, 1) var growth_rank: int = 0
@@ -379,42 +382,4 @@ func _selection_relation_text() -> String:
 
 
 func _candidate_card_text(candidate: ResearchTopicCandidate) -> String:
-	var tier_names: Array[String] = ["常规", "进阶", "前沿", "禁区"]
-	var potential_names: Array[String] = ["普通", "进阶", "前沿", "突破"]
-	var tags := "、".join(candidate.archetype.tags)
-	return (
-		"%s\n\n%s\n\n难度：%s    潜力：%s\n"
-		+ "风险槽：%d    窗口：%d 周\n预期收益：%d\n标签：%s\n\n%s"
-	) % [
-		candidate.archetype.display_name,
-		candidate.archetype.premise,
-		tier_names[candidate.archetype.difficulty_tier],
-		potential_names[candidate.potential],
-		candidate.risks.size(),
-		candidate.deadline_weeks,
-		candidate.reward,
-		tags,
-		_special_rule_text(candidate.special_rule),
-	]
-
-
-func _special_rule_text(rule_id: StringName) -> String:
-	match rule_id:
-		&"reproduction_bonus":
-			return "特性：首次正常复现额外获得证据。"
-		&"negative_result_asset":
-			return "特性：首次异常或失败也能转化为证据。"
-		&"scarce_data":
-			return "特性：调查本身会产生证据。"
-		&"cross_domain":
-			return "特性：中期转向时保留完成度。"
-		&"pipeline_engine":
-			return "特性：前期实验更耗精力，后期吞吐更高。"
-		&"multi_source":
-			return "特性：正常结果收益更高，异常冲突增加压力。"
-		&"indivisible_hypothesis":
-			return "特性：高收益，但不能安全拆分。"
-		&"deployment_exposure":
-			return "特性：未调查风险会在周末增加压力。"
-		_:
-			return "特性：标准研究流程。"
+	return CANDIDATE_PRESENTER.format_candidate_card(candidate)
