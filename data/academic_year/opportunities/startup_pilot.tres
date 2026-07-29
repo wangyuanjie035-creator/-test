@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="AcademicOpportunityDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/academic_year/data/academic_opportunity_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"startup_pilot"
+display_name = "失败成果试点"
+description = "有人愿意把未发表的失败资产改造成小型试点。风险更高，但它不要求你先证明论文成功。"
+minimum_completed_cycles = 2
+minimum_failure_assets = 1
+preferred_routes = PackedStringArray("conflict", "single")
+next_cycle_pressure_cost = 2
+effect_id = &"failure_asset_pilot"
+destination_signal = &"independent"
+public_effect_text = "下一周期压力 +2；把一项失败资产转成自主路线信号。"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AcademicOpportunityDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/academic_year/data/academic_opportunity_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"industry_interview"
+display_name = "产业研发面试"
+description = "成果引起企业研发团队注意。准备面试会挤压研究时间，但可能打开稳定就业路线。"
+minimum_completed_cycles = 1
+minimum_prestige = 1
+next_cycle_pressure_cost = 1
+effect_id = &"industry_window"
+destination_signal = &"stable_employment"
+public_effect_text = "下一周期压力 +1；记录一次产业机会并开放工程类线索。"

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AcademicOpportunityDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/academic_year/data/academic_opportunity_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"lab_collaboration"
+display_name = "跨组合作邀请"
+description = "另一课题组愿意共享一条方法线，但沟通会挤占下一周期的注意力。"
+minimum_completed_cycles = 1
+next_cycle_pressure_cost = 1
+effect_id = &"cooperation_opening"
+destination_signal = &"network"
+public_effect_text = "下一周期压力 +1；获得一次合作路线开局机会。"
