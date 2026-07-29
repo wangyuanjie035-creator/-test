@@ -394,13 +394,16 @@ func _show_final_result(result: Dictionary) -> void:
 	var diagnosis: Dictionary = result.get("diagnosis", {})
 	var review_text := _review_comments_text(result.get("review_comments", []))
 	var legacy: Dictionary = result.get("legacy", {})
+	var tendency: Dictionary = result.get("build_tendency", {})
 	var topic_index: int = int(result.get("topic_index", 0))
 	var topic_name: String = session.run_model.topics[topic_index].definition.display_name
-	phase_body.text = "课题：%s\n公开要求：%s\n主因：%s\n\n%s\n\n带走：%s\n档案已更新：%s\n\n本局路线\n%s\n\n%s" % [
+	phase_body.text = "课题：%s\n公开要求：%s\n主因：%s\n\n%s\n\n构筑倾向：%s\n%s\n\n带走：%s\n档案已更新：%s\n\n本局路线\n%s\n\n%s" % [
 		topic_name,
 		"满足" if result.get("requirement_met", false) else "未满足",
 		_diagnosis_text(diagnosis),
 		review_text,
+		String(tendency.get("title", "尚未成形")),
+		String(tendency.get("effect", "")),
 		_legacy_text(legacy),
 		session.get_archive_summary(),
 		session.get_route_summary(),

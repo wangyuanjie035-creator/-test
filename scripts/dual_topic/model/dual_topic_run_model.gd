@@ -335,6 +335,7 @@ func resolve_run(mode: StringName, topic_index: int = -1) -> Dictionary:
 		"submission_route": &"transferred" if transferred_venue else &"original",
 		"special_rule": topic.definition.special_rule,
 		"cooperation_trajectory": get_cooperation_trajectory(),
+		"build_tendency": get_build_tendency_profile(),
 		"submission_mode": (
 			&"simplified" if simplified_submission_enabled else &"full_review"
 		),
@@ -603,12 +604,16 @@ func archive_topic_early(source_index: int, target_index: int) -> Dictionary:
 		return _failed_action(&"no_action_points")
 	var asset: Dictionary = _create_stop_asset(source_index, source)
 	asset["type"] = &"early_archive"
+	var recovery_mastered: bool = (
+		method_category_uses[DualTopicMethodCardDefinition.Category.ORGANIZATION]
+		>= METHOD_MASTERY_THRESHOLD
+	)
 	var evidence_gain: int = target.add_evidence(
-		int(mini(2, source.evidence / 2)),
+		int(mini(2, source.evidence / 2)) + (1 if recovery_mastered else 0),
 		&"early_archive"
 	)
 	var completion_gain: int = target.add_completion(
-		1 if source.completion >= 2 else 0,
+		(1 if source.completion >= 2 else 0) + (1 if recovery_mastered else 0),
 		&"early_archive"
 	)
 	var risk_revealed := false
@@ -625,6 +630,7 @@ func archive_topic_early(source_index: int, target_index: int) -> Dictionary:
 	asset["salvaged_evidence"] = evidence_gain
 	asset["salvaged_completion"] = completion_gain
 	asset["risk_revealed"] = risk_revealed
+	asset["recovery_mastery"] = recovery_mastered
 	run_assets.append(asset)
 	var result := {
 		"success": true,
@@ -634,6 +640,7 @@ func archive_topic_early(source_index: int, target_index: int) -> Dictionary:
 		"evidence_gain": evidence_gain,
 		"completion_gain": completion_gain,
 		"risk_revealed": risk_revealed,
+		"recovery_mastery": recovery_mastered,
 		"pressure_relief": 1,
 		"asset": asset.duplicate(true),
 		"week": week,
@@ -967,7 +974,45 @@ func get_method_mastery_summary() -> String:
 				uses,
 				METHOD_MASTERY_THRESHOLD,
 			])
-	return "研究风格 · " + "  ".join(parts)
+	var tendency: Dictionary = get_build_tendency_profile()
+	return "研究风格 · %s\n当前倾向 · %s｜%s" % [
+		"  ".join(parts),
+		String(tendency.get("title", "")),
+		String(tendency.get("next_lever", "")),
+	]
+
+
+func get_build_tendency_profile() -> Dictionary:
+	var investigation_uses: int = method_category_uses[
+		DualTopicMethodCardDefinition.Category.INVESTIGATION
+	]
+	var experiment_uses: int = method_category_uses[
+		DualTopicMethodCardDefinition.Category.EXPERIMENT
+	]
+	var organization_uses: int = method_category_uses[
+		DualTopicMethodCardDefinition.Category.ORGANIZATION
+	]
+	var recovery_score: int = organization_uses + run_assets.size() * 2
+	if recovery_score > investigation_uses and recovery_score > experiment_uses:
+		return {
+			"id": &"asset_recovery",
+			"title": "资产回收",
+			"effect": "组织专精会强化中期止损，将更多证据与完成度转入主课题。",
+			"next_lever": "继续组织，或在中期把副课题止损归档",
+		}
+	if experiment_uses > investigation_uses:
+		return {
+			"id": &"risky_exploration",
+			"title": "冒险探索",
+			"effect": "实验专精会把不稳定结果继续沉淀为额外证据。",
+			"next_lever": "继续实验以突破收益上限",
+		}
+	return {
+		"id": &"stable_replication",
+		"title": "稳健复现",
+		"effect": "调查专精会扩大一次行动揭示的风险信息面。",
+		"next_lever": "继续调查并逐项控制风险",
+	}
 
 
 func _apply_method_mastery(
