@@ -52,9 +52,17 @@ func _initialize() -> void:
 	if Array(record.get("declined_opportunity_ids", [])).size() != 1:
 		_fail("The competing opportunity was not closed after selection.")
 		return
+	var accepted_profile: Dictionary = first.get_destination_profile()
+	if StringName(accepted_profile.get("id", &"unformed")) == &"unformed":
+		_fail("An accepted opportunity did not form a visible destination profile.")
+		return
 	var rejected: Dictionary = second.resolve_offer_choice(&"")
 	if int(Dictionary(rejected.get("record", {})).get("pressure_cost", -1)) != 0:
 		_fail("Rejecting an opportunity still charged research pressure.")
+		return
+	var resting_profile: Dictionary = second.get_destination_profile()
+	if StringName(resting_profile.get("id", &"")) != &"unformed":
+		_fail("Resting created a destination signal.")
 		return
 	print("PHASE_THREE_OPPORTUNITY_MODEL: PASS")
 	quit(0)

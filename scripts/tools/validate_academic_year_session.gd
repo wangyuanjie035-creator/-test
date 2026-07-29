@@ -76,6 +76,10 @@ func _initialize() -> void:
 	if Array(ending.get("opportunity_history", [])).size() != 2:
 		_fail("The year ending did not retain both transition decisions.")
 		return
+	var destination_profile: Dictionary = ending.get("destination_profile", {})
+	if StringName(destination_profile.get("id", &"unformed")) == &"unformed":
+		_fail("The year ending did not summarize accepted opportunity signals.")
+		return
 	print("ACADEMIC_YEAR_SESSION: PASS")
 	quit(0)
 

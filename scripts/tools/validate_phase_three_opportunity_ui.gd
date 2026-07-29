@@ -55,6 +55,9 @@ func _initialize() -> void:
 	if session.year_model.carried_pressure <= 0:
 		_fail("The accepted opportunity did not affect next-cycle pressure.")
 		return
+	if not entry.year_summary_label.text.contains("机会轨迹"):
+		_fail("The archive desk did not expose the accumulated opportunity path.")
+		return
 	if entry.opportunity_panel.visible:
 		_fail("The resolved opportunity remained on screen.")
 		return

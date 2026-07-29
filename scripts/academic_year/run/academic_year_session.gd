@@ -161,6 +161,7 @@ func get_year_ending() -> Dictionary:
 	var ending: Dictionary = year_model.get_year_ending()
 	if bool(ending.get("ready", false)) and opportunity_model != null:
 		ending["opportunity_history"] = opportunity_model.decision_history.duplicate(true)
+		ending["destination_profile"] = opportunity_model.get_destination_profile()
 	return ending
 
 
@@ -184,6 +185,7 @@ func get_current_cycle_context() -> Dictionary:
 		"accepted_papers": year_model.accepted_papers,
 		"prestige": year_model.total_prestige,
 		"opportunity_decision": last_opportunity_decision.duplicate(true),
+		"destination_profile": opportunity_model.get_destination_profile(),
 	}
 
 

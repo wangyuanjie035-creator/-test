@@ -399,7 +399,7 @@ func _apply_cycle_context(context: Dictionary) -> void:
 	]
 	year_summary_label.text = (
 		"%s  ·  投稿门槛：证据 %d / 完成度 %d  ·  起始压力 %d\n"
-		+ "学年档案：已接收 %d 篇 · 声望 %d%s"
+		+ "学年档案：已接收 %d 篇 · 声望 %d%s%s"
 	) % [
 		String(context.get("window_description", "")),
 		int(context.get("minimum_evidence", 0)),
@@ -408,6 +408,9 @@ func _apply_cycle_context(context: Dictionary) -> void:
 		int(context.get("accepted_papers", 0)),
 		int(context.get("prestige", 0)),
 		_legacy_context_text(Dictionary(context.get("legacy", {}))),
+		_destination_context_text(
+			Dictionary(context.get("destination_profile", {}))
+		),
 	]
 
 
@@ -434,15 +437,26 @@ func _legacy_context_text(legacy: Dictionary) -> String:
 			return "\n上周期带入：研究档案将在本周期兑现"
 
 
+func _destination_context_text(profile: Dictionary) -> String:
+	if profile.is_empty() or StringName(profile.get("id", &"unformed")) == &"unformed":
+		return ""
+	return "\n机会轨迹：%s · %s" % [
+		String(profile.get("title", "尚未形成")),
+		String(profile.get("summary", "")),
+	]
+
+
 func _show_year_ending(ending: Dictionary) -> void:
 	year_finished = true
 	for child: Node in candidate_grid.get_children():
 		child.queue_free()
 	window_label.text = "学年结算"
+	var destination_profile: Dictionary = ending.get("destination_profile", {})
 	year_summary_label.text = (
 		"%s\n%s · %s\n"
 		+ "已接收 %d 篇 · 优秀 %d 篇 · 失败 %d 次 · 主动撤回 %d 次\n"
-		+ "年度声望 %d · 结余压力 %d\n\n%s"
+		+ "年度声望 %d · 结余压力 %d\n"
+		+ "机会轨迹：%s · %s\n\n%s"
 	) % [
 		String(ending.get("title", "一学年结束")),
 		String(ending.get("route_title", "研究路线")),
@@ -453,6 +467,8 @@ func _show_year_ending(ending: Dictionary) -> void:
 		int(ending.get("withdrawals", 0)),
 		int(ending.get("prestige", 0)),
 		int(ending.get("ending_pressure", 0)),
+		String(destination_profile.get("title", "尚未形成机会轨迹")),
+		String(destination_profile.get("summary", "")),
 		_year_history_text(Array(ending.get("history", []))),
 	]
 	instruction_label.text = "三个研究周期已经归档。你的选择共同形成了这一学年的研究路线。"
