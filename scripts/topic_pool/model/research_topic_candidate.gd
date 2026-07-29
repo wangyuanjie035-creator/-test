@@ -44,4 +44,6 @@ func to_debug_dict() -> Dictionary:
 		"deadline_weeks": deadline_weeks,
 		"risk_ids": risk_ids,
 		"special_rule": special_rule,
+		"generation_tags": archetype.generation_tags,
+		"required_method_routes": archetype.required_method_routes,
 	}

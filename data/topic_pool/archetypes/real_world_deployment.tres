@@ -26,3 +26,4 @@ risk_pool = Array[Resource]([ExtResource("2"), ExtResource("3"), ExtResource("4"
 generation_tags = PackedStringArray("exploratory", "new_collection", "technical_risk", "competition_risk", "long_horizon")
 requires_context_tags = PackedStringArray("advanced_equipment")
 required_method_routes = PackedStringArray("investigation>experiment", "collaboration>experiment")
+allowed_risk_kinds = PackedInt32Array(1, 2, 3)

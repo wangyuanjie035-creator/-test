@@ -25,3 +25,4 @@ special_rule = &"scarce_data"
 risk_pool = Array[Resource]([ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5")])
 generation_tags = PackedStringArray("exploratory", "scarce_data", "data_risk", "stable_window")
 required_method_routes = PackedStringArray("investigation>organization", "collaboration>experiment")
+allowed_risk_kinds = PackedInt32Array(0, 1, 3)

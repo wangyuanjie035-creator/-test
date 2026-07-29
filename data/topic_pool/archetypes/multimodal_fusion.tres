@@ -25,3 +25,4 @@ special_rule = &"multi_source"
 risk_pool = Array[Resource]([ExtResource("2"), ExtResource("3"), ExtResource("4"), ExtResource("5")])
 generation_tags = PackedStringArray("synthesis", "multi_source", "data_risk", "technical_risk", "long_horizon")
 required_method_routes = PackedStringArray("investigation>organization", "collaboration>organization")
+allowed_risk_kinds = PackedInt32Array(0, 1, 2, 3)

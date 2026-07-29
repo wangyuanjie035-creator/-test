@@ -33,6 +33,7 @@ enum DifficultyTier {
 @export var requires_context_tags: PackedStringArray = []
 @export var forbidden_context_tags: PackedStringArray = []
 @export var required_method_routes: PackedStringArray = []
+@export var allowed_risk_kinds: PackedInt32Array = []
 @export var safe_fallback: bool = false
 
 
@@ -52,4 +53,5 @@ func is_valid_definition() -> bool:
 		and risk_pool.size() >= base_risk_count
 		and not generation_tags.is_empty()
 		and required_method_routes.size() >= 2
+		and allowed_risk_kinds.size() >= base_risk_count
 	)
