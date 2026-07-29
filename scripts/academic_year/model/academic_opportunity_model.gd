@@ -8,6 +8,7 @@ const OPPORTUNITY_DEFINITION := preload(
 var seed: int = 1
 var definitions: Array[Resource] = []
 var pending_opportunities: Array[Resource] = []
+var pending_context: Dictionary = {}
 var decision_history: Array[Dictionary] = []
 
 
@@ -23,6 +24,7 @@ func setup(
 	seed = maxi(1, run_seed)
 	definitions = opportunity_definitions.duplicate()
 	pending_opportunities.clear()
+	pending_context.clear()
 	decision_history.clear()
 	return true
 
@@ -58,6 +60,7 @@ func generate_offers(
 	var offer_count: int = mini(2, eligible.size())
 	for offset: int in range(offer_count):
 		pending_opportunities.append(eligible[(start_index + offset) % eligible.size()])
+	pending_context = context.duplicate(true)
 	return {
 		"success": true,
 		"opportunities": get_pending_offers(),
@@ -82,6 +85,8 @@ func resolve_offer_choice(selected_id: StringName) -> Dictionary:
 				break
 		if definition == null:
 			return {"success": false, "reason": &"invalid_opportunity_choice"}
+		if not _is_affordable(definition):
+			return {"success": false, "reason": &"pressure_capacity"}
 	var accepted: bool = definition != null
 	var record := {
 		"opportunity_id": definition.id if accepted else &"",
@@ -93,6 +98,7 @@ func resolve_offer_choice(selected_id: StringName) -> Dictionary:
 	}
 	decision_history.append(record)
 	pending_opportunities.clear()
+	pending_context.clear()
 	return {
 		"success": true,
 		"accepted": accepted,
@@ -157,6 +163,8 @@ func get_destination_profile() -> Dictionary:
 
 
 func _present_opportunity(opportunity: Resource) -> Dictionary:
+	var affordable: bool = _is_affordable(opportunity)
+	var starting_pressure: int = int(pending_context.get("starting_pressure", 0))
 	return {
 		"id": opportunity.id,
 		"display_name": opportunity.display_name,
@@ -165,7 +173,23 @@ func _present_opportunity(opportunity: Resource) -> Dictionary:
 		"effect_id": opportunity.effect_id,
 		"destination_signal": opportunity.destination_signal,
 		"public_effect_text": opportunity.public_effect_text,
+		"affordable": affordable,
+		"pressure_after_acceptance": (
+			starting_pressure + opportunity.next_cycle_pressure_cost
+		),
+		"blocked_reason": &"" if affordable else &"pressure_capacity",
 	}
+
+
+func _is_affordable(opportunity: Resource) -> bool:
+	var starting_pressure: int = int(pending_context.get("starting_pressure", 0))
+	var maximum_pressure: int = int(
+		pending_context.get("max_pressure", AcademicYearModel.MAX_PRESSURE)
+	)
+	return (
+		starting_pressure + opportunity.next_cycle_pressure_cost
+		<= maximum_pressure
+	)
 
 
 func _profile_for_signal(

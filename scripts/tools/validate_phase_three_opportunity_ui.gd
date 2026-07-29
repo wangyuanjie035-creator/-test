@@ -45,6 +45,9 @@ func _initialize() -> void:
 	if not entry.opportunity_choice_buttons[1].visible:
 		_fail("The second competing opportunity was not visible.")
 		return
+	if entry.opportunity_choice_buttons[1].disabled:
+		_fail("An affordable opportunity was incorrectly disabled.")
+		return
 
 	var selected_id: StringName = StringName(opportunities[1].get("id", &""))
 	entry.opportunity_choice_buttons[1].pressed.emit()

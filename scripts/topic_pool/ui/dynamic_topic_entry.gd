@@ -343,11 +343,16 @@ func _show_opportunities(opportunities: Array[Dictionary]) -> void:
 		button.visible = index < opportunities.size()
 		if button.visible:
 			button.text = _format_opportunity_choice(opportunities[index])
+			button.disabled = not bool(opportunities[index].get("affordable", true))
+		else:
+			button.disabled = false
 	instruction_label.text = "不要只看收益：更高压力会压缩下一周期的容错空间。"
-	if not opportunities.is_empty():
-		opportunity_choice_buttons[0].grab_focus()
-	else:
-		reject_opportunity_button.grab_focus()
+	var focus_target: Button = reject_opportunity_button
+	for button: Button in opportunity_choice_buttons:
+		if button.visible and not button.disabled:
+			focus_target = button
+			break
+	focus_target.grab_focus()
 
 
 func _resolve_opportunity_index(index: int) -> void:
@@ -375,6 +380,12 @@ func _resolve_opportunity_choice(selected_id: StringName) -> void:
 
 
 func _format_opportunity_choice(opportunity: Dictionary) -> String:
+	if not bool(opportunity.get("affordable", true)):
+		return "%s\n\n无法接受：下一周期压力将超过上限\n收益：%s\n\n%s" % [
+			String(opportunity.get("display_name", "学术机会")),
+			String(opportunity.get("public_effect_text", "")),
+			String(opportunity.get("description", "")),
+		]
 	return "%s\n\n代价：下一周期压力 +%d\n收益：%s\n\n%s" % [
 		String(opportunity.get("display_name", "学术机会")),
 		int(opportunity.get("pressure_cost", 0)),

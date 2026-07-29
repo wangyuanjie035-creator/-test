@@ -201,4 +201,6 @@ func _get_opportunity_context() -> Dictionary:
 		"prestige": year_model.total_prestige,
 		"failure_assets": year_model.failed_submissions + year_model.withdrawals,
 		"route_id": dominant_route,
+		"starting_pressure": year_model.get_cycle_start_pressure(),
+		"max_pressure": AcademicYearModel.MAX_PRESSURE,
 	}

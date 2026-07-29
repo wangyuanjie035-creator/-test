@@ -21,6 +21,8 @@ func _initialize() -> void:
 		"prestige": 2,
 		"failure_assets": 1,
 		"route_id": &"single",
+		"starting_pressure": 1,
+		"max_pressure": AcademicYearModel.MAX_PRESSURE,
 	}
 	var first_offer: Dictionary = first.generate_offer(2, context)
 	var second_offer: Dictionary = second.generate_offer(2, context)
