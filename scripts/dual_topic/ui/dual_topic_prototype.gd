@@ -97,6 +97,9 @@ func _refresh_hand() -> void:
 		var button: Button = CARD_BUTTON.new()
 		button.setup(index, card)
 		button.disabled = not session.can_play_actions() or session.run_model.final_resolved
+		var block_reason: StringName = session.get_hand_card_block_reason(index)
+		if block_reason != &"":
+			button.show_block_reason(session.get_action_failure_text(block_reason))
 		button.card_requested.connect(session.play_hand_card)
 		hand_container.add_child(button)
 
@@ -117,6 +120,7 @@ func _refresh_phase_panel() -> void:
 		phase_title.text = "本周研究安排"
 		phase_body.text = "%s\n选择课题 A/B，再使用方法牌。手牌不合适时可使用低效基础行动；基础行动不触发卡牌效果或专精。" % session.get_method_mastery_summary()
 		_show_basic_actions()
+		_show_blocked_card_cycle()
 		_show_portfolio_actions()
 		end_week_button.visible = true
 		end_week_button.disabled = false
@@ -144,6 +148,39 @@ func _show_basic_actions() -> void:
 		session.play_basic_action.bind(DualTopicRunModel.ActionType.RECOVER)
 	)
 	row.add_child(recover)
+	phase_actions.add_child(row)
+
+
+func _show_blocked_card_cycle() -> void:
+	if session.run_model.week in session.cycled_hand_weeks:
+		var used_label := Label.new()
+		used_label.text = "本周无效牌补抽已使用。"
+		phase_actions.add_child(used_label)
+		return
+	var blocked_picker := OptionButton.new()
+	for index: int in range(session.method_deck.hand.size()):
+		var reason: StringName = session.get_hand_card_block_reason(index)
+		if reason == &"":
+			continue
+		var card: DualTopicMethodCardDefinition = session.method_deck.hand[index]
+		blocked_picker.add_item(
+			"%s｜%s" % [card.title, session.get_action_failure_text(reason)]
+		)
+		blocked_picker.set_item_metadata(blocked_picker.item_count - 1, index)
+	if blocked_picker.item_count == 0:
+		return
+	var row := HBoxContainer.new()
+	blocked_picker.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_child(blocked_picker)
+	var cycle_button := Button.new()
+	cycle_button.text = "搁置无效牌并补抽（每周 1 次）"
+	cycle_button.pressed.connect(
+		func() -> void:
+			session.cycle_blocked_hand_card(
+				int(blocked_picker.get_item_metadata(blocked_picker.selected))
+			)
+	)
+	row.add_child(cycle_button)
 	phase_actions.add_child(row)
 
 
@@ -218,6 +255,19 @@ func _show_build_offer() -> void:
 			if deck_card.id == card.id or seen_ids.has(deck_card.id):
 				continue
 			replacement_picker.add_item(deck_card.title)
+			var duplicate_count: int = session.method_deck.deck_cards.count(deck_card)
+			replacement_picker.set_item_text(
+				replacement_picker.item_count - 1,
+				"%s｜%s｜副本 %d" % [
+					deck_card.title,
+					_method_category_text(deck_card.category),
+					duplicate_count,
+				]
+			)
+			replacement_picker.set_item_tooltip(
+				replacement_picker.item_count - 1,
+				deck_card.description
+			)
 			replacement_picker.set_item_metadata(
 				replacement_picker.item_count - 1,
 				deck_card.id
@@ -225,6 +275,20 @@ func _show_build_offer() -> void:
 			seen_ids[deck_card.id] = true
 		replacement_picker.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		row.add_child(replacement_picker)
+		var replacement_preview := Label.new()
+		replacement_preview.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		if replacement_picker.item_count > 0:
+			replacement_preview.text = _replacement_preview_text(
+				StringName(replacement_picker.get_item_metadata(0)),
+				card
+			)
+		replacement_picker.item_selected.connect(
+			func(item_index: int) -> void:
+				replacement_preview.text = _replacement_preview_text(
+					StringName(replacement_picker.get_item_metadata(item_index)),
+					card
+				)
+		)
 		var replace_button := Button.new()
 		replace_button.text = "替换"
 		replace_button.disabled = replacement_picker.item_count == 0
@@ -237,7 +301,32 @@ func _show_build_offer() -> void:
 		)
 		row.add_child(replace_button)
 		card_stack.add_child(row)
+		card_stack.add_child(replacement_preview)
 		phase_actions.add_child(card_stack)
+
+
+func _replacement_preview_text(
+	old_card_id: StringName,
+	new_card: DualTopicMethodCardDefinition
+) -> String:
+	for old_card: DualTopicMethodCardDefinition in session.method_deck.deck_cards:
+		if old_card.id == old_card_id:
+			return "换出：[%s] %s——%s\n换入：[%s] %s——%s" % [
+				_method_category_text(old_card.category),
+				old_card.title,
+				old_card.description,
+				_method_category_text(new_card.category),
+				new_card.title,
+				new_card.description,
+			]
+	return "请选择要换出的旧方法。"
+
+
+func _method_category_text(
+	category: DualTopicMethodCardDefinition.Category
+) -> String:
+	var names: Array[String] = ["调查", "实验", "组织", "协作", "生存"]
+	return names[clampi(int(category), 0, names.size() - 1)]
 
 
 func _show_midterm() -> void:

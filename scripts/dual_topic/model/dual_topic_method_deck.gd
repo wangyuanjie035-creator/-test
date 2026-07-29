@@ -110,6 +110,26 @@ func draw_week_hand(draw_count: int = 5) -> Array[DualTopicMethodCardDefinition]
 	return hand.duplicate()
 
 
+func cycle_hand_card(hand_index: int) -> Dictionary:
+	if hand_index < 0 or hand_index >= hand.size():
+		return {"success": false, "reason": &"invalid_hand_index"}
+	if draw_pile.is_empty():
+		_recycle_discard()
+	if draw_pile.is_empty():
+		return {"success": false, "reason": &"no_replacement_card"}
+	var removed: DualTopicMethodCardDefinition = hand[hand_index]
+	var drawn: DualTopicMethodCardDefinition = draw_pile.pop_back()
+	hand[hand_index] = drawn
+	discard_pile.append(removed)
+	return {
+		"success": true,
+		"removed_card_id": removed.id,
+		"removed_title": removed.title,
+		"drawn_card_id": drawn.id,
+		"drawn_title": drawn.title,
+	}
+
+
 func add_legacy_card(card: DualTopicMethodCardDefinition) -> bool:
 	if card == null or not card.is_valid_definition():
 		return false

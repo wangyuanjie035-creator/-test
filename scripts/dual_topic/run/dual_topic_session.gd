@@ -19,6 +19,7 @@ var topic_investments: Array[int] = [0, 0]
 var category_uses: Array[int] = [0, 0, 0, 0, 0]
 var build_choices: Array[String] = []
 var commitment_choices: Array[DualTopicState.Commitment] = []
+var cycled_hand_weeks: Array[int] = []
 var _current_topic_definitions: Array[DualTopicDefinition] = []
 var active_legacy_text: String = "本局无遗产加成"
 
@@ -50,6 +51,7 @@ func start_new_run_with_topics(
 	category_uses = [0, 0, 0, 0, 0]
 	build_choices.clear()
 	commitment_choices.clear()
+	cycled_hand_weeks.clear()
 	_draw_week_hand()
 	feedback_changed.emit(
 		"调查最稳妥；没有调查牌时也可盲试、搭框架或先写提纲，但会降低收益或增加压力。",
@@ -87,6 +89,43 @@ func play_hand_card(hand_index: int) -> void:
 	topic_investments[selected_topic_index] += 1
 	category_uses[played_card.category] += 1
 	feedback_changed.emit(_action_result_text(result), false)
+	state_changed.emit()
+
+
+func get_hand_card_block_reason(hand_index: int) -> StringName:
+	if not can_play_actions():
+		return &"phase_locked"
+	if hand_index < 0 or hand_index >= method_deck.hand.size():
+		return &"invalid_hand_index"
+	var card: DualTopicMethodCardDefinition = method_deck.hand[hand_index]
+	var target_index: int = (
+		-1
+		if card.target_scope == DualTopicMethodCardDefinition.TargetScope.SELF
+		else selected_topic_index
+	)
+	return run_model.get_action_block_reason(card.action_type, target_index)
+
+
+func cycle_blocked_hand_card(hand_index: int) -> void:
+	if run_model.week in cycled_hand_weeks:
+		feedback_changed.emit("本周已经补抽过一次方法牌。", true)
+		return
+	var reason: StringName = get_hand_card_block_reason(hand_index)
+	if reason == &"":
+		feedback_changed.emit("这张牌当前可以使用，不需要作为无效牌补抽。", true)
+		return
+	var result: Dictionary = method_deck.cycle_hand_card(hand_index)
+	if not bool(result.get("success", false)):
+		feedback_changed.emit("无法补抽：%s" % result.get("reason", &"unknown"), true)
+		return
+	cycled_hand_weeks.append(run_model.week)
+	feedback_changed.emit(
+		"搁置无效方法「%s」，补抽「%s」。本周补抽机会已使用。" % [
+			String(result.get("removed_title", "")),
+			String(result.get("drawn_title", "")),
+		],
+		false
+	)
 	state_changed.emit()
 
 
@@ -347,6 +386,10 @@ func get_method_mastery_summary() -> String:
 	if run_model == null:
 		return ""
 	return run_model.get_method_mastery_summary()
+
+
+func get_action_failure_text(reason: StringName) -> String:
+	return _action_failure_text(reason)
 
 
 func get_route_summary() -> String:

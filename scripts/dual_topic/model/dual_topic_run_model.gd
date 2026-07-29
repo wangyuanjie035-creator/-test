@@ -319,6 +319,40 @@ func can_perform_basic_action(
 			return false
 
 
+func get_action_block_reason(
+	action_type: ActionType,
+	topic_index: int = -1
+) -> StringName:
+	if final_resolved:
+		return &"run_resolved"
+	if action_points <= 0:
+		return &"no_action_points"
+	if action_type == ActionType.RECOVER:
+		return &"energy_full" if energy >= MAX_ENERGY and pressure <= 0 else &""
+	if topic_index < 0 or topic_index >= topics.size():
+		return &"invalid_target"
+	var topic: DualTopicState = topics[topic_index]
+	if topic.is_closed:
+		return &"topic_closed"
+	if frozen_topic_indices.get(topic_index, false):
+		return &"topic_frozen"
+	if energy <= 0:
+		return &"no_energy"
+	match action_type:
+		ActionType.INVESTIGATE:
+			if _find_risk(topic, DualTopicRiskState.KnowledgeState.UNKNOWN) == null:
+				return &"no_unknown_risk"
+		ActionType.EXPERIMENT:
+			if (
+				_find_risk(topic, DualTopicRiskState.KnowledgeState.IDENTIFIED) == null
+				and _find_risk(topic, DualTopicRiskState.KnowledgeState.UNKNOWN) == null
+			):
+				return &"no_identified_risk"
+		_:
+			pass
+	return &""
+
+
 func perform_basic_action(
 	action_type: ActionType,
 	topic_index: int = -1

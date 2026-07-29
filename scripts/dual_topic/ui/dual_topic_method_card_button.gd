@@ -20,6 +20,12 @@ func setup(index: int, card: DualTopicMethodCardDefinition) -> void:
 	_apply_category_style(card.category)
 
 
+func show_block_reason(reason_text: String) -> void:
+	disabled = true
+	text += "\n\n不可用：%s" % reason_text
+	tooltip_text += "\n\n当前不可用：%s" % reason_text
+
+
 func _on_pressed() -> void:
 	card_requested.emit(hand_index)
 
