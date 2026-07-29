@@ -18,6 +18,9 @@ func _initialize() -> void:
 	if model.get_cycle_start_pressure() != 0:
 		_fail("Opening pressure should start at zero.")
 		return
+	if model.get_growth_rank() != 0 or model.get_topic_slot_capacity() != 1:
+		_fail("Opening cycle should expose one low-rank topic slot.")
+		return
 
 	var pass_result := _result(&"pass", &"mature_method")
 	if not bool(model.record_cycle_result(pass_result, 3).get("success", false)):
@@ -32,12 +35,18 @@ func _initialize() -> void:
 	if model.get_current_window().id != &"summer_conference":
 		_fail("Second cycle window is incorrect.")
 		return
-	if model.get_cycle_start_pressure() != 3:
-		_fail("Carried pressure and window pressure were not combined.")
+	if model.get_growth_rank() != 1 or model.get_topic_slot_capacity() != 2:
+		_fail("Second cycle did not unlock the second topic slot.")
+		return
+	if model.get_cycle_start_pressure() != 2:
+		_fail("Single-topic relief and window pressure were not combined.")
 		return
 
 	model.record_cycle_result(_result(&"failed", &"remediation_method"), 4)
 	model.advance_cycle()
+	if model.get_growth_rank() != 2 or model.get_topic_slot_capacity() != 2:
+		_fail("Third cycle did not unlock advanced topic generation.")
+		return
 	if model.get_cycle_start_pressure() != 5:
 		_fail("Failure pressure should be bounded at five.")
 		return

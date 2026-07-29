@@ -15,7 +15,7 @@ const ACADEMIC_YEAR_SESSION := preload(
 )
 
 @export var run_seed: int = 240731
-@export_range(0, 3, 1) var growth_rank: int = 1
+@export_range(0, 3, 1) var growth_rank: int = 0
 
 @onready var seed_label: Label = %SeedLabel
 @onready var header: Control = $Margin/Layout/Header
@@ -231,6 +231,7 @@ func _apply_cycle_context(context: Dictionary) -> void:
 	if context.is_empty():
 		return
 	run_seed = int(context.get("seed", run_seed))
+	growth_rank = maxi(growth_rank, int(context.get("growth_rank", 0)))
 	window_label.text = "第 %d / %d 周期 · %s" % [
 		int(context.get("cycle", 1)),
 		int(context.get("cycle_count", 3)),

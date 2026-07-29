@@ -32,13 +32,14 @@ func _run() -> void:
 		1 if entry.portfolio.active_topics[0].potential == 0 else 0
 	)
 	var expected_initial_completion := expected_initial_evidence
-	entry.pending_cycle_assets = [{
+	var carryover_assets: Array[Dictionary] = [{
 		"type": &"early_archive",
 		"evidence": 2,
 		"completion": 2,
 		"method_ids": [],
 		"risk_insights": ["known_pattern"],
 	}]
+	entry.pending_cycle_assets = carryover_assets
 	entry.archive_button.pressed.emit()
 	await process_frame
 	await process_frame

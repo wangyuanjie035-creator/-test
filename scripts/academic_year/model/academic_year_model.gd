@@ -64,6 +64,14 @@ func get_cycle_start_pressure() -> int:
 	return mini(MAX_PRESSURE, carried_pressure + window.pressure_on_entry)
 
 
+func get_growth_rank() -> int:
+	return clampi(cycle_index, 0, 2)
+
+
+func get_topic_slot_capacity() -> int:
+	return 1 if get_growth_rank() == 0 else 2
+
+
 func record_cycle_result(result: Dictionary, final_pressure: int) -> Dictionary:
 	if is_finished():
 		return {"success": false, "reason": &"year_finished"}

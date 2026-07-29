@@ -105,6 +105,8 @@ func get_current_cycle_context() -> Dictionary:
 		"minimum_evidence": window.minimum_evidence,
 		"minimum_completion": window.minimum_completion,
 		"starting_pressure": year_model.get_cycle_start_pressure(),
+		"growth_rank": year_model.get_growth_rank(),
+		"topic_slot_capacity": year_model.get_topic_slot_capacity(),
 		"legacy": year_model.active_legacy.duplicate(true),
 		"accepted_papers": year_model.accepted_papers,
 		"prestige": year_model.total_prestige,
