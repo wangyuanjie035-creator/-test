@@ -7,7 +7,7 @@ const OPPORTUNITY_DEFINITION := preload(
 
 var seed: int = 1
 var definitions: Array[Resource] = []
-var pending_opportunity: Resource
+var pending_opportunities: Array[Resource] = []
 var decision_history: Array[Dictionary] = []
 
 
@@ -22,7 +22,7 @@ func setup(
 			return false
 	seed = maxi(1, run_seed)
 	definitions = opportunity_definitions.duplicate()
-	pending_opportunity = null
+	pending_opportunities.clear()
 	decision_history.clear()
 	return true
 
@@ -31,7 +31,22 @@ func generate_offer(
 	completed_cycles: int,
 	context: Dictionary
 ) -> Dictionary:
-	if pending_opportunity != null:
+	var result: Dictionary = generate_offers(completed_cycles, context)
+	if not bool(result.get("success", false)):
+		return result
+	var offers: Array = result.get("opportunities", [])
+	return {
+		"success": true,
+		"opportunity": offers[0] if not offers.is_empty() else {},
+		"opportunities": offers,
+	}
+
+
+func generate_offers(
+	completed_cycles: int,
+	context: Dictionary
+) -> Dictionary:
+	if not pending_opportunities.is_empty():
 		return {"success": false, "reason": &"offer_already_pending"}
 	var eligible: Array[Resource] = []
 	for definition: Resource in definitions:
@@ -39,27 +54,45 @@ func generate_offer(
 			eligible.append(definition)
 	if eligible.is_empty():
 		return {"success": false, "reason": &"no_eligible_opportunity"}
-	var index: int = posmod(seed + completed_cycles * 104729, eligible.size())
-	pending_opportunity = eligible[index]
+	var start_index: int = posmod(seed + completed_cycles * 104729, eligible.size())
+	var offer_count: int = mini(2, eligible.size())
+	for offset: int in range(offer_count):
+		pending_opportunities.append(eligible[(start_index + offset) % eligible.size()])
 	return {
 		"success": true,
-		"opportunity": get_pending_offer(),
+		"opportunities": get_pending_offers(),
 	}
 
 
 func resolve_offer(accepted: bool) -> Dictionary:
-	if pending_opportunity == null:
+	var selected_id: StringName = &""
+	if accepted and not pending_opportunities.is_empty():
+		selected_id = pending_opportunities[0].id
+	return resolve_offer_choice(selected_id)
+
+
+func resolve_offer_choice(selected_id: StringName) -> Dictionary:
+	if pending_opportunities.is_empty():
 		return {"success": false, "reason": &"no_pending_opportunity"}
-	var definition: Resource = pending_opportunity
+	var definition: Resource
+	if selected_id != &"":
+		for candidate: Resource in pending_opportunities:
+			if candidate.id == selected_id:
+				definition = candidate
+				break
+		if definition == null:
+			return {"success": false, "reason": &"invalid_opportunity_choice"}
+	var accepted: bool = definition != null
 	var record := {
-		"opportunity_id": definition.id,
+		"opportunity_id": definition.id if accepted else &"",
 		"accepted": accepted,
 		"pressure_cost": definition.next_cycle_pressure_cost if accepted else 0,
 		"effect_id": definition.effect_id if accepted else &"",
 		"destination_signal": definition.destination_signal if accepted else &"",
+		"declined_opportunity_ids": _get_declined_ids(selected_id),
 	}
 	decision_history.append(record)
-	pending_opportunity = null
+	pending_opportunities.clear()
 	return {
 		"success": true,
 		"accepted": accepted,
@@ -68,17 +101,37 @@ func resolve_offer(accepted: bool) -> Dictionary:
 
 
 func get_pending_offer() -> Dictionary:
-	if pending_opportunity == null:
+	var offers: Array[Dictionary] = get_pending_offers()
+	if offers.is_empty():
 		return {}
+	return offers[0]
+
+
+func get_pending_offers() -> Array[Dictionary]:
+	var offers: Array[Dictionary] = []
+	for opportunity: Resource in pending_opportunities:
+		offers.append(_present_opportunity(opportunity))
+	return offers
+
+
+func _present_opportunity(opportunity: Resource) -> Dictionary:
 	return {
-		"id": pending_opportunity.id,
-		"display_name": pending_opportunity.display_name,
-		"description": pending_opportunity.description,
-		"pressure_cost": pending_opportunity.next_cycle_pressure_cost,
-		"effect_id": pending_opportunity.effect_id,
-		"destination_signal": pending_opportunity.destination_signal,
-		"public_effect_text": pending_opportunity.public_effect_text,
+		"id": opportunity.id,
+		"display_name": opportunity.display_name,
+		"description": opportunity.description,
+		"pressure_cost": opportunity.next_cycle_pressure_cost,
+		"effect_id": opportunity.effect_id,
+		"destination_signal": opportunity.destination_signal,
+		"public_effect_text": opportunity.public_effect_text,
 	}
+
+
+func _get_declined_ids(selected_id: StringName) -> Array[StringName]:
+	var declined: Array[StringName] = []
+	for opportunity: Resource in pending_opportunities:
+		if opportunity.id != selected_id:
+			declined.append(opportunity.id)
+	return declined
 
 
 func _is_eligible(

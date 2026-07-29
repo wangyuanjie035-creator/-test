@@ -144,23 +144,34 @@ theme_override_font_sizes/font_size = 18
 text = "机会说明"
 autowrap_mode = 2
 
-[node name="DecisionRow" type="HBoxContainer" parent="Margin/Layout/ChoiceArea/OpportunityPanel/Margin/Content"]
+[node name="OpportunityChoiceRow" type="HBoxContainer" parent="Margin/Layout/ChoiceArea/OpportunityPanel/Margin/Content"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="RejectOpportunityButton" type="Button" parent="Margin/Layout/ChoiceArea/OpportunityPanel/Margin/Content/DecisionRow"]
+[node name="OpportunityChoiceA" type="Button" parent="Margin/Layout/ChoiceArea/OpportunityPanel/Margin/Content/OpportunityChoiceRow"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(220, 48)
+custom_minimum_size = Vector2(320, 150)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "放弃 · 保留当前节奏"
+text = "机会 A"
+autowrap_mode = 2
+alignment = 0
 
-[node name="AcceptOpportunityButton" type="Button" parent="Margin/Layout/ChoiceArea/OpportunityPanel/Margin/Content/DecisionRow"]
+[node name="OpportunityChoiceB" type="Button" parent="Margin/Layout/ChoiceArea/OpportunityPanel/Margin/Content/OpportunityChoiceRow"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(220, 48)
+custom_minimum_size = Vector2(320, 150)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "接受 · 承担公开代价"
+text = "机会 B"
+autowrap_mode = 2
+alignment = 0
+
+[node name="RejectOpportunityButton" type="Button" parent="Margin/Layout/ChoiceArea/OpportunityPanel/Margin/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "保守休整 · 不增加压力"
 
 [node name="CandidateScroll" type="ScrollContainer" parent="Margin/Layout/ChoiceArea"]
 unique_name_in_owner = true

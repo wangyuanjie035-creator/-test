@@ -30,7 +30,15 @@ func _initialize() -> void:
 	if first_offer.get("opportunity", {}) != second_offer.get("opportunity", {}):
 		_fail("The same seed and history generated different opportunities.")
 		return
-	var accepted: Dictionary = first.resolve_offer(true)
+	var first_options: Array = first_offer.get("opportunities", [])
+	if first_options.size() != 2:
+		_fail("An eligible transition did not produce two competing opportunities.")
+		return
+	if first_options != second_offer.get("opportunities", []):
+		_fail("The same seed and history generated a different opportunity set.")
+		return
+	var chosen_id: StringName = StringName(first_options[1].get("id", &""))
+	var accepted: Dictionary = first.resolve_offer_choice(chosen_id)
 	var record: Dictionary = accepted.get("record", {})
 	if int(record.get("pressure_cost", 0)) <= 0:
 		_fail("Accepting an opportunity did not preserve its public research cost.")
@@ -38,7 +46,13 @@ func _initialize() -> void:
 	if StringName(record.get("destination_signal", &"")) == &"":
 		_fail("Accepting an opportunity did not record its destination signal.")
 		return
-	var rejected: Dictionary = second.resolve_offer(false)
+	if StringName(record.get("opportunity_id", &"")) != chosen_id:
+		_fail("The model resolved a different opportunity than the player selected.")
+		return
+	if Array(record.get("declined_opportunity_ids", [])).size() != 1:
+		_fail("The competing opportunity was not closed after selection.")
+		return
+	var rejected: Dictionary = second.resolve_offer_choice(&"")
 	if int(Dictionary(rejected.get("record", {})).get("pressure_cost", -1)) != 0:
 		_fail("Rejecting an opportunity still charged research pressure.")
 		return

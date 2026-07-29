@@ -27,18 +27,27 @@ func _initialize() -> void:
 	if not bool(transition.get("opportunity_pending", false)):
 		_fail("The completed cycle did not open an opportunity.")
 		return
-	entry.call("_show_opportunity", transition.get("opportunity", {}))
+	var opportunities: Array[Dictionary] = []
+	opportunities.assign(transition.get("opportunities", []))
+	if opportunities.size() != 2:
+		_fail("The transition did not expose two competing opportunities.")
+		return
+	entry.call("_show_opportunities", opportunities)
 	if not entry.opportunity_panel.visible:
 		_fail("The opportunity panel remained hidden.")
 		return
 	if entry.candidate_scroll.visible:
 		_fail("Candidate selection remained visible behind the opportunity.")
 		return
-	if entry.opportunity_description.text.find("下一周期压力") < 0:
-		_fail("The opportunity did not disclose its next-cycle pressure cost.")
+	if not entry.opportunity_choice_buttons[0].text.contains("代价：下一周期压力"):
+		_fail("The opportunity card did not disclose its pressure cost.")
+		return
+	if not entry.opportunity_choice_buttons[1].visible:
+		_fail("The second competing opportunity was not visible.")
 		return
 
-	entry.accept_opportunity_button.pressed.emit()
+	var selected_id: StringName = StringName(opportunities[1].get("id", &""))
+	entry.opportunity_choice_buttons[1].pressed.emit()
 	await process_frame
 	if session.phase != AcademicYearSession.Phase.RESEARCH_CYCLE:
 		_fail("Accepting the opportunity did not open the next research cycle.")
@@ -48,6 +57,13 @@ func _initialize() -> void:
 		return
 	if entry.opportunity_panel.visible:
 		_fail("The resolved opportunity remained on screen.")
+		return
+	var decision_history: Array[Dictionary] = session.opportunity_model.decision_history
+	if StringName(decision_history[0].get("opportunity_id", &"")) != selected_id:
+		_fail("The UI resolved a different opportunity than the player selected.")
+		return
+	if Array(decision_history[0].get("declined_opportunity_ids", [])).size() != 1:
+		_fail("The unselected competing opportunity remained open.")
 		return
 	var candidate: ResearchTopicCandidate = entry.portfolio.candidates[0]
 	entry.call("_select_candidate", candidate.candidate_id)

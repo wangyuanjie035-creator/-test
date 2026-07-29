@@ -107,7 +107,7 @@ func continue_from_archive() -> Dictionary:
 		year_finished.emit(ending.duplicate(true))
 		state_changed.emit()
 		return {"success": true, "year_finished": true, "ending": ending}
-	var offer_result: Dictionary = opportunity_model.generate_offer(
+	var offer_result: Dictionary = opportunity_model.generate_offers(
 		year_model.cycle_index,
 		_get_opportunity_context()
 	)
@@ -120,19 +120,29 @@ func continue_from_archive() -> Dictionary:
 		"year_finished": false,
 		"opportunity_pending": true,
 		"opportunity": opportunity_model.get_pending_offer(),
+		"opportunities": opportunity_model.get_pending_offers(),
 	}
 
 
 func resolve_opportunity(accepted: bool) -> Dictionary:
+	var selected_id: StringName = &""
+	if accepted:
+		var offers: Array[Dictionary] = opportunity_model.get_pending_offers()
+		if not offers.is_empty():
+			selected_id = StringName(offers[0].get("id", &""))
+	return resolve_opportunity_choice(selected_id)
+
+
+func resolve_opportunity_choice(selected_id: StringName) -> Dictionary:
 	if year_model == null:
 		return {"success": false, "reason": &"year_not_started"}
 	if phase != Phase.OPPORTUNITY:
 		return {"success": false, "reason": &"wrong_phase"}
-	var resolution: Dictionary = opportunity_model.resolve_offer(accepted)
+	var resolution: Dictionary = opportunity_model.resolve_offer_choice(selected_id)
 	if not bool(resolution.get("success", false)):
 		return resolution
 	var decision: Dictionary = resolution.get("record", {}).duplicate(true)
-	if accepted:
+	if bool(decision.get("accepted", false)):
 		year_model.add_transition_pressure(int(decision.get("pressure_cost", 0)))
 	last_opportunity_decision = decision
 	phase = Phase.ARCHIVE_DESK
