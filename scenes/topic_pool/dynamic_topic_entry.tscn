@@ -109,7 +109,7 @@ focus_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.61, 0.82, 0.86, 1)
-text = "同一 Seed 与候选，仅切换公开信息量；正式默认：平衡"
+text = "同一 Seed 与候选，仅切换公开信息量；正式默认：引导"
 autowrap_mode = 2
 
 [node name="CandidateScroll" type="ScrollContainer" parent="Margin/Layout/ChoiceArea"]

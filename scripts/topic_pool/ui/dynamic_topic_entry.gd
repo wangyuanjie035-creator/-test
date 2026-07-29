@@ -45,7 +45,7 @@ var last_cycle_result: Dictionary = {}
 var current_route_id: StringName = &"single"
 var year_finished: bool = false
 var candidate_information_level: ResearchTopicCandidatePresenter.InformationLevel = (
-	ResearchTopicCandidatePresenter.InformationLevel.BALANCED
+	ResearchTopicCandidatePresenter.InformationLevel.GUIDED
 )
 
 
@@ -67,14 +67,14 @@ func _setup_information_calibration() -> void:
 		ResearchTopicCandidatePresenter.InformationLevel.VEILED
 	)
 	information_level_option.add_item(
-		"平衡（正式默认）",
+		"平衡",
 		ResearchTopicCandidatePresenter.InformationLevel.BALANCED
 	)
 	information_level_option.add_item(
-		"引导",
+		"引导（正式默认）",
 		ResearchTopicCandidatePresenter.InformationLevel.GUIDED
 	)
-	information_level_option.select(1)
+	information_level_option.select(2)
 	information_level_option.item_selected.connect(_on_information_level_selected)
 
 

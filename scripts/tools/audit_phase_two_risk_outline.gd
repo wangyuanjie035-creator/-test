@@ -45,14 +45,14 @@ func _initialize() -> void:
 		_fail("Could not write the comparison artifact.")
 		return
 	file.store_string(JSON.stringify({
-		"status": "INCONCLUSIVE_HUMAN_CALIBRATION_REQUIRED",
-		"formal_default": "balanced",
+		"status": "OWNER_CALIBRATION_PASS_EXTERNAL_RECHECK_PENDING",
+		"formal_default": "guided",
 		"comparison_count": comparisons.size(),
 		"comparisons": comparisons,
 	}, "\t"))
 	file.close()
 	print(
-		"PHASE_TWO_RISK_OUTLINE_AUDIT: PASS (%d comparisons, verdict INCONCLUSIVE)"
+		"PHASE_TWO_RISK_OUTLINE_AUDIT: PASS (%d comparisons, default GUIDED)"
 		% comparisons.size()
 	)
 	quit(0)

@@ -10,7 +10,7 @@ enum InformationLevel {
 
 static func build_public_profile(
 	candidate: ResearchTopicCandidate,
-	information_level: InformationLevel = InformationLevel.BALANCED
+	information_level: InformationLevel = InformationLevel.GUIDED
 ) -> Dictionary:
 	if candidate == null or candidate.archetype == null:
 		return {}
@@ -39,7 +39,7 @@ static func build_public_profile(
 
 static func format_candidate_card(
 	candidate: ResearchTopicCandidate,
-	information_level: InformationLevel = InformationLevel.BALANCED
+	information_level: InformationLevel = InformationLevel.GUIDED
 ) -> String:
 	if candidate == null or candidate.archetype == null:
 		return "无效课题"

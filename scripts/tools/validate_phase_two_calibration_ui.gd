@@ -22,17 +22,17 @@ func _run() -> void:
 	var grid: GridContainer = entry.get_node(
 		"Margin/Layout/ChoiceArea/CandidateScroll/CandidateGrid"
 	)
-	if option.item_count != 3 or option.selected != 1:
-		_fail("Calibration control did not start on the balanced profile.")
+	if option.item_count != 3 or option.selected != 2:
+		_fail("Calibration control did not start on the guided profile.")
 		return
 	var candidate_ids: Array[StringName] = []
 	for candidate: ResearchTopicCandidate in entry.portfolio.candidates:
 		candidate_ids.append(candidate.candidate_id)
-	var balanced_text: String = (grid.get_child(0) as Button).text
-	option.select(2)
-	option.item_selected.emit(2)
-	await process_frame
 	var guided_text: String = (grid.get_child(0) as Button).text
+	option.select(1)
+	option.item_selected.emit(1)
+	await process_frame
+	var balanced_text: String = (grid.get_child(0) as Button).text
 	var refreshed_ids: Array[StringName] = []
 	for candidate: ResearchTopicCandidate in entry.portfolio.candidates:
 		refreshed_ids.append(candidate.candidate_id)
@@ -43,7 +43,7 @@ func _run() -> void:
 		_fail("Changing information level did not update the public clues.")
 		return
 	if entry.candidate_information_level != (
-		ResearchTopicCandidatePresenter.InformationLevel.GUIDED
+		ResearchTopicCandidatePresenter.InformationLevel.BALANCED
 	):
 		_fail("Calibration selection was not retained by the entry screen.")
 		return
