@@ -1,11 +1,18 @@
-# Godot 4+ specific ignores
+# Godot
 .godot/
-/android/
+
+# Build / Dist
+build/
+dist/
+
+# Test runtime
+test_runtime/
+
+# Temp / Snapshots
+.temp/
+.snapshots/
+
+# Agent configs
 .agents/
 .claude/
 .codex/
-.snapshots/
-.temp/
-test_runtime/
-build/
-dist/
